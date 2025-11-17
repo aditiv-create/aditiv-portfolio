@@ -724,22 +724,20 @@
     }
 
     /* caret */
-    .timeline-item::after {
-  content: "⌃";
+.timeline-item::after {
+  content: "⌄"; /* downward caret */
   position: absolute;
-  right: 20px;   /* moved further out */
-  top: 10px;     /* slightly up */
+  right: 14px;
+  bottom: 10px;
   font-size: 12px;
-  letter-spacing: 0.12em;
-  color: rgba(230, 214, 201, 0.9);
-  transform: rotate(180deg);
-  transition: transform 180ms ease-out;
+  opacity: 0.8;
+  transform: rotate(0deg);
 }
 
+.timeline-item.open::after {
+  transform: rotate(180deg); /* flip up */
+}
 
-    .timeline-item.open::after {
-      transform: rotate(0deg);
-    }
 
     .timeline-details {
       margin-top: 6px;

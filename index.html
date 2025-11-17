@@ -606,29 +606,135 @@
     }
 
     .timeline {
+      position: relative;
+      margin-top: 12px;
+      padding-left: 30px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      margin-top: 10px;
+      gap: 16px;
       font-size: 13px;
     }
 
+    /* glowing “constellation” spine */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        rgba(243, 230, 221, 0.9),
+        rgba(205, 184, 170, 0.5),
+        rgba(126, 110, 99, 0.2)
+      );
+      box-shadow: 0 0 16px rgba(240, 220, 200, 0.8);
+      opacity: 0.9;
+    }
+
     .timeline-item {
-      display: grid;
-      grid-template-columns: 130px minmax(0, 1fr);
-      gap: 14px;
+      position: relative;
+      border-radius: 16px;
+      padding: 10px 14px 12px 24px;
+      border: 1px solid rgba(162, 145, 133, 0.8);
+      background: radial-gradient(circle at top left, #111624, #070b15);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background 220ms ease-out, box-shadow 220ms ease-out,
+        border-color 200ms ease-out, transform 160ms ease-out;
+    }
+
+    .timeline-item:hover {
+      border-color: rgba(219, 197, 182, 0.95);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.8);
+      transform: translateY(-1px);
+    }
+
+    .timeline-item.open {
+      background: radial-gradient(circle at top left, #171f33, #050713);
+      border-color: rgba(230, 207, 191, 0.98);
+    }
+
+    /* star node */
+    .timeline-node {
+      position: absolute;
+      left: 5px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fdf7f2;
+      box-shadow:
+        0 0 0 2px rgba(248, 234, 219, 0.7),
+        0 0 16px rgba(244, 222, 201, 0.9),
+        0 0 32px rgba(244, 222, 201, 0.5);
+    }
+
+    .timeline-header-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .timeline-title-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .timeline-role {
+      font-weight: 600;
+      color: #f0e4d7;
+    }
+
+    .timeline-summary {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(234, 211, 191, 0.9);
     }
 
     .timeline-date {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       color: #a89a91;
+      white-space: nowrap;
     }
 
-    .timeline-role {
-      font-weight: 600;
-      margin-bottom: 2px;
+    /* caret */
+    .timeline-item::after {
+      content: "⌃";
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: rgba(230, 214, 201, 0.9);
+      transform: rotate(180deg);
+      transition: transform 180ms ease-out;
+    }
+
+    .timeline-item.open::after {
+      transform: rotate(0deg);
+    }
+
+    .timeline-details {
+      margin-top: 6px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 260ms ease-out, opacity 220ms ease-out;
+    }
+
+    .timeline-item.open .timeline-details {
+      max-height: 260px; /* big enough to show the text */
+      opacity: 1;
     }
 
     .timeline-meta {
@@ -642,6 +748,30 @@
     .timeline-bullets {
       color: #d3c8bf;
       line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .timeline {
+        padding-left: 24px;
+      }
+
+      .timeline::before {
+        left: 10px;
+      }
+
+      .timeline-node {
+        left: 3px;
+      }
+
+      .timeline-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .timeline-date {
+        white-space: normal;
+      }
     }
 
     .skills-grid {
@@ -1057,13 +1187,22 @@
               <div class="card-tag">Timeline</div>
               <h3>Selected roles.</h3>
 
+
               <div class="timeline">
-                <div class="timeline-item">
-                  <div class="timeline-date">2025 · Cupertino, CA</div>
-                  <div>
-                    <div class="timeline-role">
-                      Digital Marketing Intern – Fyrii
+                <!-- FYRII -->
+                <div class="timeline-item open">
+                  <div class="timeline-node"></div>
+                  <div class="timeline-header-row">
+                    <div class="timeline-title-wrap">
+                      <div class="timeline-role">
+                        Digital Marketing Intern – Fyrii
+                      </div>
+                      <div class="timeline-summary">AI-powered super strategy</div>
                     </div>
+                    <div class="timeline-date">2025 · Cupertino, CA</div>
+                  </div>
+
+                  <div class="timeline-details">
                     <div class="timeline-meta">
                       B2B · AI-assisted research · campaigns
                     </div>
@@ -1076,12 +1215,20 @@
                   </div>
                 </div>
 
+                <!-- FURRY FROGS -->
                 <div class="timeline-item">
-                  <div class="timeline-date">2024 · Mumbai</div>
-                  <div>
-                    <div class="timeline-role">
-                      Brand Strategy Intern – Furry Frogs Digital
+                  <div class="timeline-node"></div>
+                  <div class="timeline-header-row">
+                    <div class="timeline-title-wrap">
+                      <div class="timeline-role">
+                        Brand Strategy Intern – Furry Frogs Digital
+                      </div>
+                      <div class="timeline-summary">Frameworks with narratives</div>
                     </div>
+                    <div class="timeline-date">2024 · Mumbai</div>
+                  </div>
+
+                  <div class="timeline-details">
                     <div class="timeline-meta">
                       Social listening · content strategy
                     </div>
@@ -1093,12 +1240,20 @@
                   </div>
                 </div>
 
+                <!-- AFFINITYANSWERS -->
                 <div class="timeline-item">
-                  <div class="timeline-date">2023 · Bengaluru</div>
-                  <div>
-                    <div class="timeline-role">
-                      Marketing Analyst – AffinityAnswers
+                  <div class="timeline-node"></div>
+                  <div class="timeline-header-row">
+                    <div class="timeline-title-wrap">
+                      <div class="timeline-role">
+                        Marketing Analyst – AffinityAnswers
+                      </div>
+                      <div class="timeline-summary">Search, stats, execute</div>
                     </div>
+                    <div class="timeline-date">2023 · Bengaluru</div>
+                  </div>
+
+                  <div class="timeline-details">
                     <div class="timeline-meta">
                       SEO · reporting · research
                     </div>
@@ -1110,12 +1265,20 @@
                   </div>
                 </div>
 
+                <!-- WIPRO -->
                 <div class="timeline-item">
-                  <div class="timeline-date">2021 · Mumbai</div>
-                  <div>
-                    <div class="timeline-role">
-                      Marketing Intern – Wipro (e-commerce initiative)
+                  <div class="timeline-node"></div>
+                  <div class="timeline-header-row">
+                    <div class="timeline-title-wrap">
+                      <div class="timeline-role">
+                        Marketing Intern – Wipro (e-commerce initiative)
+                      </div>
+                      <div class="timeline-summary">Data-first curiosity</div>
                     </div>
+                    <div class="timeline-date">2021 · Mumbai</div>
+                  </div>
+
+                  <div class="timeline-details">
                     <div class="timeline-meta">
                       Data · dashboards · experiments
                     </div>
@@ -1441,6 +1604,15 @@
 
     // hero fade-out on scroll
     const heroText = document.getElementById("hero-text");
+    // constellation timeline accordion
+document.querySelectorAll(".timeline-item").forEach((item) => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".timeline-item").forEach((other) => {
+      if (other !== item) other.classList.remove("open");
+    });
+    item.classList.toggle("open");
+  });
+});
 
     window.addEventListener("scroll", () => {
       const fadeEnd = 420; // adjust to taste

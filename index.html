@@ -661,18 +661,34 @@
 
     /* star node */
     .timeline-node {
-      position: absolute;
-      left: 5px;
-      top: 15px;
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #fdf7f2;
-      box-shadow:
-        0 0 0 2px rgba(248, 234, 219, 0.7),
-        0 0 16px rgba(244, 222, 201, 0.9),
-        0 0 32px rgba(244, 222, 201, 0.5);
-    }
+  position: absolute;
+  left: 4px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #fff7ee 0%, #f8e7d6 60%, #e4c9b8 100%);
+  clip-path: polygon(
+    50% 0%,   /* top */
+    60% 40%,
+    100% 50%, /* right */
+    60% 60%,
+    50% 100%, /* bottom */
+    40% 60%,
+    0% 50%,   /* left */
+    40% 40%
+  );
+  filter: drop-shadow(0 0 6px rgba(255, 240, 220, 0.95))
+          drop-shadow(0 0 12px rgba(240, 212, 190, 0.7));
+}
+@keyframes twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.12) rotate(15deg); }
+}
+
+.timeline-node {
+  animation: twinkle 2.2s infinite ease-in-out;
+}
+
 
     .timeline-header-row {
       display: flex;
@@ -709,16 +725,17 @@
 
     /* caret */
     .timeline-item::after {
-      content: "⌃";
-      position: absolute;
-      right: 12px;
-      top: 12px;
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      color: rgba(230, 214, 201, 0.9);
-      transform: rotate(180deg);
-      transition: transform 180ms ease-out;
-    }
+  content: "⌃";
+  position: absolute;
+  right: 20px;   /* moved further out */
+  top: 10px;     /* slightly up */
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: rgba(230, 214, 201, 0.9);
+  transform: rotate(180deg);
+  transition: transform 180ms ease-out;
+}
+
 
     .timeline-item.open::after {
       transform: rotate(0deg);

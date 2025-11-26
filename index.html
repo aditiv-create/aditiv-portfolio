@@ -1136,6 +1136,7 @@ section[data-no-angle="true"]::after {
     <main>
       <!-- HERO -->
       <!-- HERO WITH VIDEO BACKGROUND -->
+<!-- HERO WITH RESPONSIVE VIDEO -->
 <section id="home" class="section section-dark hero reveal"
   style="position:relative; overflow:hidden;"
   data-no-angle="true">
@@ -1153,14 +1154,18 @@ section[data-no-angle="true"]::after {
       opacity:0.85;
       filter:brightness(0.55) contrast(1.1) saturate(1.05);
     ">
-    <source src="hero.mp4" type="video/mp4" />
+
+    <!-- Desktop version -->
+    <source src="hero.mp4" type="video/mp4" media="(min-width: 769px)">
+
+    <!-- Mobile portrait version -->
+    <source src="heromobile.mp4" type="video/mp4" media="(max-width: 768px)">
   </video>
 
   <!-- HERO TEXT -->
   <div id="hero-text" style="position:relative; z-index:2;">
     
-    
-    <a href="#about" class="hero-scroll">Scroll</a>
+      <a href="#about" class="hero-scroll">Scroll</a>
   </div>
 
 </section>

@@ -1086,6 +1086,32 @@ section[data-no-angle="true"]::before,
 section[data-no-angle="true"]::after {
   display: none !important;
 }
+@media (max-width: 768px) {
+  #hero-video {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+
+    /* Prevent black bars */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .hero {
+    min-height: 100vh !important;
+    padding-top: 120px !important; /* ensures navbar doesn’t overlap */
+    padding-bottom: 40px !important;
+  }
+
+  #hero-text {
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+  }
+}
+
 
   </style>
 </head>

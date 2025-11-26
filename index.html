@@ -308,8 +308,8 @@
     /* ---------- HERO ---------- */
 
     .hero {
-      padding-top: 170px;
-      padding-bottom: 140px;
+      padding-top: 180px;
+      padding-bottom: 120px;
       background: radial-gradient(
         circle at top,
         #1c223c 0,
@@ -317,12 +317,21 @@
         #020309 100%
       );
     }
+.hero {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
     #hero-text {
       max-width: 640px;
       transition: opacity 0.25s ease-out;
       will-change: opacity;
     }
+#hero-video {
+  transition: opacity 0.3s ease-out;
+}
 
     .hero-title {
       font-family: "Spectral", "Playfair Display", serif;
@@ -1072,6 +1081,12 @@
         align-items: flex-start;
       }
     }
+    /* Disable angled edges for HERO */
+section[data-no-angle="true"]::before,
+section[data-no-angle="true"]::after {
+  display: none !important;
+}
+
   </style>
 </head>
 <body>
@@ -1094,23 +1109,39 @@
 
     <main>
       <!-- HERO -->
-      <section id="home" class="section section-dark hero reveal">
-        <div id="hero-text">
-          <h1 class="hero-title">Aditi Venkat</h1>
-          <p class="hero-tagline">
-            <span>Making data more aesthetic and aesthetics more intentional.</span>
-          </p>
-          <p class="hero-meta">
-            Digital Marketing Strategy student graduating December 2025. I like
-            connecting how people feel, what data says, and what brands choose
-            to put on the internet.
-          </p>
-          <a href="#about" class="hero-scroll">Scroll</a>
-        </div>
-      </section>
+      <!-- HERO WITH VIDEO BACKGROUND -->
+<section id="home" class="section section-dark hero reveal"
+  style="position:relative; overflow:hidden;"
+  data-no-angle="true">
+
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline id="hero-video"
+    style="
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      z-index:0;
+      opacity:0.85;
+      filter:brightness(0.55) contrast(1.1) saturate(1.05);
+    ">
+    <source src="hero.mp4" type="video/mp4" />
+  </video>
+
+  <!-- HERO TEXT -->
+  <div id="hero-text" style="position:relative; z-index:2;">
+    
+    
+    <a href="#about" class="hero-scroll">Scroll</a>
+  </div>
+
+</section>
+
 
       <!-- ABOUT -->
-      <section id="about" class="section section-light angled-top about-section">
+<section id="about" class="section section-light about-section" data-no-angle="true">
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">About</div>
@@ -1617,8 +1648,18 @@
       .querySelectorAll(".reveal, .reveal-left, .reveal-right")
       .forEach((el) => observer.observe(el));
 
-    // hero fade-out on scroll
-    const heroText = document.getElementById("hero-text");
+// hero VIDEO fade-out on scroll
+const heroVideo = document.getElementById("hero-video");
+
+window.addEventListener("scroll", () => {
+  const fadeEnd = 420; // same as text fade
+  let opacity = 1 - window.scrollY / fadeEnd;
+
+  if (opacity < 0) opacity = 0;
+  if (opacity > 1) opacity = 1;
+
+  heroVideo.style.opacity = opacity;
+});
     // constellation timeline accordion
 document.querySelectorAll(".timeline-item").forEach((item) => {
   item.addEventListener("click", () => {

@@ -843,171 +843,217 @@
       color: var(--accent-soft);
     }
 
-    /* ---------- PORTFOLIO + ARTICLES ---------- */
+/* ============================================================
+   PORTFOLIO SECTION — TITLE + LAYOUT
+   ============================================================ */
 
-    .portfolio-section {
-      position: relative;
-      z-index: 2;
-      padding-bottom: 40px;
-    }
+.portfolio-section {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 40px;
+}
 
-    .portfolio-section::before {
-      content: "PORTFOLIO";
-      position: absolute;
-      left: 50%;
-      top: 30px;
-      transform: translateX(-50%);
-      font-family: "Inter", system-ui, sans-serif;
-      font-weight: 800;
-      font-size: clamp(54px, 10vw, 110px);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(41, 31, 27, 0.12);
-      pointer-events: none;
-      z-index: 0;
-      white-space: nowrap;
-    }
+.portfolio-section::before {
+  content: "PORTFOLIO";
+  position: absolute;
+  left: 50%;
+  top: 30px;
+  transform: translateX(-50%);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(54px, 10vw, 110px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(41, 31, 27, 0.12);
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+}
 
-    .portfolio-wrap {
-      position: relative;
-      z-index: 2;
-      margin-bottom: -90px; /* overlap into contact section */
-    }
+.portfolio-wrap {
+  position: relative;
+  z-index: 2;
+  margin-bottom: -90px;
+}
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
-    }
+.two-col-portfolio {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr);
+  gap: 40px;
+}
 
-    @media (max-width: 900px) {
-      .portfolio-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+/* Mobile (the 2nd col was empty — so 1 col only) */
+@media (max-width: 860px) {
+  .portfolio-wrap {
+    margin-bottom: -60px;
+  }
+  .two-col-portfolio {
+    grid-template-columns: 1fr;
+  }
+}
 
-    /* Projects: scrapbook-lite cards */
-    .project-card {
-      background-color: var(--paper);
-      background-image: linear-gradient(#e2d6c5 1px, transparent 1px),
-        linear-gradient(90deg, #e2d6c5 1px, transparent 1px);
-      background-size: 24px 24px;
-      border-radius: var(--radius-md);
-      padding: 18px 18px 20px;
-      border: 1px solid rgba(207, 185, 171, 0.95);
-      box-shadow: var(--shadow-card);
-    }
+/* ============================================================
+   PROJECT CARDS — STRONGER, BIGGER, PREMIUM
+   ============================================================ */
 
-    .project-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #a58b7f;
-      margin-bottom: 4px;
-    }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
 
-    .project-card h3 {
-      font-family: "Inter", system-ui, sans-serif;
-      font-size: 17px;
-      margin-bottom: 6px;
-      color: #2b211d;
-    }
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
-    .project-card p {
-      font-size: 13px;
-      color: #5a4740;
-      margin-bottom: 8px;
-    }
+.project-card {
+  background-color: var(--paper);
+  background-image: linear-gradient(#e2d6c5 1px, transparent 1px),
+    linear-gradient(90deg, #e2d6c5 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-radius: 18px;
+  padding: 32px 36px; /* bigger */
+  border: 1px solid rgba(207, 185, 171, 0.95);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+  min-height: 320px; /* adds presence */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
 
-    .project-link {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #a8736a;
-    }
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+}
 
-    .resume-btn {
-      margin-top: 26px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 11px 18px;
-      border-radius: 999px;
-      border: none;
-      background: #181219;
-      color: var(--paper);
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: var(--shadow-card);
-    }
+.project-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #a58b7f;
+  margin-bottom: 10px;
+}
 
-    .resume-btn::after {
-      content: "↘";
-      font-size: 13px;
-    }
+.project-card h3 {
+  font-family: "Playfair Display", serif;  /* looks much richer */
+  font-size: 26px;
+  line-height: 1.28;
+  margin-bottom: 12px;
+  color: #2b211d;
+}
 
-    .two-col-portfolio {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.7fr);
-      gap: 26px;
-    }
+.project-card p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #5a4740;
+  margin-bottom: 18px;
+}
 
-    @media (max-width: 860px) {
-      .portfolio-wrap {
-        margin-bottom: -60px;
-      }
-      .two-col-portfolio {
-        grid-template-columns: 1fr;
-      }
-    }
+.project-link {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #a8736a;
+}
 
-    /* Articles: clean editorial boxes */
-    .articles-list {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
+.resume-btn {
+  margin-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #181219;
+  color: var(--paper);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+}
 
-    .article-card {
-      background: #fdf7f2;
-      border-radius: 18px;
-      padding: 18px 18px 20px;
-      box-shadow: var(--shadow-card);
-      border: 1px solid rgba(205, 183, 168, 0.95);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+.resume-btn::after {
+  content: "↘";
+  font-size: 13px;
+}
 
-    .article-meta {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      color: #9e7367;
-    }
+/* ============================================================
+   ARTICLES — CLEAN + EDITORIAL
+   ============================================================ */
 
-    .article-title {
-      font-family: "Playfair Display", serif;
-      font-size: 17px;
-      margin-top: 2px;
-    }
+.articles-wrapper {
+  width: 100%;
+  margin-top: 40px;
+}
 
-    .article-teaser {
-      font-size: 13px;
-      color: #4e3b33;
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
+.articles-heading {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: #2b211d;
+  margin-bottom: 6px;
+}
 
-    .article-link {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #a86c6f;
-      margin-top: 4px;
-    }
+.articles-subtitle {
+  font-size: 14px;
+  color: #5a4740;
+  max-width: 520px;
+  margin-bottom: 22px;
+}
+
+.articles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card base for all 3 articles */
+.article-card-clean {
+  background: #fdf7f2;
+  border-radius: 18px;
+  padding: 22px 24px;
+  border: 1px solid rgba(205, 183, 168, 0.8);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.article-card-clean:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+}
+
+.article-title {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  color: #2b211d;
+  letter-spacing: 0.015em;
+  margin-bottom: 4px;
+}
+
+.article-sub {
+  font-size: 14px;
+  color: #7d6a5f;
+  line-height: 1.45;
+  margin-bottom: 8px;
+}
+
+.article-read {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #a86c6f;
+  text-decoration: none;
+}
+
+.article-read:hover {
+  text-decoration: underline;
+}
 
     /* ---------- CONTACT ---------- */
 
@@ -1376,18 +1422,18 @@ section[data-no-angle="true"]::after {
               <div class="skills-grid">
                 <div class="skill-block">
                   <h4>Strategy & planning</h4>
-                  Audience research · positioning · funnels · content calendars
-                  · campaign structure.
+                  Audience research · Positioning · Funnels · Content Calendars
+                  · Campaign Structure.
                 </div>
                 <div class="skill-block">
                   <h4>Channels & tools</h4>
-                  Social media · email · basic SEO · Google Analytics · HubSpot
+                  Social Media · Email · Basic SEO · Google Analytics · HubSpot
                   · Meta Ads Manager.
                 </div>
                 <div class="skill-block">
                   <h4>Creative & visual</h4>
-                  Canva · basic Adobe Suite · storytelling · decks · light video
-                  / reels.
+                  Canva · Basic Adobe Suite · Storytelling · Decks · Light Video
+                  / Reels.
                 </div>
                 <div class="skill-block">
                   <h4>Technical</h4>
@@ -1414,185 +1460,263 @@ section[data-no-angle="true"]::after {
         </div>
       </section>
 
-      <!-- PORTFOLIO + ARTICLES -->
+<!-- ===========================
+     PORTFOLIO SECTION
+=========================== -->
+<section
+  id="portfolio"
+  class="section section-light angled-top angled-bottom portfolio-section reveal"
+>
+  <!-- PORTFOLIO HEADER -->
+  <div class="section-header">
+    <div>
+      <div class="section-kicker">Portfolio</div>
+      <div class="section-title sans">Work & small experiments</div>
+    </div>
+    <div class="section-note">
+      A small selection of projects and posts that reflect how I blend strategy, content, and visuals.
+    </div>
+  </div>
+
+  <div class="portfolio-wrap">
+
+    <!-- =====================
+         PROJECTS BLOCK
+    ====================== -->
+    <div class="projects-block">
+      <div class="card-tag" style="color:#a58b7f;">Projects</div>
+
+      <h3 style="
+        font-family:'Inter',sans-serif;
+        font-size:20px;
+        color:#2b211d;
+        margin-bottom:10px;">
+        Three projects I’m building from.
+      </h3>
+
+      <p style="font-size:13px;color:#5a4740;margin-bottom:16px;">
+        Each card links to a Google Drive case study, a Notion page, a social post, or a live site.
+      </p>
+
+      <!-- PROJECT CARDS GRID -->
+      <div class="portfolio-grid">
+
+        <!-- Project 1 -->
+        <article class="project-card">
+          <div class="project-label">Campaign / case study</div>
+          <h3>AI-Driven Sales Cycle Marketing Framework</h3>
+          <p>
+            Designed a structured prompt-mapping system for AI platforms to accelerate
+            market research and client outreach, tailored to every stage of the sales cycle.
+          </p>
+          <a href="https://aditiv-create.github.io/fyrii-guide/"
+             target="_blank"
+             class="project-link">View project →</a>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="project-card">
+          <div class="project-label">Strategy / research</div>
+          <h3>Market Expansion Research Project</h3>
+          <p>
+            Examined consumer behaviour and market trends across 10 international regions,
+            delivering insights that led to three high-potential markets for future brand expansion.
+          </p>
+          <a href="https://docs.google.com/document/d/1OIFwziJZ433I6Ft0Po-0iAsPhzyHcUtB/edit?usp=sharing&ouid=104698245449245477482&rtpof=true&sd=true"
+             target="_blank"
+             class="project-link">View project →</a>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card">
+          <div class="project-label">Audio / storytelling</div>
+          <h3>Doomscrolling & Attention: Podcast Episode</h3>
+          <p>
+            Co-created a podcast exploring why doomscrolling feels addictive,
+            what it does to attention, and how we process online overload.
+            I handled ideation, narrative structure, scripting support, and final audio edits.
+          </p>
+          <a href="https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity"
+             target="_blank"
+             class="project-link">Listen or view →</a>
+        </article>
+
+      </div>
+
+      <button class="resume-btn">
+        <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
+           download
+           style="text-decoration:none;color:inherit;">
+           Download resume
+        </a>
+      </button>
+    </div>
+
+    <!-- =====================
+         ARTICLES BLOCK
+    ====================== -->
+    <div id="articles" class="articles-block reveal-up" style="margin-top:90px;">
+
+      <div class="card-tag" style="color:#a58b7f;">Essays & Notes</div>
+
+      <h2 class="articles-heading">Small thoughts that grew into something.</h2>
+
+      <p class="articles-subtitle" style="max-width:520px;">
+        Short, curious reflections on marketing, culture, and the things that quietly shape us.
+      </p>
+
+      <!-- Articles List -->
+      <div class="articles-list">
+
+        <!-- Article 1 -->
+        <article class="article-card-clean">
+          <div class="article-title">Humans are my biggest learning experience.</div>
+          <div class="article-sub">The things people don’t say teach you the most.</div>
+          <a href="https://www.linkedin.com/posts/aditi-venkatk_humans-are-my-biggest-learning-experience-activity-7386241896660168704-cku2"
+             target="_blank"
+             class="article-read">Read →</a>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="article-card-clean">
+          <div class="article-title">Simplicity is becoming a luxury.</div>
+          <div class="article-sub">In a chaotic world, clarity is the rarest currency.</div>
+          <a href="https://www.linkedin.com/posts/aditi-venkatk_with-my-degree-wrapping-up-in-december-2025-activity-7384089087663587328-0VD_"
+             target="_blank"
+             class="article-read">Read →</a>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="article-card-clean">
+          <div class="article-title">I’m not unique — I’m a mosaic.</div>
+          <div class="article-sub">Every version of me is borrowed from someone I once learned from.</div>
+          <a href="https://www.linkedin.com/posts/aditi-venkatk_being-good-at-marketing-isnt-about-selling-activity-7342744275664654336-RveB"
+             target="_blank"
+             class="article-read">Read →</a>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+      <!-- CONTACT -->
       <section
-        id="portfolio"
-        class="section section-light angled-top angled-bottom portfolio-section"
+        id="contact"
+        class="section section-dark angled-top contact-section"
       >
         <div class="section-header reveal">
           <div>
-            <div class="section-kicker">Portfolio</div>
-            <div class="section-title sans">Work & small experiments</div>
+            <div class="section-kicker">Contact</div>
+            <div class="section-title serif">Let’s talk</div>
           </div>
           <div class="section-note">
-            A small selection of projects and posts that reflect how I blend
-            strategy, content, and visuals.
+            Open to internships, full-time roles, and projects where strategy
+            and storytelling matter.
           </div>
         </div>
 
-        <div class="portfolio-wrap">
-          <div class="two-col-portfolio">
-            <!-- PROJECTS (3 CARDS) -->
-            <div class="reveal-left">
-              <div class="card-tag" style="color: #a58b7f">Projects</div>
-              <h3
-                style="
-                  font-family: 'Inter', system-ui, sans-serif;
-                  font-size: 20px;
-                  color: #2b211d;
-                  margin-bottom: 10px;
-                "
-              >
-                Three projects I’m building from.
-              </h3>
-              <p
-                style="
-                  font-size: 13px;
-                  color: #5a4740;
-                  margin-bottom: 16px;
-                "
-              >
-                Each card can link to a Google Drive case study, a Notion page,
-                a social post, or a live site. Just swap in your own links.
-              </p>
+        <div class="contact-grid">
+          <div class="contact-main reveal-left">
+            <h3>Ready when you are.</h3>
+            <p>
+              If you’re looking for someone who enjoys blending analytics,
+              strategy, and creativity, I’d love to hear from you. Send me a
+              brief, a question, or a message about a campaign you liked.
+            </p>
 
-              <div class="portfolio-grid">
-                <article class="project-card">
-                  <div class="project-label">Campaign / case study</div>
-                  <h3>AI-Driven Sales Cycle Marketing Framework</h3>
-                  <p>
-                    Designed a structured prompt-mapping system for AI platforms to accelerate market research and client outreach, tailored to every stage of the sales cycle.
-                  </p>
-                  <a
-                    href="https://aditiv-create.github.io/fyrii-guide/"
-                    target="_blank"
-                    class="project-link"
-                    >View project →</a
-                  >
-                </article>
-
-                <article class="project-card">
-                  <div class="project-label">Strategy / research</div>
-                  <h3>Market Expansion Research Project</h3>
-                  <p>
-                    Examined consumer behavior and market trends across 10 international regions, delivering insights that led to the prioritization of three high-potential markets for future brand expansion initiatives.
-                  </p>
-                  <a
-                    href="https://docs.google.com/document/d/1OIFwziJZ433I6Ft0Po-0iAsPhzyHcUtB/edit?usp=sharing&ouid=104698245449245477482&rtpof=true&sd=true"
-                    target="_blank"
-                    class="project-link"
-                    >View project →</a
-                  >
-                </article>
-
-                <article class="project-card">
-  <div class="project-label">Audio / storytelling</div>
-  <h3>Doomscrolling & Attention: Podcast Episode</h3>
-  <p>
-    Co-created a podcast exploring why doomscrolling feels addictive,
-    what it does to attention, and how we process online overload. I
-    worked on ideation, narrative structure, scripting support, and
-    final audio edits in Adobe Audition.
-  </p>
-  <a
-    href="https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity"
-    target="_blank"
-    class="project-link"
-    >Listen or view →</a
-  >
-</article>
-
+            <div class="contact-items">
+              <div>
+                <span>Email</span><br />
+                <a href="mailto:aditivk1301@gmail.com">aditivk1301@gmail.com</a>
               </div>
-
-              <button class="resume-btn">
+              <div>
+                <span>Phone</span><br />
+                +1 (678) 956-9193
+              </div>
+              <div>
+                <span>LinkedIn</span><br />
                 <a
-                  href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-                  download
-                  style="text-decoration: none; color: inherit"
-                  >Download resume</a
+                  href="https://www.linkedin.com/in/aditi-venkatk"
+                  target="_blank"
                 >
-              </button>
-            </div>
-
-            <!-- ARTICLES (3 CARDS – clean editorial) -->
-            <div id="articles" class="reveal-right">
-              <div class="card-tag" style="color: #a58b7f">LinkedIn essays</div>
-              <h3
-                style="
-                  font-family: 'Playfair Display', serif;
-                  font-size: 20px;
-                  color: #2b211d;
-                  margin-bottom: 10px;
-                "
-              >
-                Posts, reflections & mini essays.
-              </h3>
-              <p
-                style="
-                  font-size: 13px;
-                  color: #5a4740;
-                  margin-bottom: 14px;
-                "
-              >
-                A few things I’ve written about marketing, empathy, and making
-                sense of the noise online.
-              </p>
-
-              <div class="articles-list">
-                <article class="article-card">
-                  <div class="article-meta">Article · LinkedIn</div>
-                  <div class="article-title">
-                    Humans are my biggest learning experience.
-                  </div>
-                  <p class="article-teaser">
-                    On how people-watching, random podcasts, and even
-                    doomscrolling have taught me more about marketing than any
-                    textbook.
-                  </p>
-                  <a
-                    href="https://www.linkedin.com/posts/aditi-venkatk_humans-are-my-biggest-learning-experience-activity-7386241896660168704-cku2?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADJPymkBLg7ciX2wHQ0aCL8ctipKvEe3Fok"
-                    target="_blank"
-                    class="article-link"
-                    >Read on LinkedIn →</a
-                  >
-                </article>
-
-                <article class="article-card">
-                  <div class="article-meta">Article · LinkedIn</div>
-                  <div class="article-title">
-                    A future where simplicity feels like a luxury.
-                  </div>
-                  <p class="article-teaser">
-                    A reflection on decision paralysis, visa chaos, and why the
-                    brands that cut through are usually the ones that simplify.
-                  </p>
-                  <a
-                    href="https://www.linkedin.com/posts/aditi-venkatk_with-my-degree-wrapping-up-in-december-2025-activity-7384089087663587328-0VD_?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADJPymkBLg7ciX2wHQ0aCL8ctipKvEe3Fok"
-                    target="_blank"
-                    class="article-link"
-                    >Read on LinkedIn →</a
-                  >
-                </article>
-
-                <article class="article-card">
-                  <div class="article-meta">Article · LinkedIn</div>
-                  <div class="article-title">I’m not unique — I’m a mosaic.</div>
-                  <p class="article-teaser">
-                    Growing up between Mumbai, music, tech, and marketing — and
-                    how that shaped my view of empathy in marketing.
-                  </p>
-                  <a
-                    href="https://www.linkedin.com/posts/aditi-venkatk_being-good-at-marketing-isnt-about-selling-activity-7342744275664654336-RveB?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAADJPymkBLg7ciX2wHQ0aCL8ctipKvEe3Fok"
-                    target="_blank"
-                    class="article-link"
-                    >Read on LinkedIn →</a
-                  >
-                </article>
+                linkedin.com/in/aditi-venkatk
+                </a>
               </div>
             </div>
+          </div>
+
+          <div class="contact-side reveal-right">
+            <p>
+              I love collaborating with teams that care about thoughtful
+              strategy, honest storytelling, and experimenting with new ideas.
+            </p>
+            <p style="margin-top: 10px">
+              Even if you’re not hiring right now, I’m always happy to connect,
+              swap notes on marketing, or brainstorm ideas just for fun.
+            </p>
+
+            <footer>
+              <span>© 2025 Aditi Venkat</span>
+              <span
+                >Built by me, assisted by AI, fuelled by iced coffee.</span
+              >
+            </footer>
           </div>
         </div>
       </section>
+    </main>
+  </div>
+
+  <script>
+    // intersection observer for scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    document
+      .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+      .forEach((el) => observer.observe(el));
+
+// hero VIDEO fade-out on scroll
+const heroVideo = document.getElementById("hero-video");
+
+window.addEventListener("scroll", () => {
+  const fadeEnd = 420; // same as text fade
+  let opacity = 1 - window.scrollY / fadeEnd;
+
+  if (opacity < 0) opacity = 0;
+  if (opacity > 1) opacity = 1;
+
+  heroVideo.style.opacity = opacity;
+});
+    // constellation timeline accordion
+document.querySelectorAll(".timeline-item").forEach((item) => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".timeline-item").forEach((other) => {
+      if (other !== item) other.classList.remove("open");
+    });
+    item.classList.toggle("open");
+  });
+});
+
+    window.addEventListener("scroll", () => {
+      const fadeEnd = 420; // adjust to taste
+      let opacity = 1 - window.scrollY / fadeEnd;
+      if (opacity < 0) opacity = 0;
+      if (opacity > 1) opacity = 1;
+      heroText.style.opacity = opacity;
+    });
+  </script>
+</body>
+</html>
 
       <!-- CONTACT -->
       <section

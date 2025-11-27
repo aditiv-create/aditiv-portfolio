@@ -1174,6 +1174,23 @@ section[data-no-angle="true"]::after {
     height: auto !important;
   }
 }
+/* === FIX BOTTOM EMPTY SPACE ONLY FOR CONTACT SECTION === */
+#contact.angled-top::before,
+#contact.angled-bottom::after {
+    display: none !important;
+}
+
+/* Clean up spacing */
+#contact {
+    padding-bottom: 40px !important;
+    margin-bottom: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Ensure the outer container can't extend past the content */
+.shell {
+    overflow: hidden !important;
+}
 
 
   </style>

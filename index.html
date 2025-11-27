@@ -1157,6 +1157,23 @@ section[data-no-angle="true"]::after {
     padding: 0 20px;
   }
 }
+/* === MOBILE FIX FOR ABOUT OVERLAP === */
+@media (max-width: 768px) {
+  /* Add breathing space above the about section */
+  #about.section-light.about-section {
+    padding-top: 60px !important;
+  }
+
+  /* Reduce overlap on the scrapbook board */
+  .about-board {
+    margin-bottom: -30px !important; /* was -60 / -90 earlier */
+  }
+
+  /* Make sure the image fits cleanly */
+  .board-photo img {
+    height: auto !important;
+  }
+}
 
 
   </style>

@@ -1,231 +1,303 @@
+/* -----------------------------------------------------
+   SOFT FEMME GRID AESTHETIC VARIABLES
+------------------------------------------------------*/
 :root {
-    --primaryText: #fff;
-    --secondaryText: #ff015e;
-    --primary: rgba(156, 39, 176, .60);
-    --secondary: rgba(255, 1, 94, .60); 
-    --buttonHover: rgba(156, 39, 176, .40);
-    --smallButtonHover: rgba(0, 0, 0, .25);
+    --primaryText: #F8EDED;               
+    --secondaryText: #FFB6D5;             
+    --primary: rgba(255, 182, 213, 0.25); 
+    --secondary: rgba(93, 46, 70, 0.8);   
+    --buttonHover: rgba(255, 182, 213, 0.45);
+    --smallButtonHover: rgba(255, 255, 255, 0.15);
 }
 
+/* -----------------------------------------------------
+   BASE STYLES
+------------------------------------------------------*/
 html {
     box-sizing: border-box;
-    /* keeps button boxes within phone screen width */
-    -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     height: 100%;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
     box-sizing: inherit;
 }
 
 body {
     margin: 0;
     min-height: 100%;
-    /* The image used for the site background. Try changing skyscape.jpg to stars.jpg. Put a replacement photo in the images folder and, in line 21 below, replace skyscape.jpg with yourbackgroundfilename.jpg */
-    /* The linear gradient darkens the image, like putting a sunglasses lens on top of it. If you want to darken the image even more, change 0.1 (both times) to 0.3 or higher */
-    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../images/skyscape.jpg);
-    /* Prevents the browser from repeating or "tiling" the background image */
-    background-repeat: no-repeat;
-    background-position: center;
-    /* Freezes the image so that even the content scrolls down, the background stays put */
-    background-attachment: fixed;
-    /* Resizes the background image to cover the entire container */
+
+    /* dreamy grid background */
+    background: url(../images/bg.jpg);
     background-size: cover;
-    font-family: Futura, Verdana, sans-serif;
-    line-height: 1.5;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* slow aesthetic drift */
+    animation: parallaxShift 40s ease-in-out infinite alternate;
+
+    /* font + base styles */
+    font-family: 'Figtree', sans-serif;
+    color: var(--primaryText);
     font-size: 18px;
+    line-height: 1.5;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    overflow-x: hidden;
 }
 
-h1 {
-    font-size: 1em;
+/* ✨ deep plum + black overlay to darken background */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    /* deep plum + black blend */
+    background: rgba(25, 5, 20, 0.50);  /* tweak 0.45–0.60 if needed */
+
+    backdrop-filter: brightness(0.7) contrast(1.05);
+    z-index: 0;
+    pointer-events: none;
 }
 
-h2 {
-    font-size: 1em;
-    margin-bottom: 0;
+/* let all content + sparkles stay above overlay */
+body * {
+    position: relative;
+    z-index: 1;
 }
 
-img {
-    margin: .5em 1em;
-    /* border: 1px solid #ccc; */
-    border-radius: 50%;
+/* parallax animation */
+@keyframes parallaxShift {
+    0% { background-position: center; }
+    100% { background-position: center 6%; }
+}
+
+
+/* fade-in animation */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* -----------------------------------------------------
+   PORTRAIT + HALO
+------------------------------------------------------*/
+.image-container img {
+    width: 150px;
     height: 150px;
-    max-width: 100%;
+    border-radius: 50%;
     object-fit: cover;
-    /* Resizes the image to cover the entire container */
+
+    border: 2px solid rgba(255, 182, 213, 0.4);
+    box-shadow: 0 0 25px rgba(255, 182, 213, 0.25);
+    margin: .5em 1em;
 }
 
-.container {
-    text-align: center;
-    width: 100%;    
-    padding: 0;
-    margin-right: auto;
-    margin-left: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.image-container {
-    text-align: center;
-    width: 100%;
-}
-
-.main-text-color {
-    color: var(--primaryText);
-}
-
+/* -----------------------------------------------------
+   TEXT + SECTIONS
+------------------------------------------------------*/
 .name {
     color: var(--secondaryText);
 }
 
 .name strong {
-    background-color: rgba(0, 0, 0, 0.50);
+    background: rgba(255, 182, 213, 0.25);
+    padding: 0.1em 0.3em;
+    border-radius: 6px;
 }
 
-.section-header {
-    padding-top: .5em;
+h1, h2 {
+    margin: 0;
+    font-weight: 600;
 }
 
-.button,
-.intro,
-.links-container,
-.slidedown,
-.external-link {
-    width: 100%;
-    min-width: 50%;
-    padding: .5em 1em;
-    text-decoration: none;
-    color: inherit;
-    text-align: center;
-}
-
-.button, .external-link {
-    border: 1px solid var(--primaryText);
-    border-radius: 20px;
-    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24);
-    overflow: hidden;
-    white-space: nowrap;
+.section-header h1 {
+    margin-top: 1em;
+    border-bottom: 2px solid rgba(255, 182, 213, 0.7);
+    padding-bottom: 4px;
     display: inline-block;
-    background-color: var(--primary);
-    cursor: pointer;
-    transition: 0.2s all;
 }
 
-.button:not(.highlight) {
-    background-color: var(--primary);
+/* -----------------------------------------------------
+   BUTTONS + MICRO-INTERACTIONS
+------------------------------------------------------*/
+.button, .external-link {
+    width: 100%;
+    padding: .5em 1em;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 182, 213, 0.35);
+
+    background: var(--primary);
+    color: var(--primaryText);
+    text-decoration: none;
+
+    display: inline-block;
+    cursor: pointer;
+
+    backdrop-filter: blur(6px);
+    box-shadow: 0px 4px 14px rgba(255, 182, 213, 0.15);
+
+    transition: 0.25s ease;
 }
 
 @media (hover: hover) {
-    .button:hover { background-color: var(--buttonHover); }
+    .button:hover {
+        background: var(--buttonHover);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(255, 182, 213, 0.25);
+    }
 }
 
-.button.highlight {
-    background-color: var(--secondary);
+.button:active, 
+.external-link:active {
+    transform: scale(0.95);
 }
 
-.button:active, .external-link:active { 
-    transform: scale(0.98); 
-    /* Scaling button to 0.98 to its original size */ 
-    box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24); 
-    /* Lowering the shadow */ 
-} 
-
-.intro {
-    margin: 0 auto;
-}
-
-.section {
-    margin-top: 1em;
-}
-
+/* -----------------------------------------------------
+   DROPDOWNS (slidedown panels)
+------------------------------------------------------*/
 .slidedown {
+    width: 100%;
     margin: 0 auto;
     padding: 0;
-    -webkit-transition: height .4s ease;
-    -o-transition: height .4s ease;
-    transition: height .4s ease;
+
     overflow: hidden;
     height: 0;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 182, 213, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+
+    box-shadow: 0px 0px 18px rgba(255, 182, 213, 0.1);
+
+    transition: height .45s ease, box-shadow .3s ease;
 }
 
-.external-link {
-    border: 1px solid var(--primaryText);
-    border-radius: 20px;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: .5em auto 1.5em auto;
-    text-decoration: none;
-    color: inherit;
-    height: 2em;
-    width: 6em;
-}
-
-.external-link:hover {
-    background-color: var(--smallButtonHover)
+.button.toggle.active + .slidedown {
+    box-shadow: 0 0 20px rgba(255, 182, 213, 0.25);
 }
 
 .description {
-    display: flex;
     text-align: left;
-    flex-direction: column;
-    padding: 0 .6em;
+    padding: 1em;
 }
 
-.description > p {
+.description p {
     margin: .5em 0;
 }
 
+.description p::before {
+    content: "✦ ";
+    color: var(--secondaryText);
+}
+
+/* -----------------------------------------------------
+   EXTERNAL LINK BUTTON
+------------------------------------------------------*/
+.external-link {
+    margin: 1em auto;
+    width: 6em;
+    height: 2em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+}
+
+.external-link:hover {
+    background: var(--smallButtonHover);
+}
+
+/* -----------------------------------------------------
+   CONTAINER
+------------------------------------------------------*/
+.container {
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* -----------------------------------------------------
+   FOOTER
+------------------------------------------------------*/
 .footer {
-  font-size: .66em;
-  background-color: rgba(0, 0, 0, .5);
-  color: rgba(225, 225, 225, .8);
-  text-decoration: none;
-  width: 100%;
-  min-height: 3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+    font-size: .7em;
+    background: rgba(0,0,0,0.5);
+    color: rgba(225,225,225,0.8);
+    width: 100%;
+    min-height: 3em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer a {
     color: inherit;
 }
 
-/* Media queries allow you to change style properties according to the screen width. In this case, if the screen is AT LEAST 540 pixels wide (bigger than a standard phone), the .container resizes to 540 pixels and the buttons and intro resize to 85% of the container width */
+/* -----------------------------------------------------
+   SPARKLE EFFECT
+------------------------------------------------------*/
+.sparkle {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 182, 213, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 2;
+    animation: sparkle-float 3s linear infinite;
+}
+
+@keyframes sparkle-float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateY(-20px) scale(1.8); opacity: 0.6; }
+    100% { transform: translateY(-40px) scale(0.5); opacity: 0; }
+}
+
+/* -----------------------------------------------------
+   MEDIA QUERIES
+------------------------------------------------------*/
 @media (min-width: 540px) {
-    .container {
-        max-width: 540px;
-    }
-    
-    .button,
-    .intro,
-    .slidedown {
-        width: 85%;
+    .button, .intro, .slidedown { width: 85%; }
+}
+
+@media (min-width: 540px) {
+    .button, .intro, .slidedown {
+        width: 100%;
+        max-width: 380px;  /* perfect centered width */
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
-/* If the screen is AT LEAST 768 pixels wide (standard tablet or larger), the .container resizes to 750 pixels and the buttons and intro resize to 40% of the container width */
-@media (min-width: 768px) {
-    .container {
-        max-width: 768px;
-    }
-    
+
     .button,
     .intro,
     .slidedown {
-        width: 40%;
+        width: 100%; /* full width so dropdowns don't get squeezed */
+        margin-left: auto;
+        margin-right: auto;
     }
+.links-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+
+

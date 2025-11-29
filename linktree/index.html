@@ -1,74 +1,106 @@
 <!DOCTYPE html>
-<!-- This page is adapted from w3schools "How to make a link tree website https://www.w3schools.com/howto/howto_website_create_linktree.asp" -->
 <html lang="en">
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Add your name below -->
+
   <title>Aditi Venkat</title>
+
+  <!-- Google Font: Figtree -->
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body class="main-text-color">
-  <!-- Content container. Everything except footer goes here -->
-  <div class="container">
-    <!-- Image and name container. Put your replacement photo—which you should crop to be square—in the images folder, then change the source attribute to images/yourportraitfilename.jpg. This path says, "Look in the images folder for yourportraitfilename.jpg." Be sure to change the alt text, too. -->
+
+  <div class="container fade-in">
+
+    <!-- Portrait -->
     <div class="image-container">
-      <img src="images/portrait.jpg" alt="Photo by Art Hauntington">
+      <img src="images/portrait.jpg" alt="Portrait of Aditi Venkat">
     </div>
+
+    <!-- Intro text -->
     <div class="intro">
-      I'm <span class="name"><strong>Aditi Venkat</strong></span> an aspiring marketing professional and a rising senior
-      at Virginia Tech,
+      I'm <span class="name"><strong>Aditi Venkat</strong></span>,
+      an aspiring marketing professional and rising senior at Virginia Tech.
+
+      <!-- Section: Work -->
       <div class="section-header">
-        <h1>My work</h1>
+        <h1>My Work</h1>
       </div>
-      <!-- Replace the # inside of the href="#" with your links. -->
+
       <div class="links-container">
-        <div class="button toggle">Blog post</div>
+
+        <!-- Blog -->
+        <div class="button toggle">Blog Post</div>
         <div class="slidedown">
           <div class="description">
-            <h2>Blog post title</h2>
-            <p>Here, add a short but appealing description of your blog post.</p>
-            <a href="#" class="external-link" target="_blank">Read</a>
+            <h2>Dupe Culture</h2>
+            <p>A clean reflection on how dupe culture is ingrained our lives and my take on it.</p>
+            <a href="https://medium.com/@aditivk1301/why-gen-z-loves-dupe-culture-in-fashion-67ca35371d8e" class="external-link" target="_blank">Read</a>
           </div>
         </div>
 
+        <!-- Video -->
         <div class="button toggle">Video</div>
         <div class="slidedown">
           <div class="description">
-            <h2>Video title</h2>
-            <p>Add a short but appealing description of your video.</p>
+            <h2>One-Minute Chai Reset Ritual</h2>
+            <p>A slow, warm-toned minute of chai and calm—soft steam, tiny details, and gentle captions reminding you to pause. A grounding ritual for loud weeks.</p>
             <a href="#" class="external-link" target="_blank">Watch</a>
           </div>
         </div>
 
+        <!-- Podcast -->
         <div class="button toggle">Podcast</div>
         <div class="slidedown">
           <div class="description">
-            <h2>Podcast title</h2>
-            <p>Add a short but appealing description of your podcast</p>
-            <a href="#" class="external-link" target="_blank">Listen</a>
+            <h2>Why We Can't Stop Doomscrolling</h2>
+            <p>A short, honest look at why we scroll past the point of peace—how apps keep us hooked, and the tiny habits that help you reclaim your attention.</p>
+            <a href=" https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity" class="external-link" target="_blank">Listen</a>
           </div>
         </div>
+
       </div>
 
-      <!-- Replace # with PDF from Google Docs, or replace the entire section with whatever you want. Or delete it! Or add another section below it!-->
+      <!-- Section: About Me -->
       <div class="section-header">
-        <h1>About me</h1>
+        <h1>About Me</h1>
       </div>
 
       <div class="links-container">
-        <a href="https://drive.google.com" class="button" target="_blank">Resume</a>
+        <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing" class="button" target="_blank">Resume</a>
       </div>
+
     </div>
   </div>
+
+  <!-- Footer -->
   <div class="footer">
-    <p>© Aditi Venkat, 2024. Based on a design by <a
-        href="https://www.w3schools.com/howto/howto_website_create_linktree.asp" target="_blank">w3schools</a>.
+    <p>© Aditi Venkat, 2024. Based on a design by 
+      <a href="https://www.w3schools.com/howto/howto_website_create_linktree.asp" target="_blank">w3schools</a>.
     </p>
   </div>
+
+  <!-- Smooth dropdown script -->
   <script type="text/javascript" src="js/slider.js"></script>
+
+  <!-- Sparkles -->
+  <script>
+    document.addEventListener("mousemove", function(e) {
+      const sparkle = document.createElement("div");
+      sparkle.classList.add("sparkle");
+      sparkle.style.left = e.pageX + "px";
+      sparkle.style.top = e.pageY + "px";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1500);
+    });
+  </script>
+
 </body>
 
 </html>

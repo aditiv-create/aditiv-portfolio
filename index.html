@@ -67,14 +67,17 @@
     /* ---------- OUTER SHELL ---------- */
 
     .shell {
-      max-width: 1120px;
-      margin: 0 auto 64px;
-      background: #050713;
-      border-radius: 30px;
-      overflow: hidden;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255, 255, 255, 0.03);
-    }
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  overflow: visible;
+}
+
 
     @media (max-width: 900px) {
       .shell {
@@ -318,11 +321,14 @@
       );
     }
 .hero {
-  min-height: 70vh;
+  min-height: 100vh !important;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding-top: 160px;   /* keeps navbar from overlapping */
+  padding-bottom: 80px;
 }
+
 
     #hero-text {
       max-width: 640px;
@@ -331,6 +337,10 @@
     }
 #hero-video {
   transition: opacity 0.3s ease-out;
+  width: 100vw !important;
+  height: 100vh !important;
+  object-fit: cover !important;
+  object-position: center !important;
 }
 
     .hero-title {
@@ -423,9 +433,9 @@
 
     .board-photo img {
       width: 100%;
-      height: 420px; /* taller for your headshot */
+      height: 520px; /* taller for your headshot */
       object-fit: cover;
-      object-position: center top;
+      object-position: center;
       filter: saturate(1.02) contrast(1.04);
     }
 
@@ -1191,6 +1201,254 @@ section[data-no-angle="true"]::after {
 .shell {
     overflow: hidden !important;
 }
+/* ================================
+   BUBBLE MENU + CIRCULAR LOGO
+================================ */
+
+.bubble-menu {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  right: auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.bubble-menu .bubble {
+  --bubble-size: 60px;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  border-radius: 999px;
+  background: rgba(8, 9, 20, 0.92);
+  border: 1px solid rgba(232, 220, 204, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+}
+
+/* circular text logo */
+
+.logo-bubble {
+  padding: 0 18px;
+}
+
+.logo-ring {
+  position: relative;
+  width: 70px;
+  height: 70px;
+}
+
+.logo-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-8deg);
+}
+
+.logo-ring-svg text {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: #f5ece0;
+}
+
+.logo-initials {
+  position: absolute;
+  inset: 50%;
+  transform: translate(-50%, -50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", serif;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #140f12;
+  background: radial-gradient(circle at top, #fdf4e8, #d4c0b2, #3c2a27);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* toggle bubble / burger */
+
+.menu-btn {
+  border: none;
+  background: rgba(8, 9, 20, 0.92);
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(232, 220, 204, 0.35);
+}
+
+.menu-line {
+  width: 22px;
+  height: 2px;
+  background: #f5ece0;
+  border-radius: 2px;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.26s ease, opacity 0.26s ease;
+  transform-origin: center;
+}
+
+.menu-line + .menu-line {
+  margin-top: 6px;
+}
+
+.menu-btn.open .menu-line:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.menu-btn.open .menu-line:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* overlay + pills */
+
+.bubble-menu-items {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.28s ease-out;
+}
+
+.bubble-menu-items.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bubble-menu-items::before {
+  /* dim background a bit */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(4, 5, 16, 0.92), rgba(1, 1, 6, 0.98));
+  backdrop-filter: blur(14px);
+}
+
+/* grid of pills */
+
+.bubble-menu-items .pill-list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  row-gap: 8px;
+  width: 100%;
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+  pointer-events: auto;
+  justify-content: stretch;
+  z-index: 1;
+}
+
+.bubble-menu-items .pill-col {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex: 0 0 calc(100% / 3);
+  box-sizing: border-box;
+}
+
+.bubble-menu-items .pill-link {
+  --pill-bg: #fdf7f2;
+  --pill-color: #251814;
+  --hover-bg: #f0ded0;
+  --hover-color: #140f12;
+  --item-rot: 0deg;
+  min-height: 140px;
+  width: 100%;
+  padding: clamp(1.5rem, 3vw, 3.5rem) 0;
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
+  font-weight: 400;
+  border-radius: 999px;
+  background: var(--pill-bg);
+  color: var(--pill-color);
+  text-decoration: none;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  transform-origin: center;
+  transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.bubble-menu-items .pill-label {
+  display: inline-block;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .bubble-menu-items .pill-link {
+    transform: rotate(var(--item-rot));
+  }
+
+  .bubble-menu-items .pill-link:hover {
+    transform: rotate(var(--item-rot)) scale(1.06);
+    background: var(--hover-bg);
+    color: var(--hover-color);
+  }
+
+  .bubble-menu-items .pill-link:active {
+    transform: rotate(var(--item-rot)) scale(0.94);
+  }
+}
+
+@media (max-width: 899px) {
+  .bubble-menu-items {
+    align-items: flex-start;
+    padding-top: 120px;
+  }
+
+  .bubble-menu-items .pill-list {
+    row-gap: 16px;
+  }
+
+  .bubble-menu-items .pill-col {
+    flex: 0 0 100%;
+  }
+
+  .bubble-menu-items .pill-link {
+    transform: none !important;
+    font-size: clamp(1.2rem, 3vw, 2.1rem);
+    min-height: 82px;
+  }
+
+  .bubble-menu-items .pill-link:hover {
+    transform: scale(1.04);
+  }
+}
 
 
   </style>
@@ -1198,20 +1456,104 @@ section[data-no-angle="true"]::after {
 <body>
   <div class="shell">
     <!-- NAV -->
-    <header class="nav">
-      <div class="nav-left">
-        <div class="nav-logo">AV</div>
-        <div class="nav-name">Aditi Venkat</div>
-      </div>
-      <nav class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#articles">Articles</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+    <!-- BUBBLE MENU + CIRCULAR LOGO -->
+<nav class="bubble-menu" aria-label="Main navigation">
+  <!-- Logo bubble with circular text -->
+  <div class="bubble logo-bubble" aria-label="Logo">
+    <div class="logo-ring">
+      <svg class="logo-ring-svg" viewBox="0 0 120 120">
+        <defs>
+          <path
+            id="logo-circle-path"
+            d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"
+          />
+        </defs>
+        <text>
+          <textPath href="#logo-circle-path">
+            ADITI VENKAT – STRATEGY – DESIGN – ANALYTICS –
+          </textPath>
+        </text>
+      </svg>
+      <div class="logo-initials">AV</div>
+    </div>
+  </div>
+
+  <!-- Toggle bubble -->
+  <button
+    type="button"
+    class="bubble menu-btn"
+    aria-label="Toggle menu"
+    aria-pressed="false"
+  >
+    <span class="menu-line"></span>
+    <span class="menu-line"></span>
+  </button>
+</nav>
+
+<!-- Overlay with “pill” menu items -->
+<div
+  id="bubble-overlay"
+  class="bubble-menu-items"
+  aria-hidden="true"
+>
+  <ul class="pill-list" role="menu" aria-label="Site sections">
+    <li class="pill-col" role="none">
+      <a
+        class="pill-link"
+        role="menuitem"
+        href="#home"
+        style="--item-rot:-8deg; --hover-bg:#3b82f6; --hover-color:#ffffff;"
+      >
+        <span class="pill-label">home</span>
+      </a>
+    </li>
+
+    <li class="pill-col" role="none">
+      <a
+        class="pill-link"
+        role="menuitem"
+        href="#about"
+        style="--item-rot:8deg; --hover-bg:#10b981; --hover-color:#ffffff;"
+      >
+        <span class="pill-label">about</span>
+      </a>
+    </li>
+
+    <li class="pill-col" role="none">
+      <a
+        class="pill-link"
+        role="menuitem"
+        href="#portfolio"
+        style="--item-rot:8deg; --hover-bg:#f59e0b; --hover-color:#ffffff;"
+      >
+        <span class="pill-label">projects</span>
+      </a>
+    </li>
+
+    <li class="pill-col" role="none">
+      <a
+        class="pill-link"
+        role="menuitem"
+        href="#articles"
+        style="--item-rot:8deg; --hover-bg:#ef4444; --hover-color:#ffffff;"
+      >
+        <span class="pill-label">blog</span>
+      </a>
+    </li>
+
+    <li class="pill-col" role="none">
+      <a
+        class="pill-link"
+        role="menuitem"
+        href="#contact"
+        style="--item-rot:-8deg; --hover-bg:#8b5cf6; --hover-color:#ffffff;"
+      >
+        <span class="pill-label">contact</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
 
     <main>
       <!-- HERO -->
@@ -1703,6 +2045,57 @@ section[data-no-angle="true"]::after {
   </div>
 
   <script>
+    // =========================
+// Bubble menu interactions
+// =========================
+const menuBtn = document.querySelector(".menu-btn");
+const overlay = document.getElementById("bubble-overlay");
+const pillLinks = document.querySelectorAll(".pill-link");
+let bubbleMenuOpen = false;
+
+function setBubbleMenu(open) {
+  bubbleMenuOpen = open;
+
+  if (!menuBtn || !overlay) return;
+
+  if (open) {
+    menuBtn.classList.add("open");
+    menuBtn.setAttribute("aria-pressed", "true");
+    overlay.classList.add("visible");
+    overlay.setAttribute("aria-hidden", "false");
+  } else {
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-pressed", "false");
+    overlay.classList.remove("visible");
+    overlay.setAttribute("aria-hidden", "true");
+  }
+}
+
+if (menuBtn && overlay) {
+  menuBtn.addEventListener("click", () => {
+    setBubbleMenu(!bubbleMenuOpen);
+  });
+
+  // click outside pills to close
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      setBubbleMenu(false);
+    }
+  });
+
+  // close when clicking a link
+  pillLinks.forEach((link) => {
+    link.addEventListener("click", () => setBubbleMenu(false));
+  });
+
+  // Esc to close
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && bubbleMenuOpen) {
+      setBubbleMenu(false);
+    }
+  });
+}
+
     // intersection observer for scroll reveal
     const observer = new IntersectionObserver(
       (entries) => {
@@ -1752,120 +2145,3 @@ document.querySelectorAll(".timeline-item").forEach((item) => {
 </body>
 </html>
 
-      <!-- CONTACT -->
-      <section
-        id="contact"
-        class="section section-dark angled-top contact-section"
-      >
-        <div class="section-header reveal">
-          <div>
-            <div class="section-kicker">Contact</div>
-            <div class="section-title serif">Let’s talk</div>
-          </div>
-          <div class="section-note">
-            Open to internships, full-time roles, and projects where strategy
-            and storytelling matter.
-          </div>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-main reveal-left">
-            <h3>Ready when you are.</h3>
-            <p>
-              If you’re looking for someone who enjoys blending analytics,
-              strategy, and creativity, I’d love to hear from you. Send me a
-              brief, a question, or a message about a campaign you liked.
-            </p>
-
-            <div class="contact-items">
-              <div>
-                <span>Email</span><br />
-                <a href="mailto:aditivk1301@gmail.com">aditivk1301@gmail.com</a>
-              </div>
-              <div>
-                <span>Phone</span><br />
-                +1 (678) 956-9193
-              </div>
-              <div>
-                <span>LinkedIn</span><br />
-                <a
-                  href="https://www.linkedin.com/in/aditi-venkatk"
-                  target="_blank"
-                >
-                linkedin.com/in/aditi-venkatk
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-side reveal-right">
-            <p>
-              I love collaborating with teams that care about thoughtful
-              strategy, honest storytelling, and experimenting with new ideas.
-            </p>
-            <p style="margin-top: 10px">
-              Even if you’re not hiring right now, I’m always happy to connect,
-              swap notes on marketing, or brainstorm ideas just for fun.
-            </p>
-
-            <footer>
-              <span>© 2025 Aditi Venkat</span>
-              <span
-                >Built by me, assisted by AI, fuelled by iced coffee.</span
-              >
-            </footer>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    // intersection observer for scroll reveal
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-
-    document
-      .querySelectorAll(".reveal, .reveal-left, .reveal-right")
-      .forEach((el) => observer.observe(el));
-
-// hero VIDEO fade-out on scroll
-const heroVideo = document.getElementById("hero-video");
-
-window.addEventListener("scroll", () => {
-  const fadeEnd = 420; // same as text fade
-  let opacity = 1 - window.scrollY / fadeEnd;
-
-  if (opacity < 0) opacity = 0;
-  if (opacity > 1) opacity = 1;
-
-  heroVideo.style.opacity = opacity;
-});
-    // constellation timeline accordion
-document.querySelectorAll(".timeline-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    document.querySelectorAll(".timeline-item").forEach((other) => {
-      if (other !== item) other.classList.remove("open");
-    });
-    item.classList.toggle("open");
-  });
-});
-
-    window.addEventListener("scroll", () => {
-      const fadeEnd = 420; // adjust to taste
-      let opacity = 1 - window.scrollY / fadeEnd;
-      if (opacity < 0) opacity = 0;
-      if (opacity > 1) opacity = 1;
-      heroText.style.opacity = opacity;
-    });
-  </script>
-</body>
-</html>

@@ -7,7 +7,7 @@
 
   <!-- Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Spectral:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Spectral:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap"
     rel="stylesheet"
   />
 
@@ -41,8 +41,7 @@
 
     html,
     body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
-        sans-serif;
+      font-family: "Courier Prime", "Courier New", monospace;
       background: radial-gradient(
         circle at top,
         #171b2c 0,
@@ -52,6 +51,43 @@
       color: var(--ink-light);
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated gradient overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(
+        circle at 30% 50%,
+        rgba(93, 63, 106, 0.15) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 70% 80%,
+        rgba(168, 108, 111, 0.1) 0%,
+        transparent 50%
+      );
+      animation: gradientShift 20s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      33% {
+        transform: translate(5%, -5%) rotate(120deg);
+      }
+      66% {
+        transform: translate(-5%, 5%) rotate(240deg);
+      }
     }
 
     a {
@@ -62,6 +98,73 @@
     img {
       max-width: 100%;
       display: block;
+    }
+
+    /* ---------- ANIMATED BLOBS ---------- */
+
+    .blob-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      filter: blur(60px);
+      opacity: 0.15;
+      animation: morphBlob 20s ease-in-out infinite;
+    }
+
+    .blob-1 {
+      width: 400px;
+      height: 400px;
+      top: 10%;
+      left: 10%;
+      background: linear-gradient(135deg, #d9c8c0, #a86c6f);
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 350px;
+      height: 350px;
+      top: 60%;
+      right: 10%;
+      background: linear-gradient(135deg, #5d3f6a, #8b5a8e);
+      animation-delay: -7s;
+    }
+
+    .blob-3 {
+      width: 300px;
+      height: 300px;
+      bottom: 20%;
+      left: 50%;
+      background: linear-gradient(135deg, #e9d8d0, #d9c8c0);
+      animation-delay: -14s;
+    }
+
+    @keyframes morphBlob {
+      0%, 100% {
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      25% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        transform: translate(30px, -30px) scale(1.1) rotate(90deg);
+      }
+      50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+        transform: translate(-20px, 20px) scale(0.9) rotate(180deg);
+      }
+      75% {
+        border-radius: 70% 30% 40% 60% / 40% 70% 50% 30%;
+        transform: translate(20px, 30px) scale(1.05) rotate(270deg);
+      }
     }
 
     /* ---------- OUTER SHELL ---------- */
@@ -76,6 +179,8 @@
   box-shadow: none;
   border: none;
   overflow: visible;
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -122,7 +227,7 @@
     }
 
     .nav-name {
-      font-family: "Playfair Display", serif;
+      font-family: "Courier Prime", "Courier New", monospace;
       letter-spacing: 0.12em;
       font-size: 11px;
       text-transform: uppercase;
@@ -230,23 +335,35 @@
     }
 
     .reveal {
-      transform: translateY(26px);
-      transition: opacity 650ms ease-out, transform 650ms ease-out;
+      transform: translateY(50px) scale(0.95);
+      transition: opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .reveal-left {
-      transform: translateX(-30px);
-      transition: opacity 650ms ease-out, transform 650ms ease-out;
+      transform: translateX(-60px) rotate(-5deg);
+      transition: opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .reveal-right {
-      transform: translateX(30px);
-      transition: opacity 650ms ease-out, transform 650ms ease-out;
+      transform: translateX(60px) rotate(5deg);
+      transition: opacity 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 800ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .visible {
       opacity: 1 !important;
-      transform: translate(0, 0) !important;
+      transform: translate(0, 0) scale(1) rotate(0deg) !important;
+    }
+
+    /* Parallax layers */
+    .parallax-slow {
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .parallax-medium {
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     /* ---------- SECTION HEADERS ---------- */
@@ -280,7 +397,7 @@
     }
 
     .section-title.sans {
-      font-family: "Inter", system-ui, sans-serif;
+      font-family: "Playfair Display", serif;
     }
 
     .section-note {
@@ -325,9 +442,45 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-top: 160px;   /* keeps navbar from overlapping */
+  padding-top: 160px;
   padding-bottom: 80px;
+  position: relative;
 }
+
+/* Floating particles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: floatParticle 15s ease-in-out infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; width: 4px; height: 4px; background: rgba(217, 200, 192, 0.6); }
+.particle:nth-child(2) { left: 25%; animation-delay: 2s; width: 6px; height: 6px; background: rgba(233, 216, 208, 0.5); }
+.particle:nth-child(3) { left: 40%; animation-delay: 4s; width: 3px; height: 3px; background: rgba(168, 108, 111, 0.7); }
+.particle:nth-child(4) { left: 55%; animation-delay: 6s; width: 5px; height: 5px; background: rgba(217, 200, 192, 0.6); }
+.particle:nth-child(5) { left: 70%; animation-delay: 8s; width: 4px; height: 4px; background: rgba(233, 216, 208, 0.5); }
+.particle:nth-child(6) { left: 85%; animation-delay: 10s; width: 6px; height: 6px; background: rgba(168, 108, 111, 0.6); }
+.particle:nth-child(7) { left: 15%; animation-delay: 12s; width: 5px; height: 5px; background: rgba(217, 200, 192, 0.7); }
+.particle:nth-child(8) { left: 60%; animation-delay: 1s; width: 3px; height: 3px; background: rgba(233, 216, 208, 0.6); }
 
 
     #hero-text {
@@ -399,9 +552,11 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.9fr);
-      gap: 34px;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .about-board {
@@ -512,7 +667,7 @@
       left: 50%;
       top: 10px;
       transform: translateX(-50%);
-      font-family: "Inter", system-ui, sans-serif;
+      font-family: "Courier Prime", "Courier New", monospace;
       font-size: clamp(90px, 14vw, 160px);
       font-weight: 900;
       letter-spacing: 0.18em;
@@ -544,7 +699,7 @@
     }
 
     .experience-title-vertical span {
-      font-family: "Inter", system-ui, sans-serif;
+      font-family: "Courier Prime", "Courier New", monospace;
       font-size: 14px;
       letter-spacing: 0.44em;
       text-transform: uppercase;
@@ -619,7 +774,7 @@
     }
 
     .card h3 {
-      font-family: "Inter", system-ui, sans-serif;
+      font-family: "Playfair Display", serif;
       font-size: 20px;
       margin-bottom: 10px;
     }
@@ -869,7 +1024,7 @@
   left: 50%;
   top: 30px;
   transform: translateX(-50%);
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: "Courier Prime", "Courier New", monospace;
   font-weight: 800;
   font-size: clamp(54px, 10vw, 110px);
   letter-spacing: 0.18em;
@@ -924,19 +1079,51 @@
     linear-gradient(90deg, #e2d6c5 1px, transparent 1px);
   background-size: 24px 24px;
   border-radius: 18px;
-  padding: 32px 36px; /* bigger */
+  padding: 32px 36px;
   border: 1px solid rgba(207, 185, 171, 0.95);
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
-  min-height: 320px; /* adds presence */
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(217, 200, 192, 0.3), rgba(233, 216, 208, 0.3));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .project-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+  transform: translateY(-12px) rotateX(2deg) rotateY(2deg) scale(1.02);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.25),
+              0 0 30px rgba(217, 200, 192, 0.4);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .project-card:hover {
+    transform: translateY(-6px);
+  }
 }
 
 .project-label {
@@ -1030,12 +1217,31 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.article-card-clean::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, #a86c6f, #d9c8c0, #a86c6f);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .article-card-clean:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+}
+
+.article-card-clean:hover::after {
+  transform: scaleX(1);
 }
 
 .article-title {
@@ -1454,6 +1660,13 @@ section[data-no-angle="true"]::after {
   </style>
 </head>
 <body>
+  <!-- Animated blob graphics -->
+  <div class="blob-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
   <div class="shell">
     <!-- NAV -->
     <!-- BUBBLE MENU + CIRCULAR LOGO -->
@@ -1590,9 +1803,19 @@ section[data-no-angle="true"]::after {
     <source src="heromobile.mp4" type="video/mp4" media="(max-width: 768px)">
   </video>
 
+  <!-- Floating particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
   <!-- HERO TEXT -->
   <div id="hero-text" style="position:relative; z-index:2;">
-    
+
       <a href="#about" class="hero-scroll">Scroll</a>
   </div>
 
@@ -2146,12 +2369,16 @@ if (menuBtn && overlay) {
 
 
 // =========================
-// INTERSECTION SCROLL REVEAL
+// INTERSECTION SCROLL REVEAL WITH STAGGER
 // =========================
 const observer = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add("visible");
+        }, index * 100);
+      }
     });
   },
   { threshold: 0.18 }
@@ -2160,6 +2387,82 @@ const observer = new IntersectionObserver(
 document
   .querySelectorAll(".reveal, .reveal-left, .reveal-right")
   .forEach((el) => observer.observe(el));
+
+// =========================
+// PARALLAX SCROLLING EFFECT
+// =========================
+window.addEventListener("scroll", () => {
+  const scrolled = window.pageYOffset;
+
+  // Parallax for blobs only (removed section headers to fix bugging)
+  document.querySelectorAll(".blob").forEach((blob, index) => {
+    const speed = 0.05 + (index * 0.02);
+    const blobTransform = blob.style.transform || '';
+    // Preserve any existing transforms from morphBlob animation
+    if (!blobTransform.includes('translate(')) {
+      blob.style.transform = `translateY(${scrolled * speed}px)`;
+    }
+  });
+});
+
+// =========================
+// MINIMALIST DARK NAVY SPARKLE CURSOR TRAIL (Desktop only)
+// =========================
+if (window.innerWidth > 768) {
+  const sparkles = [];
+
+  // Create sparkle on mouse move
+  window.addEventListener("mousemove", (e) => {
+    // Only create sparkle occasionally (every 50ms-ish based on random)
+    if (Math.random() > 0.85) {
+      const sparkle = document.createElement("div");
+      sparkle.style.position = "fixed";
+      sparkle.style.left = e.clientX + (Math.random() - 0.5) * 10 + "px";
+      sparkle.style.top = e.clientY + (Math.random() - 0.5) * 10 + "px";
+      sparkle.style.width = "3px";
+      sparkle.style.height = "3px";
+      sparkle.style.borderRadius = "50%";
+      sparkle.style.background = "#171b2c";
+      sparkle.style.boxShadow = "0 0 6px #1c223c, 0 0 3px #050713";
+      sparkle.style.pointerEvents = "none";
+      sparkle.style.zIndex = "9999";
+      sparkle.style.opacity = "0.8";
+      sparkle.style.animation = "sparkleDisappear 0.8s ease-out forwards";
+
+      document.body.appendChild(sparkle);
+      sparkles.push(sparkle);
+
+      // Remove sparkle after animation
+      setTimeout(() => {
+        sparkle.remove();
+        sparkles.shift();
+      }, 800);
+    }
+  });
+
+  // Add sparkle animation if not already defined
+  if (!document.querySelector('#sparkle-animation-style')) {
+    const style = document.createElement('style');
+    style.id = 'sparkle-animation-style';
+    style.textContent = `
+      @keyframes sparkleDisappear {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.2) rotate(180deg);
+          opacity: 0.6;
+        }
+        100% {
+          transform: scale(0) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+}
 
 
 

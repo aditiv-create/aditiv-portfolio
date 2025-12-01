@@ -2183,21 +2183,28 @@ document.querySelectorAll(".timeline-item").forEach((item) => {
 
 
 // =========================
-// PROJECT + ARTICLE CARDS (clean, no scroll blocking)
+// PROJECT + ARTICLE CARDS (full-card click, normal redirects)
 // =========================
 
 document
   .querySelectorAll(".project-card, .article-card-clean")
   .forEach((card) => {
-    const link = card.querySelector("a");
+    const link = card.querySelector("a[href]");
     if (!link) return;
 
+    // Make the whole card feel clickable
     card.style.cursor = "pointer";
 
-    card.addEventListener("click", () => {
-      window.open(link.href, "_blank");
+    card.addEventListener("click", (e) => {
+      // If user actually clicked an <a>, let the browser handle it normally
+      const clickedLink = e.target.closest("a[href]");
+      if (clickedLink) return;
+
+      // Otherwise, simulate a click on the card's main link
+      link.click();
     });
   });
+
 
 
 

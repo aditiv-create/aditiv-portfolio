@@ -779,114 +779,109 @@
       margin-bottom: 10px;
     }
 
-    .timeline {
-      position: relative;
-      margin-top: 12px;
-      padding-left: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      font-size: 13px;
+    /* Timeline container for full-width alternating layout */
+    .timeline-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 20px;
     }
 
-    /* glowing “constellation” spine */
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 12px;
-      top: 6px;
-      bottom: 6px;
-      width: 2px;
-      background: linear-gradient(
-        to bottom,
-        rgba(243, 230, 221, 0.9),
-        rgba(205, 184, 170, 0.5),
-        rgba(126, 110, 99, 0.2)
-      );
-      box-shadow: 0 0 16px rgba(240, 220, 200, 0.8);
-      opacity: 0.9;
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      font-size: 13px;
     }
 
     .timeline-item {
       position: relative;
-      border-radius: 16px;
-      padding: 10px 14px 12px 24px;
-      border: 1px solid rgba(162, 145, 133, 0.8);
-      background: radial-gradient(circle at top left, #111624, #070b15);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-      cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      transition: background 220ms ease-out, box-shadow 220ms ease-out,
-        border-color 200ms ease-out, transform 160ms ease-out;
+      gap: 12px;
+      width: calc(60% - 30px);
     }
 
-    .timeline-item:hover {
-      border-color: rgba(219, 197, 182, 0.95);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.8);
-      transform: translateY(-1px);
+    /* Alternating left/right positioning */
+    .timeline-item:nth-child(odd) {
+      margin-left: 0;
+      margin-right: auto;
     }
 
-    .timeline-item.open {
-      background: radial-gradient(circle at top left, #171f33, #050713);
-      border-color: rgba(230, 207, 191, 0.98);
+    .timeline-item:nth-child(even) {
+      margin-left: auto;
+      margin-right: 0;
     }
 
-    /* star node */
+    /* Constellation sparkles - positioned to left of each item */
+    .timeline-item::before {
+      content: "✦";
+      position: absolute;
+      font-size: 18px;
+      color: rgba(217, 200, 192, 0.8);
+      filter: drop-shadow(0 0 6px rgba(217, 200, 192, 0.7));
+      animation: subtleSparkle 3s ease-in-out infinite;
+      pointer-events: none;
+      top: 8px;
+    }
+
+    .timeline-item:nth-child(odd)::before {
+      left: -40px;
+    }
+
+    .timeline-item:nth-child(even)::before {
+      right: -40px;
+    }
+
+    @keyframes subtleSparkle {
+      0%, 100% {
+        opacity: 0.7;
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(45deg);
+      }
+    }
+
+    /* Hide timeline node (using sparkles instead) */
     .timeline-node {
-  position: absolute;
-  left: 4px;
-  top: 14px;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle, #fff7ee 0%, #f8e7d6 60%, #e4c9b8 100%);
-  clip-path: polygon(
-    50% 0%,   /* top */
-    60% 40%,
-    100% 50%, /* right */
-    60% 60%,
-    50% 100%, /* bottom */
-    40% 60%,
-    0% 50%,   /* left */
-    40% 40%
-  );
-  filter: drop-shadow(0 0 6px rgba(255, 240, 220, 0.95))
-          drop-shadow(0 0 12px rgba(240, 212, 190, 0.7));
-}
-@keyframes twinkle {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  50% { transform: scale(1.12) rotate(15deg); }
-}
-
-.timeline-node {
-  animation: twinkle 2.2s infinite ease-in-out;
-}
+      display: none;
+    }
 
 
+    /* Timeline header - title outside the box */
     .timeline-header-row {
       display: flex;
       justify-content: space-between;
       gap: 10px;
       align-items: baseline;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+
+    .timeline-header-row:hover .timeline-role {
+      color: rgba(217, 200, 192, 0.9);
     }
 
     .timeline-title-wrap {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
 
     .timeline-role {
       font-weight: 600;
+      font-size: 15px;
       color: #f0e4d7;
+      transition: color 0.2s ease;
     }
 
     .timeline-summary {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: rgba(234, 211, 191, 0.9);
+      color: rgba(234, 211, 191, 0.7);
     }
 
     .timeline-date {
@@ -897,46 +892,58 @@
       white-space: nowrap;
     }
 
-    /* caret */
-.timeline-item::after {
-  content: "⌄"; /* downward caret */
-  position: absolute;
-  right: 14px;
-  bottom: 10px;
-  font-size: 12px;
-  opacity: 0.8;
-  transform: rotate(0deg);
-}
+    /* caret indicator next to title */
+    .timeline-header-row::after {
+      content: "⌄";
+      font-size: 14px;
+      color: rgba(217, 200, 192, 0.6);
+      opacity: 0.8;
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+      margin-left: 8px;
+    }
 
-.timeline-item.open::after {
-  transform: rotate(180deg); /* flip up */
-}
+    .timeline-item.open .timeline-header-row::after {
+      transform: rotate(180deg);
+    }
 
 
+    /* Details box with grid background */
     .timeline-details {
-      margin-top: 6px;
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 260ms ease-out, opacity 220ms ease-out;
+      border-radius: 12px;
+      background:
+        linear-gradient(rgba(17, 22, 36, 0.95), rgba(7, 11, 21, 0.95)),
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(217, 200, 192, 0.03) 19px, rgba(217, 200, 192, 0.03) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(217, 200, 192, 0.03) 19px, rgba(217, 200, 192, 0.03) 20px);
+      background-size: 100% 100%, 20px 20px, 20px 20px;
+      border: 1px solid rgba(162, 145, 133, 0.6);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      transition: max-height 300ms ease-out, opacity 250ms ease-out, border-color 200ms ease;
     }
 
     .timeline-item.open .timeline-details {
-      max-height: 260px; /* big enough to show the text */
+      max-height: 400px;
       opacity: 1;
+      border-color: rgba(217, 200, 192, 0.4);
     }
 
     .timeline-meta {
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: #b3a59b;
-      margin-bottom: 4px;
+      color: rgba(234, 211, 191, 0.9);
+      margin-bottom: 8px;
+      padding: 16px 20px 0;
     }
 
     .timeline-bullets {
+      font-size: 13px;
       color: #d3c8bf;
       line-height: 1.6;
+      padding: 0 20px 16px;
     }
 
     @media (max-width: 700px) {
@@ -963,20 +970,79 @@
       }
     }
 
+    /* Skills section styling */
+    .skills-section {
+      padding-bottom: 80px;
+    }
+
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      margin-top: 10px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px 20px;
+      justify-items: center;
     }
 
     .skill-block {
       background: #050814;
       border-radius: var(--radius-md);
-      padding: 14px 16px;
+      padding: 24px 18px;
       border: 1px solid rgba(145, 131, 122, 0.9);
       font-size: 13px;
       color: #d9cfc6;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      width: 100%;
+      max-width: 220px;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .skill-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(217, 200, 192, 0.2);
+      border-color: rgba(217, 200, 192, 0.6);
+    }
+
+    /* Create flowing offset pattern - subtle vertical spacing only */
+    .skill-block:nth-child(2) {
+      margin-top: 15px;
+    }
+
+    .skill-block:nth-child(3) {
+      margin-top: 30px;
+    }
+
+    .skill-block:nth-child(5) {
+      margin-top: 15px;
+    }
+
+    /* Responsive adjustments for skills grid */
+    @media (max-width: 900px) {
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .skill-block {
+        transform: none !important;
+        margin-top: 0 !important;
+        max-width: 100%;
+      }
+
+      .skill-block:hover {
+        transform: translateY(-4px) !important;
+      }
     }
 
     .skill-block h4 {
@@ -988,17 +1054,21 @@
     }
 
     .resume-block {
-      margin-top: 18px;
-      padding: 12px 14px;
+      margin-top: 40px;
+      padding: 20px 24px;
       border-radius: var(--radius-md);
       border: 1px dashed rgba(220, 199, 185, 0.95);
-      font-size: 13px;
+      font-size: 14px;
       color: #d3c8bf;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 16px;
       justify-content: space-between;
       align-items: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(5, 8, 20, 0.3);
     }
 
     .resume-link {
@@ -1006,6 +1076,33 @@
       text-transform: uppercase;
       letter-spacing: 0.2em;
       color: var(--accent-soft);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1px solid rgba(217, 200, 192, 0.4);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .resume-link:hover {
+      background: rgba(217, 200, 192, 0.1);
+      border-color: rgba(217, 200, 192, 0.7);
+    }
+
+    /* Mobile responsive for timeline */
+    @media (max-width: 768px) {
+      .timeline-item {
+        width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+      }
+
+      .timeline-item::before {
+        display: none;
+      }
+
+      .timeline {
+        gap: 40px;
+      }
     }
 
 /* ============================================================
@@ -1891,15 +1988,15 @@ section[data-no-angle="true"]::after {
         </div>
       </section>
 
-      <!-- EXPERIENCE -->
+      <!-- EXPERIENCE TIMELINE -->
       <section
         id="experience"
-        class="section section-dark angled-top angled-bottom experience-section"
+        class="section section-dark angled-top experience-section"
       >
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Experience</div>
-            <div class="section-title sans">Where I’ve been learning by doing</div>
+            <div class="section-title sans">Where I've been learning by doing</div>
           </div>
           <div class="section-note">
             A mix of internships across digital marketing, brand strategy, and
@@ -1907,18 +2004,8 @@ section[data-no-angle="true"]::after {
           </div>
         </div>
 
-        <div class="experience-layout">
-          <div class="experience-title-vertical reveal-left">
-            <span>Experience</span>
-          </div>
-
-          <div class="two-col">
-            <article class="card reveal">
-              <div class="card-tag">Timeline</div>
-              <h3>Selected roles.</h3>
-
-
-              <div class="timeline">
+        <div class="timeline-container">
+          <div class="timeline">
                 <!-- FYRII -->
                 <div class="timeline-item open">
                   <div class="timeline-node"></div>
@@ -2020,13 +2107,23 @@ section[data-no-angle="true"]::after {
                   </div>
                 </div>
               </div>
-            </article>
+            </div>
+          </div>
+        </section>
 
-            <aside class="card reveal">
-              <div class="card-tag">Skills & tools</div>
-              <h3>How I like to work.</h3>
+      <!-- SKILLS SECTION -->
+      <section
+        id="skills"
+        class="section section-dark angled-bottom skills-section"
+      >
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Skills & tools</div>
+            <div class="section-title sans">How I like to work</div>
+          </div>
+        </div>
 
-              <div class="skills-grid">
+        <div class="skills-grid">
                 <div class="skill-block">
                   <h4>Strategy & Analytics</h4>
                   Segmentation & Targeting · Customer Preference Modeling · Conjoint Analysis
@@ -2044,27 +2141,26 @@ section[data-no-angle="true"]::after {
                   · Email Marketing · A/B Testing.
                 </div>
                 <div class="skill-block">
-                  <h4>Creative & Technical</h4>
-                  Adobe Creative Suite · React · VS Code · Markdown · HTML/CSS
-                  · Data Visualization · Slide Decks · Storytelling.
+                  <h4>Creative Suite</h4>
+                  Adobe Creative Suite · Data Visualization · Slide Decks · Storytelling.
                 </div>
-              </div>
+                <div class="skill-block">
+                  <h4>Technical</h4>
+                  React · VS Code · Markdown · HTML/CSS · Git · Responsive Design.
+                </div>
+        </div>
 
-              <div class="resume-block">
-                <div>
-                  Want the full picture? My resume includes timelines, metrics,
-                  and certifications.
-                </div>
-                <!-- TODO: replace with your actual PDF -->
-                <a
-                  href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-                  class="resume-link"
-                  download
-                  >Download resume →</a
-                >
-              </div>
-            </aside>
+        <div class="resume-block reveal">
+          <div>
+            Want the full picture? My resume includes timelines, metrics,
+            and certifications.
           </div>
+          <a
+            href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
+            class="resume-link"
+            download
+            >Download resume →</a
+          >
         </div>
       </section>
 

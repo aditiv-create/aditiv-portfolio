@@ -2045,14 +2045,19 @@ section[data-no-angle="true"]::after {
   </div>
 
   <script>
-    // --- FORCE HARD RESET ON PAGE LOAD ---
+// =========================
+// WRAP EVERYTHING IN DOMCONTENTLOADED
+// =========================
 window.addEventListener("DOMContentLoaded", () => {
+
+// --- FORCE HARD RESET ON PAGE LOAD ---
   const overlay = document.getElementById("bubble-overlay");
   const menuBtn = document.querySelector(".menu-btn");
 
   // Ensure overlay is hidden and unclickable
   if (overlay) {
     overlay.classList.remove("visible");
+    overlay.style.display = "none"; // CRITICAL: Hide overlay on load
     overlay.style.pointerEvents = "none";
     overlay.setAttribute("aria-hidden", "true");
   }
@@ -2068,15 +2073,9 @@ window.addEventListener("DOMContentLoaded", () => {
     p.style.pointerEvents = "none";
   });
 
-  // Internal JS state also forced to false
-  bubbleMenuOpen = false;
-});
-
 // =========================
 // BUBBLE MENU INTERACTIONS
 // =========================
-const menuBtn = document.querySelector(".menu-btn");
-const overlay = document.getElementById("bubble-overlay");
 const pillLinks = document.querySelectorAll(".pill-link");
 
 let bubbleMenuOpen = false;
@@ -2172,42 +2171,53 @@ window.addEventListener("scroll", () => {
 
 
 // =========================
-// CONSTELLATION TIMELINE (clean version)
+// UNIFIED CLICK HANDLER FOR ALL INTERACTIVE CARDS
 // =========================
 
-document.querySelectorAll(".timeline-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    document.querySelectorAll(".timeline-item").forEach((other) => {
-      if (other !== item) other.classList.remove("open");
-    });
-    item.classList.toggle("open");
-  });
+// Make all cards feel clickable
+document.querySelectorAll(".project-card, .article-card-clean").forEach((card) => {
+  card.style.cursor = "pointer";
 });
 
+// Single event delegation handler for all card interactions
+document.body.addEventListener("click", (e) => {
+  // TIMELINE ITEMS
+  const timelineItem = e.target.closest(".timeline-item");
+  if (timelineItem) {
+    // Close all other timeline items
+    document.querySelectorAll(".timeline-item").forEach((item) => {
+      if (item !== timelineItem) {
+        item.classList.remove("open");
+      }
+    });
+    // Toggle the clicked item
+    timelineItem.classList.toggle("open");
+    return; // Exit after handling
+  }
 
+  // PROJECT & ARTICLE CARDS
+  const card = e.target.closest(".project-card, .article-card-clean");
+  if (card) {
+    // If user clicked directly on a link, let browser handle it
+    const clickedLink = e.target.closest("a[href]");
+    if (clickedLink) return;
 
-// =========================
-// PROJECT + ARTICLE CARDS (full-card click, normal redirects)
-// =========================
-
-document
-  .querySelectorAll(".project-card, .article-card-clean")
-  .forEach((card) => {
+    // Find the card's main link
     const link = card.querySelector("a[href]");
     if (!link) return;
 
-    // Make the whole card feel clickable
-    card.style.cursor = "pointer";
+    // Navigate to the link properly (respects target="_blank")
+    const href = link.getAttribute("href");
+    const target = link.getAttribute("target");
 
-    card.addEventListener("click", (e) => {
-      // If user actually clicked an <a>, let the browser handle it normally
-      const clickedLink = e.target.closest("a[href]");
-      if (clickedLink) return;
-
-      // Otherwise, simulate a click on the card's main link
-      link.click();
-    });
-  });
+    if (target === "_blank") {
+      window.open(href, "_blank");
+    } else {
+      window.location.href = href;
+    }
+    return; // Exit after handling
+  }
+}, false);
 
 
 
@@ -2238,11 +2248,20 @@ document.querySelectorAll('.pill-link[href^="#"]').forEach((a) => {
 
 document.addEventListener(
   "mousedown",
-  () => {
-    if (document.activeElement) document.activeElement.blur();
+  (e) => {
+    // Only blur if clicking on non-interactive elements (including cards)
+    const clickedInteractive = e.target.closest(
+      "a, button, input, textarea, select, [role='menuitem'], .timeline-item, .project-card, .article-card-clean"
+    );
+    if (!clickedInteractive && document.activeElement) {
+      document.activeElement.blur();
+    }
   },
-  true
+  false // Changed from true to false - bubble phase instead of capture
 );
+
+// Close DOMContentLoaded wrapper
+});
 
   </script>
 </body>

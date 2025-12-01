@@ -1564,7 +1564,13 @@ section[data-no-angle="true"]::after {
   data-no-angle="true">
 
   <!-- Background Video -->
-  <video autoplay muted loop playsinline id="hero-video"
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto"
+    id="hero-video"
     style="
       position:absolute;
       top:0;
@@ -2158,15 +2164,54 @@ document
 
 
 // =========================
-// HERO VIDEO FADE ON SCROLL
+// HERO VIDEO - AUTOPLAY FIX & FADE ON SCROLL
 // =========================
 const heroVideo = document.getElementById("hero-video");
 
-window.addEventListener("scroll", () => {
-  const fadeEnd = 420;
-  let opacity = 1 - window.scrollY / fadeEnd;
-  heroVideo.style.opacity = Math.max(0, Math.min(1, opacity));
-});
+// Force video to play on mobile (fixes autoplay issues)
+if (heroVideo) {
+  // Function to attempt playing the video
+  const attemptPlay = () => {
+    const playPromise = heroVideo.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log("Video playing successfully");
+        })
+        .catch(error => {
+          console.log("Autoplay prevented, will retry on interaction");
+
+          // Retry on any user interaction
+          const playOnInteraction = () => {
+            heroVideo.play().catch(e => console.log("Play retry failed:", e));
+          };
+
+          document.addEventListener("touchstart", playOnInteraction, { once: true });
+          document.addEventListener("click", playOnInteraction, { once: true });
+          document.addEventListener("scroll", playOnInteraction, { once: true });
+        });
+    }
+  };
+
+  // Try to play when video can play through
+  heroVideo.addEventListener("canplaythrough", attemptPlay, { once: true });
+
+  // Also try immediately in case video is already loaded
+  if (heroVideo.readyState >= 3) {
+    attemptPlay();
+  }
+
+  // Load the video
+  heroVideo.load();
+
+  // Fade on scroll
+  window.addEventListener("scroll", () => {
+    const fadeEnd = 420;
+    let opacity = 1 - window.scrollY / fadeEnd;
+    heroVideo.style.opacity = Math.max(0, Math.min(1, opacity));
+  });
+}
 
 
 

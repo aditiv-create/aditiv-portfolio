@@ -347,6 +347,8 @@
             color: #666;
             text-transform: uppercase;
             position: relative;
+            -webkit-tap-highlight-color: rgba(255, 179, 186, 0.2);
+            touch-action: manipulation;
         }
         
         .tab-button::after {
@@ -568,16 +570,112 @@
         }
         
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .header {
+                padding: 2rem 1rem 1.5rem;
             }
-            
+
+            .header h1 {
+                font-size: 1.8rem;
+                letter-spacing: 0.05em;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+            }
+
+            .team-credits {
+                font-size: 0.75rem;
+                margin-top: 1rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .graph-paper-card {
+                padding: 1.5rem;
+                margin: 1.5rem 0;
+            }
+
+            .typewriter-heading {
+                font-size: 1.2rem;
+                white-space: normal;
+                animation: none;
+                border-right: none;
+            }
+
             .stat-grid {
                 grid-template-columns: 1fr;
+                gap: 1rem;
             }
-            
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .stat-box {
+                padding: 1.25rem;
+            }
+
             .swot-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .swot-card {
+                padding: 1.5rem;
+            }
+
+            .swot-title {
+                font-size: 1.1rem;
+            }
+
+            .recommendation-box {
+                padding: 1.5rem;
+                margin: 2rem 0;
+            }
+
+            .handwritten-note,
+            .pencil-note {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .tabs {
+                gap: 0.3rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+            }
+
+            .tab-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .two-column-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            li {
+                font-size: 0.95rem;
+                margin: 0.75rem 0;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .section-divider {
+                margin: 2rem 0;
+            }
+
+            h3 {
+                font-size: 1rem !important;
             }
         }
     </style>

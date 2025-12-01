@@ -50,7 +50,7 @@
         #000 100%
       );
       color: var(--ink-light);
-      scroll-behavior: auto;
+      scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -2045,6 +2045,33 @@ section[data-no-angle="true"]::after {
   </div>
 
   <script>
+    // --- FORCE HARD RESET ON PAGE LOAD ---
+window.addEventListener("DOMContentLoaded", () => {
+  const overlay = document.getElementById("bubble-overlay");
+  const menuBtn = document.querySelector(".menu-btn");
+
+  // Ensure overlay is hidden and unclickable
+  if (overlay) {
+    overlay.classList.remove("visible");
+    overlay.style.pointerEvents = "none";
+    overlay.setAttribute("aria-hidden", "true");
+  }
+
+  // Ensure menu button is not marked "open"
+  if (menuBtn) {
+    menuBtn.classList.remove("open");
+    menuBtn.setAttribute("aria-pressed", "false");
+  }
+
+  // Disable ALL pill clicks until menu actually opens
+  document.querySelectorAll(".pill-link").forEach(p => {
+    p.style.pointerEvents = "none";
+  });
+
+  // Internal JS state also forced to false
+  bubbleMenuOpen = false;
+});
+
 // =========================
 // BUBBLE MENU INTERACTIONS
 // =========================
@@ -2056,6 +2083,7 @@ let bubbleMenuOpen = false;
 
 function setBubbleMenu(open) {
   bubbleMenuOpen = open;
+
   if (!menuBtn || !overlay) return;
 
   if (open) {
@@ -2063,13 +2091,28 @@ function setBubbleMenu(open) {
     menuBtn.setAttribute("aria-pressed", "true");
     overlay.classList.add("visible");
     overlay.setAttribute("aria-hidden", "false");
+
+    // enable click interactions
+    overlay.style.pointerEvents = "auto";
+    document.querySelectorAll(".pill-link").forEach(p => {
+      p.style.pointerEvents = "auto";
+    });
+
   } else {
     menuBtn.classList.remove("open");
     menuBtn.setAttribute("aria-pressed", "false");
     overlay.classList.remove("visible");
     overlay.setAttribute("aria-hidden", "true");
+
+    // disable click interactions completely
+    overlay.style.pointerEvents = "none";
+    document.querySelectorAll(".pill-link").forEach(p => {
+      p.style.pointerEvents = "none";
+    });
   }
 }
+
+
 
 // Toggle menu
 if (menuBtn && overlay) {
@@ -2125,19 +2168,14 @@ window.addEventListener("scroll", () => {
 
 
 // =========================
-// CONSTELLATION TIMELINE
+// CONSTELLATION TIMELINE (clean version)
 // =========================
 
-// — prevents jumping + cleans expansion logic
 document.querySelectorAll(".timeline-item").forEach((item) => {
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  item.addEventListener("click", () => {
     document.querySelectorAll(".timeline-item").forEach((other) => {
       if (other !== item) other.classList.remove("open");
     });
-
     item.classList.toggle("open");
   });
 });
@@ -2145,10 +2183,9 @@ document.querySelectorAll(".timeline-item").forEach((item) => {
 
 
 // =========================
-// PROJECT + ARTICLE CARDS
+// PROJECT + ARTICLE CARDS (clean, no scroll blocking)
 // =========================
 
-// Makes whole card clickable WITHOUT triggering scrolling
 document
   .querySelectorAll(".project-card, .article-card-clean")
   .forEach((card) => {
@@ -2157,9 +2194,7 @@ document
 
     card.style.cursor = "pointer";
 
-    card.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    card.addEventListener("click", () => {
       window.open(link.href, "_blank");
     });
   });
@@ -2167,8 +2202,9 @@ document
 
 
 // =========================
-// SMOOTH SCROLL ONLY FOR MENU LINKS
+// SMOOTH SCROLL — ONLY BUBBLE MENU LINKS
 // =========================
+
 document.querySelectorAll('.pill-link[href^="#"]').forEach((a) => {
   a.addEventListener("click", (e) => {
     const href = a.getAttribute("href");
@@ -2178,7 +2214,6 @@ document.querySelectorAll('.pill-link[href^="#"]').forEach((a) => {
     if (!target) return;
 
     e.preventDefault();
-    e.stopPropagation();
     setBubbleMenu(false);
     target.scrollIntoView({ behavior: "smooth" });
   });
@@ -2187,8 +2222,9 @@ document.querySelectorAll('.pill-link[href^="#"]').forEach((a) => {
 
 
 // =========================
-// PREVENT AUTO-SCROLL-TO-FOCUS BUG
+// FIX AUTO-FOCUS SCROLL BUG
 // =========================
+
 document.addEventListener(
   "mousedown",
   () => {
@@ -2196,6 +2232,7 @@ document.addEventListener(
   },
   true
 );
+
   </script>
 </body>
 </html>

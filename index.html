@@ -2089,10 +2089,11 @@ function setBubbleMenu(open) {
   if (open) {
     menuBtn.classList.add("open");
     menuBtn.setAttribute("aria-pressed", "true");
+
+    overlay.style.display = "flex";     // <-- Enable overlay
     overlay.classList.add("visible");
     overlay.setAttribute("aria-hidden", "false");
 
-    // enable click interactions
     overlay.style.pointerEvents = "auto";
     document.querySelectorAll(".pill-link").forEach(p => {
       p.style.pointerEvents = "auto";
@@ -2101,14 +2102,17 @@ function setBubbleMenu(open) {
   } else {
     menuBtn.classList.remove("open");
     menuBtn.setAttribute("aria-pressed", "false");
+
     overlay.classList.remove("visible");
     overlay.setAttribute("aria-hidden", "true");
 
-    // disable click interactions completely
     overlay.style.pointerEvents = "none";
+
     document.querySelectorAll(".pill-link").forEach(p => {
       p.style.pointerEvents = "none";
     });
+
+    overlay.style.display = "none";    // <-- REMOVE overlay entirely when closed
   }
 }
 

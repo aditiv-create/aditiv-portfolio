@@ -2045,19 +2045,17 @@ section[data-no-angle="true"]::after {
   </div>
 
   <script>
-    // =========================
-// Bubble menu interactions
+// =========================
+// BUBBLE MENU INTERACTIONS
 // =========================
 const menuBtn = document.querySelector(".menu-btn");
 const overlay = document.getElementById("bubble-overlay");
 const pillLinks = document.querySelectorAll(".pill-link");
-const heroText = document.getElementById("hero-text");
 
 let bubbleMenuOpen = false;
 
 function setBubbleMenu(open) {
   bubbleMenuOpen = open;
-
   if (!menuBtn || !overlay) return;
 
   if (open) {
@@ -2073,80 +2071,131 @@ function setBubbleMenu(open) {
   }
 }
 
+// Toggle menu
 if (menuBtn && overlay) {
-  menuBtn.addEventListener("click", () => {
-    setBubbleMenu(!bubbleMenuOpen);
-  });
+  menuBtn.addEventListener("click", () => setBubbleMenu(!bubbleMenuOpen));
 
-  // click outside pills to close
+  // Close on background click
   overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) {
-      setBubbleMenu(false);
-    }
+    if (e.target === overlay) setBubbleMenu(false);
   });
 
-  // close when clicking a link
-  pillLinks.forEach((link) => {
-    link.addEventListener("click", () => setBubbleMenu(false));
-  });
+  // Close on menu item click
+  pillLinks.forEach((link) =>
+    link.addEventListener("click", () => setBubbleMenu(false))
+  );
 
-  // Esc to close
+  // ESC closes menu
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && bubbleMenuOpen) {
-      setBubbleMenu(false);
-    }
+    if (e.key === "Escape" && bubbleMenuOpen) setBubbleMenu(false);
   });
 }
 
-    // intersection observer for scroll reveal
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
 
-    document
-      .querySelectorAll(".reveal, .reveal-left, .reveal-right")
-      .forEach((el) => observer.observe(el));
 
-// hero VIDEO fade-out on scroll
+// =========================
+// INTERSECTION SCROLL REVEAL
+// =========================
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("visible");
+    });
+  },
+  { threshold: 0.18 }
+);
+
+document
+  .querySelectorAll(".reveal, .reveal-left, .reveal-right")
+  .forEach((el) => observer.observe(el));
+
+
+
+// =========================
+// HERO VIDEO FADE ON SCROLL
+// =========================
 const heroVideo = document.getElementById("hero-video");
 
 window.addEventListener("scroll", () => {
-  const fadeEnd = 420; // same as text fade
+  const fadeEnd = 420;
   let opacity = 1 - window.scrollY / fadeEnd;
-
-  if (opacity < 0) opacity = 0;
-  if (opacity > 1) opacity = 1;
-
-  heroVideo.style.opacity = opacity;
+  heroVideo.style.opacity = Math.max(0, Math.min(1, opacity));
 });
-    // constellation timeline accordion
+
+
+
+// =========================
+// CONSTELLATION TIMELINE
+// =========================
+
+// — prevents jumping + cleans expansion logic
 document.querySelectorAll(".timeline-item").forEach((item) => {
-  item.addEventListener("click", () => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     document.querySelectorAll(".timeline-item").forEach((other) => {
       if (other !== item) other.classList.remove("open");
     });
+
     item.classList.toggle("open");
   });
 });
 
 
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener("click", e => {
-    const target = document.querySelector(a.getAttribute("href"));
-    if (target) {
+
+// =========================
+// PROJECT + ARTICLE CARDS
+// =========================
+
+// Makes whole card clickable WITHOUT triggering scrolling
+document
+  .querySelectorAll(".project-card, .article-card-clean")
+  .forEach((card) => {
+    const link = card.querySelector("a");
+    if (!link) return;
+
+    card.style.cursor = "pointer";
+
+    card.addEventListener("click", (e) => {
       e.preventDefault();
-      target.scrollIntoView({ behavior: "smooth" });
-    }
+      e.stopPropagation();
+      window.open(link.href, "_blank");
+    });
+  });
+
+
+
+// =========================
+// SMOOTH SCROLL ONLY FOR MENU LINKS
+// =========================
+document.querySelectorAll('.pill-link[href^="#"]').forEach((a) => {
+  a.addEventListener("click", (e) => {
+    const href = a.getAttribute("href");
+    if (!href || href === "#") return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    setBubbleMenu(false);
+    target.scrollIntoView({ behavior: "smooth" });
   });
 });
 
+
+
+// =========================
+// PREVENT AUTO-SCROLL-TO-FOCUS BUG
+// =========================
+document.addEventListener(
+  "mousedown",
+  () => {
+    if (document.activeElement) document.activeElement.blur();
+  },
+  true
+);
   </script>
 </body>
 </html>

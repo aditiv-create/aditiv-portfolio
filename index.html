@@ -784,6 +784,32 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 20px 20px;
+      position: relative;
+    }
+
+    /* Glowing constellation line connecting sparkles */
+    .timeline-container::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(217, 200, 192, 0.15) 10%,
+        rgba(217, 200, 192, 0.25) 50%,
+        rgba(217, 200, 192, 0.15) 90%,
+        transparent 100%
+      );
+      box-shadow:
+        0 0 8px rgba(217, 200, 192, 0.3),
+        0 0 16px rgba(217, 200, 192, 0.15);
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.6;
     }
 
     .timeline {
@@ -791,7 +817,8 @@
       display: flex;
       flex-direction: column;
       gap: 40px;
-      font-size: 13px;
+      font-size: 14px;
+      z-index: 1;
     }
 
     .timeline-item {
@@ -813,34 +840,169 @@
       margin-right: 0;
     }
 
-    /* Constellation sparkles - positioned to left of each item */
+    /* Glowing connecting lines from center to each sparkle */
+    .timeline-item:nth-child(odd)::after {
+      content: "";
+      position: absolute;
+      right: 100%;
+      top: 12px;
+      width: calc(50vw - 50% - 45px);
+      height: 1px;
+      background: linear-gradient(
+        to left,
+        rgba(217, 200, 192, 0.3),
+        rgba(217, 200, 192, 0.1) 60%,
+        transparent
+      );
+      box-shadow: 0 0 4px rgba(217, 200, 192, 0.2);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .timeline-item:nth-child(even)::after {
+      content: "";
+      position: absolute;
+      left: 100%;
+      top: 12px;
+      width: calc(50vw - 50% - 45px);
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        rgba(217, 200, 192, 0.3),
+        rgba(217, 200, 192, 0.1) 60%,
+        transparent
+      );
+      box-shadow: 0 0 4px rgba(217, 200, 192, 0.2);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Main constellation sparkle - positioned beside each item */
     .timeline-item::before {
       content: "✦";
       position: absolute;
-      font-size: 18px;
-      color: rgba(217, 200, 192, 0.8);
-      filter: drop-shadow(0 0 6px rgba(217, 200, 192, 0.7));
-      animation: subtleSparkle 3s ease-in-out infinite;
+      font-size: 22px;
+      color: rgba(217, 200, 192, 0.9);
+      animation: subtleSparkle 4s ease-in-out infinite;
       pointer-events: none;
       top: 8px;
+      z-index: 2;
     }
 
     .timeline-item:nth-child(odd)::before {
-      left: -40px;
+      left: -45px;
     }
 
     .timeline-item:nth-child(even)::before {
-      right: -40px;
+      right: -45px;
     }
 
     @keyframes subtleSparkle {
-      0%, 100% {
-        opacity: 0.7;
-        transform: scale(1) rotate(0deg);
+      0% {
+        opacity: 0.3;
+        transform: scale(0.8) rotate(0deg);
+        filter: drop-shadow(0 0 2px rgba(217, 200, 192, 0.3));
+      }
+      25% {
+        opacity: 0.9;
+        transform: scale(1.4) rotate(90deg);
+        filter: drop-shadow(0 0 8px rgba(217, 200, 192, 0.9)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
       }
       50% {
         opacity: 1;
-        transform: scale(1.2) rotate(45deg);
+        transform: scale(1.6) rotate(180deg);
+        filter: drop-shadow(0 0 12px rgba(217, 200, 192, 1)) drop-shadow(0 0 16px rgba(255, 255, 255, 0.8));
+      }
+      75% {
+        opacity: 0.9;
+        transform: scale(1.4) rotate(270deg);
+        filter: drop-shadow(0 0 8px rgba(217, 200, 192, 0.9)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.6));
+      }
+      100% {
+        opacity: 0.3;
+        transform: scale(0.8) rotate(360deg);
+        filter: drop-shadow(0 0 2px rgba(217, 200, 192, 0.3));
+      }
+    }
+
+    /* Tiny orbiting sparkles (added via JS) */
+    .tiny-sparkle {
+      position: absolute;
+      font-size: 8px;
+      color: rgba(217, 200, 192, 0.7);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Orbit animations for tiny sparkles */
+    @keyframes orbitTiny1 {
+      0%, 100% {
+        transform: translate(-6px, -8px) scale(0.6) rotate(0deg);
+        opacity: 0.4;
+      }
+      25% {
+        transform: translate(-3px, -10px) scale(0.9) rotate(90deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(0px, -8px) scale(1.1) rotate(180deg);
+        opacity: 1;
+      }
+      75% {
+        transform: translate(-3px, -6px) scale(0.9) rotate(270deg);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes orbitTiny2 {
+      0%, 100% {
+        transform: translate(6px, 8px) scale(0.6) rotate(0deg);
+        opacity: 0.4;
+      }
+      25% {
+        transform: translate(8px, 6px) scale(0.9) rotate(90deg);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(10px, 8px) scale(1.1) rotate(180deg);
+        opacity: 1;
+      }
+      75% {
+        transform: translate(8px, 10px) scale(0.9) rotate(270deg);
+        opacity: 0.8;
+      }
+    }
+
+    /* Typewriter animation for PORTFOLIO background */
+    @keyframes portfolioTypewriter {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+      to {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    /* Typewriter effect for specific text elements */
+    .typewriter-text {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      opacity: 0;
+      max-width: 0;
+    }
+
+    .typewriter-text.typing {
+      animation: typewriterReveal 2.5s steps(80) 0.3s forwards;
+      opacity: 1;
+    }
+
+    @keyframes typewriterReveal {
+      from {
+        max-width: 0;
+      }
+      to {
+        max-width: 1000px; /* Large enough to accommodate full text */
       }
     }
 
@@ -872,7 +1034,7 @@
 
     .timeline-role {
       font-weight: 600;
-      font-size: 15px;
+      font-size: 16px;
       color: #f0e4d7;
       transition: color 0.2s ease;
     }
@@ -940,7 +1102,7 @@
     }
 
     .timeline-bullets {
-      font-size: 13px;
+      font-size: 14px;
       color: #d3c8bf;
       line-height: 1.6;
       padding: 0 20px 16px;
@@ -978,28 +1140,21 @@
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px 24px;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px 20px;
-      justify-items: center;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
     }
 
     .skill-block {
       background: #050814;
       border-radius: var(--radius-md);
-      padding: 24px 18px;
+      padding: 20px;
       border: 1px solid rgba(145, 131, 122, 0.9);
-      font-size: 13px;
+      font-size: 14px;
       color: #d9cfc6;
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      position: relative;
-      width: 100%;
-      max-width: 220px;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      line-height: 1.6;
     }
 
     .skill-block:hover {
@@ -1008,40 +1163,11 @@
       border-color: rgba(217, 200, 192, 0.6);
     }
 
-    /* Create flowing offset pattern - subtle vertical spacing only */
-    .skill-block:nth-child(2) {
-      margin-top: 15px;
-    }
-
-    .skill-block:nth-child(3) {
-      margin-top: 30px;
-    }
-
-    .skill-block:nth-child(5) {
-      margin-top: 15px;
-    }
-
     /* Responsive adjustments for skills grid */
     @media (max-width: 900px) {
       .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .skills-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .skill-block {
-        transform: none !important;
-        margin-top: 0 !important;
-        max-width: 100%;
-      }
-
-      .skill-block:hover {
-        transform: translateY(-4px) !important;
+        gap: 16px;
       }
     }
 
@@ -1053,39 +1179,28 @@
       margin-bottom: 6px;
     }
 
-    .resume-block {
-      margin-top: 40px;
-      padding: 20px 24px;
-      border-radius: var(--radius-md);
-      border: 1px dashed rgba(220, 199, 185, 0.95);
+    /* Simple resume text without box */
+    .resume-text {
+      text-align: center;
       font-size: 14px;
       color: #d3c8bf;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 900px;
-      margin-left: auto;
-      margin-right: auto;
-      background: rgba(5, 8, 20, 0.3);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+      line-height: 1.6;
     }
 
-    .resume-link {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
+    .resume-link-inline {
       color: var(--accent-soft);
       text-decoration: none;
-      padding: 8px 16px;
-      border: 1px solid rgba(217, 200, 192, 0.4);
-      border-radius: 8px;
+      border-bottom: 1px solid rgba(217, 200, 192, 0.4);
       transition: all 0.3s ease;
+      margin-left: 4px;
     }
 
-    .resume-link:hover {
-      background: rgba(217, 200, 192, 0.1);
-      border-color: rgba(217, 200, 192, 0.7);
+    .resume-link-inline:hover {
+      color: rgba(217, 200, 192, 0.9);
+      border-bottom-color: rgba(217, 200, 192, 0.8);
     }
 
     /* Mobile responsive for timeline */
@@ -1120,7 +1235,6 @@
   position: absolute;
   left: 50%;
   top: 30px;
-  transform: translateX(-50%);
   font-family: "Courier Prime", "Courier New", monospace;
   font-weight: 800;
   font-size: clamp(54px, 10vw, 110px);
@@ -1130,6 +1244,11 @@
   pointer-events: none;
   z-index: 0;
   white-space: nowrap;
+
+  /* Typewriter effect - use clip-path instead of width */
+  transform: translateX(-50%);
+  clip-path: inset(0 100% 0 0);
+  animation: portfolioTypewriter 3s steps(9) 0.5s forwards;
 }
 
 .portfolio-wrap {
@@ -1929,7 +2048,7 @@ section[data-no-angle="true"]::after {
             </div>
           </div>
           <div class="section-note">
-            Strategy brain, design brain, and “let’s actually ship this” brain
+            Strategy brain, design brain, and "let's actually ship this" brain
             in one person.
           </div>
         </div>
@@ -2125,39 +2244,29 @@ section[data-no-angle="true"]::after {
 
         <div class="skills-grid">
                 <div class="skill-block">
+                  <h4>Creative</h4>
+                  Adobe Creative Suite · CapCut · Instagram · Pinterest · Data Visualization · Slide Decks · Storytelling.
+                </div>
+                <div class="skill-block">
                   <h4>Strategy & Analytics</h4>
                   Segmentation & Targeting · Customer Preference Modeling · Conjoint Analysis
                   · Competitor Analysis · Marketing Decision Models · Resource Allocation
-                  · Strategic Positioning.
+                  · Strategic Positioning · Google Analytics · HubSpot · Meta Ads Manager · SEO · Social Media
+                  · Email Marketing · A/B Testing.
                 </div>
                 <div class="skill-block">
                   <h4>Data & Research</h4>
                   Python (Data Cleaning & Analysis) · NLP & Sentiment Analysis · Choice Modeling
-                  · Demand Forecasting · Enginius · Amazon Comprehend · MS Azure · Quantitative Frameworks.
-                </div>
-                <div class="skill-block">
-                  <h4>Marketing Tools</h4>
-                  Google Analytics · HubSpot · Meta Ads Manager · SEO · Social Media
-                  · Email Marketing · A/B Testing.
-                </div>
-                <div class="skill-block">
-                  <h4>Creative Suite</h4>
-                  Adobe Creative Suite · Data Visualization · Slide Decks · Storytelling.
-                </div>
-                <div class="skill-block">
-                  <h4>Technical</h4>
-                  React · VS Code · Markdown · HTML/CSS · Git · Responsive Design.
+                  · Demand Forecasting · Enginius · Amazon Comprehend · MS Azure · Quantitative Frameworks
+                  · React · VS Code · Markdown · HTML/CSS · Git · Responsive Design.
                 </div>
         </div>
 
-        <div class="resume-block reveal">
-          <div>
-            Want the full picture? My resume includes timelines, metrics,
-            and certifications.
-          </div>
+        <div class="resume-text reveal">
+          Want the full picture? My resume includes timelines, metrics, and certifications.
           <a
             href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-            class="resume-link"
+            class="resume-link-inline"
             download
             >Download resume →</a
           >
@@ -2312,7 +2421,7 @@ section[data-no-angle="true"]::after {
         <div class="section-header reveal">
           <div>
             <div class="section-kicker">Contact</div>
-            <div class="section-title serif">Let’s talk</div>
+            <div class="section-title serif"><span class="typewriter-text">Let's talk</span></div>
           </div>
           <div class="section-note">
             Open to internships, full-time roles, and projects where strategy
@@ -2377,6 +2486,41 @@ section[data-no-angle="true"]::after {
 // WRAP EVERYTHING IN DOMCONTENTLOADED
 // =========================
 window.addEventListener("DOMContentLoaded", () => {
+
+// =========================
+// ADD TINY ORBITING SPARKLES TO TIMELINE
+// =========================
+document.querySelectorAll('.timeline-item').forEach((item, index) => {
+  const isOdd = (index % 2 === 0); // First item is index 0 (odd position visually)
+
+  // Create two tiny sparkles
+  const sparkle1 = document.createElement('span');
+  sparkle1.className = 'tiny-sparkle';
+  sparkle1.textContent = '✦';
+  sparkle1.style.animation = 'orbitTiny1 3.5s ease-in-out infinite';
+  sparkle1.style.animationDelay = `${index * 0.2}s`;
+
+  const sparkle2 = document.createElement('span');
+  sparkle2.className = 'tiny-sparkle';
+  sparkle2.textContent = '✦';
+  sparkle2.style.animation = 'orbitTiny2 3.5s ease-in-out infinite';
+  sparkle2.style.animationDelay = `${index * 0.2 + 0.3}s`;
+
+  // Position them relative to the main sparkle location
+  if (isOdd) {
+    sparkle1.style.left = '-45px';
+    sparkle2.style.left = '-45px';
+  } else {
+    sparkle1.style.right = '-45px';
+    sparkle2.style.right = '-45px';
+  }
+  sparkle1.style.top = '8px';
+  sparkle2.style.top = '8px';
+
+  // Append to timeline item
+  item.appendChild(sparkle1);
+  item.appendChild(sparkle2);
+});
 
 // --- FORCE HARD RESET ON PAGE LOAD ---
   const overlay = document.getElementById("bubble-overlay");
@@ -2486,6 +2630,24 @@ const observer = new IntersectionObserver(
 document
   .querySelectorAll(".reveal, .reveal-left, .reveal-right")
   .forEach((el) => observer.observe(el));
+
+// =========================
+// TYPEWRITER EFFECT FOR SPECIFIC TEXT
+// =========================
+const typewriterObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !entry.target.classList.contains('typing')) {
+        entry.target.classList.add("typing");
+      }
+    });
+  },
+  { threshold: 0.5 }
+);
+
+document
+  .querySelectorAll(".typewriter-text")
+  .forEach((el) => typewriterObserver.observe(el));
 
 // =========================
 // PARALLAX SCROLLING EFFECT

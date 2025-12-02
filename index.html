@@ -1218,6 +1218,30 @@
       .timeline {
         gap: 40px;
       }
+
+      /* Hide tiny sparkles on mobile for cleaner look */
+      .tiny-sparkle {
+        display: none;
+      }
+
+      /* Adjust typewriter animation for mobile */
+      .typewriter-text.typing {
+        animation-duration: 2s; /* Faster on mobile */
+      }
+
+      /* Hide constellation lines on mobile */
+      .timeline-container::before,
+      .timeline-item::after {
+        display: none;
+      }
+    }
+
+    /* Mobile optimization for portfolio background text */
+    @media (max-width: 768px) {
+      .portfolio-section::before {
+        font-size: clamp(40px, 12vw, 80px);
+        animation-duration: 2.5s; /* Slightly faster on mobile */
+      }
     }
 
 /* ============================================================

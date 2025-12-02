@@ -1240,7 +1240,10 @@
     @media (max-width: 768px) {
       .portfolio-section::before {
         font-size: clamp(40px, 12vw, 80px);
-        animation-duration: 2.5s; /* Slightly faster on mobile */
+      }
+
+      .portfolio-section.in-view::before {
+        animation-duration: 1.5s; /* Faster on mobile */
       }
     }
 
@@ -1272,7 +1275,12 @@
   /* Typewriter effect - use clip-path instead of width */
   transform: translateX(-50%);
   clip-path: inset(0 100% 0 0);
-  animation: portfolioTypewriter 3s steps(9) 0.5s forwards;
+  opacity: 0;
+}
+
+.portfolio-section.in-view::before {
+  animation: portfolioTypewriter 2s steps(9) forwards;
+  opacity: 1;
 }
 
 .portfolio-wrap {
@@ -2672,6 +2680,25 @@ const typewriterObserver = new IntersectionObserver(
 document
   .querySelectorAll(".typewriter-text")
   .forEach((el) => typewriterObserver.observe(el));
+
+// =========================
+// PORTFOLIO BACKGROUND TYPEWRITER TRIGGER
+// =========================
+const portfolioObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !entry.target.classList.contains('in-view')) {
+        entry.target.classList.add("in-view");
+      }
+    });
+  },
+  { threshold: 0.2, rootMargin: '0px 0px -100px 0px' } // Triggers earlier
+);
+
+const portfolioSection = document.querySelector('.portfolio-section');
+if (portfolioSection) {
+  portfolioObserver.observe(portfolioSection);
+}
 
 // =========================
 // PARALLAX SCROLLING EFFECT

@@ -49,9 +49,9 @@
         <div class="button toggle">Video</div>
         <div class="slidedown">
           <div class="description">
-            <h2>One-Minute Chai Reset Ritual</h2>
+            <h2>Hot Cocoa Routine</h2>
             <p>A slow, warm-toned minute of hot cocoa and calm—soft steam, tiny details, and gentle captions reminding you to pause. A grounding ritual for loud weeks.</p>
-            <a href="https://youtube.com/shorts/gPwvv6H0Eqo" class="external-link" target="_blank">Watch</a>
+            <a href="https://youtube.com/shorts/VSN77rTjb40" class="external-link" target="_blank">Watch</a>
           </div>
         </div>
 
@@ -61,7 +61,7 @@
           <div class="description">
             <h2>Why We Can't Stop Doomscrolling</h2>
             <p>A short, honest look at why we scroll past the point of peace—how apps keep us hooked, and the tiny habits that help you reclaim your attention.</p>
-            <a href=" https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity" class="external-link" target="_blank">Listen</a>
+            <a href="https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity" class="external-link" target="_blank">Listen</a>
           </div>
         </div>
 
@@ -91,13 +91,91 @@
 
   <!-- Sparkles -->
   <script>
+    // Desktop: Mouse move sparkles
     document.addEventListener("mousemove", function(e) {
+      // Create sparkle with random chance (not on every pixel)
+      if (Math.random() > 0.7) {
+        createSparkle(e.pageX, e.pageY);
+      }
+    });
+
+    // Mobile: Tap/touch sparkles
+    document.addEventListener("touchmove", function(e) {
+      if (Math.random() > 0.5) {
+        const touch = e.touches[0];
+        createSparkle(touch.pageX, touch.pageY);
+      }
+    });
+
+    // Mobile: Tap to create sparkle burst
+    document.addEventListener("touchstart", function(e) {
+      const touch = e.touches[0];
+      createSparkleBurst(touch.pageX, touch.pageY);
+    });
+
+    // Function to create a single sparkle
+    function createSparkle(x, y) {
       const sparkle = document.createElement("div");
       sparkle.classList.add("sparkle");
-      sparkle.style.left = e.pageX + "px";
-      sparkle.style.top = e.pageY + "px";
+
+      // Random offset for more natural sparkle spread
+      const offsetX = (Math.random() - 0.5) * 20;
+      const offsetY = (Math.random() - 0.5) * 20;
+
+      sparkle.style.left = (x + offsetX) + "px";
+      sparkle.style.top = (y + offsetY) + "px";
+
+      // Random sparkle shape (✨ star or ✦ four-pointed star)
+      sparkle.innerHTML = Math.random() > 0.5 ? "✨" : "✦";
+
       document.body.appendChild(sparkle);
       setTimeout(() => sparkle.remove(), 1500);
+    }
+
+    // Function to create a burst of sparkles (mobile tap effect)
+    function createSparkleBurst(x, y) {
+      const burstCount = 5 + Math.floor(Math.random() * 5); // 5-9 sparkles
+      for (let i = 0; i < burstCount; i++) {
+        setTimeout(() => {
+          const angle = (Math.PI * 2 * i) / burstCount;
+          const distance = 20 + Math.random() * 30;
+          const offsetX = Math.cos(angle) * distance;
+          const offsetY = Math.sin(angle) * distance;
+
+          const sparkle = document.createElement("div");
+          sparkle.classList.add("sparkle");
+          sparkle.style.left = (x + offsetX) + "px";
+          sparkle.style.top = (y + offsetY) + "px";
+          sparkle.innerHTML = Math.random() > 0.5 ? "✨" : "✦";
+
+          document.body.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1500);
+        }, i * 30); // Stagger the sparkle creation
+      }
+    }
+
+    // Mobile: Add wiggle animation to portrait on shake
+    let lastShake = 0;
+    window.addEventListener('devicemotion', function(e) {
+      const acceleration = e.accelerationIncludingGravity;
+      if (acceleration) {
+        const total = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
+        const now = Date.now();
+
+        if (total > 30 && now - lastShake > 1000) {
+          lastShake = now;
+          const portrait = document.querySelector('.image-container img');
+          portrait.classList.add('shake');
+
+          // Create sparkle burst around portrait
+          const rect = portrait.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          createSparkleBurst(centerX + window.scrollX, centerY + window.scrollY);
+
+          setTimeout(() => portrait.classList.remove('shake'), 500);
+        }
+      }
     });
   </script>
 

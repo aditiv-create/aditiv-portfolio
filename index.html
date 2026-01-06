@@ -543,6 +543,110 @@
       font-size: 14px;
     }
 
+    /* Hero Name - Large Outlined Text */
+    .hero-name-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      cursor: pointer;
+    }
+
+    .hero-name-container.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .hero-name {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(120px, 18vw, 280px);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(10px, 2vw, 20px);
+    }
+
+    .hero-name-line {
+      display: flex;
+      white-space: nowrap;
+    }
+
+    .hero-letter {
+      display: inline-block;
+      -webkit-text-stroke: 2px #d9c8c0;
+      text-stroke: 2px #d9c8c0;
+      color: transparent;
+      transition: color 0.3s ease, -webkit-text-stroke-color 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .hero-letter:hover,
+    .hero-letter.touched {
+      color: #d9c8c0;
+      -webkit-text-stroke-color: #d9c8c0;
+      text-stroke-color: #d9c8c0;
+    }
+
+    /* Video hidden by default */
+    #hero-video {
+      opacity: 0 !important;
+      pointer-events: none;
+    }
+
+    #hero-video.visible {
+      opacity: 0.85 !important;
+      pointer-events: auto;
+    }
+
+    /* Responsive adjustments for mobile */
+    @media (max-width: 768px) {
+      .hero-name-container {
+        padding: 0 20px;
+      }
+
+      .hero-name {
+        font-size: clamp(70px, 18vw, 100px);
+        gap: clamp(5px, 1.5vw, 15px);
+      }
+
+      .hero-letter {
+        -webkit-text-stroke: 1.5px #d9c8c0;
+        text-stroke: 1.5px #d9c8c0;
+      }
+
+      /* Ensure video covers properly on mobile */
+      #hero-video.visible {
+        object-position: center center;
+      }
+    }
+
+    /* Extra small phones */
+    @media (max-width: 480px) {
+      .hero-name {
+        font-size: clamp(60px, 16vw, 80px);
+      }
+
+      .hero-letter {
+        -webkit-text-stroke: 1.2px #d9c8c0;
+        text-stroke: 1.2px #d9c8c0;
+      }
+    }
+
     /* ---------- ABOUT (photo left, scrapbook, overlapping card) ---------- */
 
     .about-section {
@@ -2061,10 +2165,21 @@ section[data-no-angle="true"]::after {
   <div class="particle"></div>
   <div class="particle"></div>
 
+  <!-- HERO NAME - Large centered text -->
+  <div class="hero-name-container">
+    <h1 class="hero-name">
+      <span class="hero-name-line">
+        <span class="hero-letter" data-letter="A">A</span><span class="hero-letter" data-letter="d">d</span><span class="hero-letter" data-letter="i">i</span><span class="hero-letter" data-letter="t">t</span><span class="hero-letter" data-letter="i">i</span>
+      </span>
+      <span class="hero-name-line">
+        <span class="hero-letter" data-letter="V">V</span><span class="hero-letter" data-letter="e">e</span><span class="hero-letter" data-letter="n">n</span><span class="hero-letter" data-letter="k">k</span><span class="hero-letter" data-letter="a">a</span><span class="hero-letter" data-letter="t">t</span><span class="hero-letter" data-letter=".">.</span>
+      </span>
+    </h1>
+  </div>
+
   <!-- HERO TEXT -->
   <div id="hero-text" style="position:relative; z-index:2;">
-
-      <a href="#about" class="hero-scroll">Scroll</a>
+    <a href="#about" class="hero-scroll">Scroll</a>
   </div>
 
 </section>
@@ -2780,53 +2895,97 @@ if (window.innerWidth > 768) {
 
 
 // =========================
-// HERO VIDEO - AUTOPLAY FIX & FADE ON SCROLL
+// HERO NAME - LETTER HOVER & TOUCH EFFECTS + CLICK TO HIDE
 // =========================
+const heroLetters = document.querySelectorAll('.hero-letter');
+const heroNameContainer = document.querySelector('.hero-name-container');
+
+// Desktop hover is handled by CSS
+// Mobile touch interactions
+heroLetters.forEach(letter => {
+  letter.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    letter.classList.add('touched');
+  });
+
+  letter.addEventListener('touchend', () => {
+    setTimeout(() => {
+      letter.classList.remove('touched');
+    }, 300);
+  });
+});
+
+// =========================
+// TRIPLE-CLICK/TAP EASTER EGG - HIDE TEXT & REVEAL VIDEO
+// =========================
+const heroSection = document.getElementById("home");
 const heroVideo = document.getElementById("hero-video");
+let clickCount = 0;
+let clickTimer = null;
+let videoVisible = false;
 
-// Force video to play on mobile (fixes autoplay issues)
-if (heroVideo) {
-  // Function to attempt playing the video
-  const attemptPlay = () => {
-    const playPromise = heroVideo.play();
+if (heroNameContainer && heroSection && heroVideo) {
+  // Handle both click and touch events for mobile
+  const handleTripleAction = (e) => {
+    clickCount++;
+    console.log(`Click/Tap count: ${clickCount}`);
 
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          console.log("Video playing successfully");
-        })
-        .catch(error => {
-          console.log("Autoplay prevented, will retry on interaction");
+    // Clear existing timer
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+    }
 
-          // Retry on any user interaction
-          const playOnInteraction = () => {
-            heroVideo.play().catch(e => console.log("Play retry failed:", e));
-          };
+    // Check if triple-clicked/tapped
+    if (clickCount === 3) {
+      videoVisible = !videoVisible;
+      console.log(`Video visible: ${videoVisible}`);
 
-          document.addEventListener("touchstart", playOnInteraction, { once: true });
-          document.addEventListener("click", playOnInteraction, { once: true });
-          document.addEventListener("scroll", playOnInteraction, { once: true });
-        });
+      if (videoVisible) {
+        // Hide text and show video
+        heroNameContainer.classList.add('hidden');
+        heroVideo.classList.add('visible');
+        // Attempt to play the video
+        const playPromise = heroVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Video play prevented:", error);
+          });
+        }
+      } else {
+        // Show text and hide video
+        heroNameContainer.classList.remove('hidden');
+        heroVideo.classList.remove('visible');
+        heroVideo.pause();
+      }
+
+      clickCount = 0;
+    } else {
+      // Reset counter after 600ms if not triple-clicked/tapped
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+      }, 600);
     }
   };
 
-  // Try to play when video can play through
-  heroVideo.addEventListener("canplaythrough", attemptPlay, { once: true });
-
-  // Also try immediately in case video is already loaded
-  if (heroVideo.readyState >= 3) {
-    attemptPlay();
-  }
-
-  // Load the video
-  heroVideo.load();
-
-  // Fade on scroll
-  window.addEventListener("scroll", () => {
-    const fadeEnd = 420;
-    let opacity = 1 - window.scrollY / fadeEnd;
-    heroVideo.style.opacity = Math.max(0, Math.min(1, opacity));
+  // Add both click and touchend listeners
+  heroSection.addEventListener('click', handleTripleAction);
+  heroSection.addEventListener('touchend', (e) => {
+    // Prevent click event from also firing on mobile
+    e.preventDefault();
+    handleTripleAction(e);
   });
+
+  // Fade on scroll when video is visible
+  window.addEventListener("scroll", () => {
+    if (videoVisible) {
+      const fadeEnd = 420;
+      let opacity = 0.85 - (window.scrollY / fadeEnd) * 0.85;
+      heroVideo.style.opacity = Math.max(0, Math.min(0.85, opacity));
+    }
+  });
+
+  // Preload video
+  heroVideo.load();
 }
 
 

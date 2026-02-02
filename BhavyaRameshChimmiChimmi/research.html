@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evidence Base for Chimmi Chimmi – Research Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts including Malayalam -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;1,400&family=Courier+Prime:wght@400;700&family=Noto+Serif+Malayalam:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --black-deep: #0a0a0a;
+      --black-soft: #141414;
+      --black-card: #1a1a1a;
+      --ink-light: #fdf9f3;
+      --paper: #fbf8f4;
+      --pink: #c9879f;
+      --pink-soft: #d4a3b5;
+      --gold: #c9a962;
+      --muted: #8a8a8a;
+      --accent: #d9c8c0;
+      --transition: 300ms ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Spectral", Georgia, serif;
+      background: var(--black-deep);
+      color: var(--accent);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    /* Grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    a:hover {
+      border-bottom-color: var(--pink);
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, var(--black-deep) 0%, transparent 100%);
+    }
+
+    .nav-back {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: none;
+    }
+
+    .nav-back::before {
+      content: '←';
+      margin-right: 8px;
+    }
+
+    .nav-back:hover {
+      color: var(--pink);
+    }
+
+    .nav-logo {
+      width: 40px;
+      opacity: 0.7;
+    }
+
+    /* Article Container */
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 24px 100px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Article Header */
+    .article-header {
+      margin-bottom: 64px;
+      text-align: center;
+    }
+
+    .article-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 24px;
+    }
+
+    .article-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+    }
+
+    .article-subtitle {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 48px auto;
+      gap: 16px;
+    }
+
+    .divider-line {
+      width: 40px;
+      height: 1px;
+      background: var(--pink);
+      opacity: 0.3;
+    }
+
+    .divider-star {
+      color: var(--pink);
+      font-size: 12px;
+    }
+
+    /* Content Styles */
+    .content p {
+      margin-bottom: 28px;
+    }
+
+    .content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ink-light);
+      margin: 72px 0 32px;
+      line-height: 1.3;
+    }
+
+    .content h2:first-child {
+      margin-top: 0;
+    }
+
+    .content h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-light);
+      margin: 48px 0 24px;
+    }
+
+    .content h4 {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin: 40px 0 20px;
+    }
+
+    /* Lead paragraph */
+    .lead {
+      font-size: 22px;
+      line-height: 1.7;
+      color: var(--ink-light);
+      margin-bottom: 40px;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ink-light);
+      border-left: 3px solid var(--pink);
+      padding-left: 32px;
+      margin: 48px 0;
+    }
+
+    /* Key point callout */
+    .key-point {
+      background: var(--black-soft);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 40px 0;
+      border: 1px solid rgba(201, 135, 159, 0.1);
+    }
+
+    .key-point-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .key-point p {
+      margin-bottom: 0;
+      color: var(--ink-light);
+    }
+
+    /* Lists */
+    .content ul, .content ol {
+      margin: 24px 0 32px 24px;
+    }
+
+    .content li {
+      margin-bottom: 12px;
+      padding-left: 8px;
+    }
+
+    .content li::marker {
+      color: var(--pink);
+    }
+
+    /* Table */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 40px -24px;
+      padding: 0 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    th {
+      font-family: "Inter", sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--pink);
+      text-align: left;
+      padding: 16px 12px;
+      border-bottom: 2px solid rgba(201, 135, 159, 0.3);
+    }
+
+    td {
+      padding: 16px 12px;
+      border-bottom: 1px solid rgba(201, 135, 159, 0.1);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Data visualization */
+    .chart {
+      background: var(--black-soft);
+      border-radius: 12px;
+      padding: 32px;
+      margin: 40px 0;
+    }
+
+    .chart-title {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+    }
+
+    .chart-bar {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      gap: 16px;
+    }
+
+    .chart-label {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 140px;
+    }
+
+    .chart-value {
+      height: 24px;
+      background: linear-gradient(90deg, var(--pink) 0%, var(--pink-soft) 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 12px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      color: var(--black-deep);
+      font-weight: 700;
+    }
+
+    /* Advantage cards */
+    .advantages {
+      display: grid;
+      gap: 20px;
+      margin: 40px 0;
+    }
+
+    .advantage-card {
+      background: var(--black-soft);
+      border-radius: 12px;
+      padding: 28px;
+      border-left: 3px solid var(--pink);
+    }
+
+    .advantage-card h5 {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+    }
+
+    .advantage-card p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 0;
+      line-height: 1.7;
+    }
+
+    /* Sources section */
+    .sources {
+      margin-top: 80px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(201, 135, 159, 0.15);
+    }
+
+    .sources h2 {
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+
+    .source-list {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .source-list a {
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    .source-item {
+      margin-bottom: 20px;
+      padding-left: 16px;
+      border-left: 2px solid rgba(201, 135, 159, 0.2);
+    }
+
+    .source-title {
+      color: var(--ink-light);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Footer */
+    .article-footer {
+      margin-top: 80px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(201, 135, 159, 0.15);
+      text-align: center;
+    }
+
+    .footer-cta {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+    }
+
+    .footer-link {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 12px 28px;
+      border-radius: 100px;
+      display: inline-block;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      background: var(--pink);
+      color: var(--black-deep);
+    }
+
+    .footer-credit {
+      margin-top: 48px;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .article {
+        padding: 120px 20px 60px;
+      }
+
+      .article-title {
+        font-size: 32px;
+      }
+
+      .content h2 {
+        font-size: 26px;
+      }
+
+      .pull-quote {
+        font-size: 22px;
+        padding-left: 24px;
+      }
+
+      .nav {
+        padding: 16px 20px;
+      }
+
+      table {
+        font-size: 13px;
+      }
+
+      th, td {
+        padding: 12px 8px;
+      }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav-back">Back to Case Study</a>
+    <img src="logo.png" alt="" class="nav-logo">
+  </nav>
+
+  <article class="article">
+    <!-- Header -->
+    <header class="article-header">
+      <p class="article-kicker fade-in">Research Report</p>
+      <h1 class="article-title fade-in delay-1">Evidence Base for "Chimmi Chimmi"</h1>
+      <p class="article-subtitle fade-in delay-2">Strategic validation for Bhavya Ramesh's oral adornment campaign</p>
+      <div class="article-meta fade-in delay-3">
+        <span>Deep Research</span>
+        <span>Cultural Strategy</span>
+      </div>
+    </header>
+
+    <div class="divider fade-in">
+      <span class="divider-line"></span>
+      <span class="divider-star">✦</span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <p class="lead">"Chimmi Chimmi" positions sparkling as an everyday act, not an occasion ritual. The strategic bet is that oral adornment—grills, tooth gems, enamel-gold "tattoos"—can be reframed from "niche stunt" to a culturally rooted jewellery category.</p>
+
+      <p>The key question is not whether tooth gems are "a trend." They are. The question is whether the brand can credibly claim the mouth as a jewellery site with cultural legitimacy, consumer pull, and white-space defensibility—while managing health, safety, and appropriation risks that can kill a campaign at launch.</p>
+
+      <h2>Historical & Cultural Legitimacy of Oral Adornment</h2>
+
+      <p>Oral adornment has deep cross-cultural precedent. A category with archaeological and ethnographic depth behaves differently than a pure micro-trend. It has more "permission" to endure, more story to tell, and clearer guardrails around respectful reference vs. careless appropriation.</p>
+
+      <h4>India: Enamel "Choumps" as Gold Tooth Tattoos</h4>
+      <p>Clinical and forensic dentistry literature documents a practice in parts of Uttar Pradesh and Rajasthan where maxillary anterior enamel is engraved and filled with gold by non-professional local tattoo-makers ("Ferua"), often linked to melas or festivities. This establishes a homegrown precedent for tooth-sited ornamentation and visible identity signalling.</p>
+
+      <p>A case report on the Bhilala tribe in Madhya Pradesh describes gold enamel choumps as a culturally significant modification—framed as marking puberty among males and associated with beliefs about good fortune.</p>
+
+      <h4>Ancient Mediterranean: Etruscan Gold Dental Appliances</h4>
+      <p>Dental anthropology research identifies the earliest known Etruscan gold dental bridges dated to around 630 BC, treating oral gold work explicitly as early dental technology and aesthetic status practice. This supports a long arc of "prestige mouth metal" as a recurring human behaviour—not a modern invention.</p>
+
+      <h4>Mesoamerica: Maya Dental Modification</h4>
+      <p>Bioarchaeological work documents intentional dental modification among ancient Maya populations, including drilled inlays using materials such as jade, turquoise, pyrite, and gold. These modifications typically appear in visible anterior teeth, reinforcing the social signalling function of mouth adornment.</p>
+
+      <h4>Philippines: Gold Dental Inlays</h4>
+      <p>An anthropological study re-examining museum-held specimens argues Visayan gold dental inlays were tied to beliefs about gold's mystical qualities and the spiritual dimension of teeth—not only aesthetics.</p>
+
+      <div class="pull-quote">
+        A category with archaeological and ethnographic depth has more "permission" to endure, more story to tell, and clearer guardrails around respectful reference.
+      </div>
+
+      <!-- Cultural Legitimacy Table -->
+      <h3>Cultural Legitimacy Overview</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Cultural Context</th>
+              <th>Practice</th>
+              <th>What It Signalled</th>
+              <th>Strategic Relevance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tribal North India</td>
+              <td>Enamel engraved & filled with gold ("choumps")</td>
+              <td>Identity markers, rites of passage</td>
+              <td>Indian-rooted oral ornament precedent</td>
+            </tr>
+            <tr>
+              <td>Etruscan Italy</td>
+              <td>Early gold dental bridges</td>
+              <td>Status, cosmetic concern among elites</td>
+              <td>Deep historical prestige association</td>
+            </tr>
+            <tr>
+              <td>Ancient Maya</td>
+              <td>Filing, drilling, jade/gold inlays</td>
+              <td>Social distinction, ritual aesthetics</td>
+              <td>"Mouth as visible identity canvas"</td>
+            </tr>
+            <tr>
+              <td>Visayas (Philippines)</td>
+              <td>Gold inlays, perforations</td>
+              <td>Spiritual meaning of gold</td>
+              <td>Mythic storytelling beyond fashion</td>
+            </tr>
+            <tr>
+              <td>Modern Hip-Hop</td>
+              <td>Removable grills, custom mouth jewellery</td>
+              <td>Success, identity, remix culture</td>
+              <td>Culturally specific craft with guardrails</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Market & Trend Signals</h2>
+
+      <p>The campaign's commercial plausibility depends on two layers of demand: user-level intent signals (search, platform behaviour, creator visibility) and supply-side readiness (craft ecosystem, price ladder, safety discourse).</p>
+
+      <h4>Global Mainstreaming Signals</h4>
+      <p>The Financial Times reported that tooth gems and grills have moved toward the mainstream, driven by influencers, celebrities, and Y2K revival. The Guardian describes a price spectrum from low-cost gems to extremely high-end custom grills, noting cross-gender and cross-age uptake.</p>
+
+      <h4>Platform Intent Signals</h4>
+      <p>Pinterest recorded an <strong>85% year-on-year uplift</strong> in searches for "tooth gems." Their 2025 trend forecast explicitly calls out "14-carat tooth gems" as a predicted trend—indicating platform-level confidence in continuation rather than a one-season spike.</p>
+
+      <div class="key-point">
+        <p class="key-point-label">Key Insight</p>
+        <p>Teeth are inherently video-native—smile, speech, light hit, movement. The medium that influences the category is the medium that best showcases the product.</p>
+      </div>
+
+      <h4>India-Specific Market Emergence</h4>
+      <p>Mumbai-based Frostbite Lab produces grills incorporating traditional jewellery techniques (kundan, meenakari, jadau) via karigars, sourcing in Zaveri Bazaar. Starting price point of ₹4,500 per tooth establishes a credible entry ladder.</p>
+
+      <p>A dentistry study in the Chandigarh–Mohali–Panchkula region surveyed 310 dental practitioners and found tooth jewellery had sufficient professional knowledge and "adequate" clinic practice—indicating the service category already exists in India as a real consumer offering.</p>
+
+      <h2>Consumer Behaviour Shift: Everyday & Identity-Led Jewellery</h2>
+
+      <p>The "everyday accessory" positioning is only strategically intelligent if consumer behaviour is measurably moving away from purely occasion-led jewellery. India's jewellery data shows exactly that shift—not as a vibe, but as a large segment with structural growth drivers.</p>
+
+      <!-- Chart: Daily-wear share -->
+      <div class="chart">
+        <p class="chart-title">Daily-Wear Share of Indian Jewellery Market (CY 2023)</p>
+        <div class="chart-bar">
+          <span class="chart-label">Daily-wear</span>
+          <div class="chart-value" style="width: 35%;">~35%</div>
+        </div>
+        <div class="chart-bar">
+          <span class="chart-label">Other segments</span>
+          <div class="chart-value" style="width: 65%; background: linear-gradient(90deg, var(--muted) 0%, #666 100%);">~65%</div>
+        </div>
+      </div>
+
+      <p>The daily-wear jewellery segment reached approximately ₹1,947 billion (~US$23B) by CY 2023, representing ~35% of the overall jewellery market, growing at ~17% CAGR. Consumers are moving away from traditional ornate jewellery toward "trendy, uniquely designed daily-use pieces seen as accessories rather than status symbols."</p>
+
+      <h4>Digital Influence Is Not Optional</h4>
+      <p>An estimated <strong>50–60% of jewellery purchases are "online-influenced"</strong>—meaning discovery and persuasion are increasingly digital even when conversion is offline. The online and online-influenced jewellery market is projected to reach ₹1,000–1,100 billion by CY 2028.</p>
+
+      <!-- Chart: Online influence growth -->
+      <div class="chart">
+        <p class="chart-title">Online & Online-Influenced Jewellery Market (₹ Billion)</p>
+        <div class="chart-bar">
+          <span class="chart-label">CY 2023</span>
+          <div class="chart-value" style="width: 30%;">₹306B</div>
+        </div>
+        <div class="chart-bar">
+          <span class="chart-label">CY 2028 (Projected)</span>
+          <div class="chart-value" style="width: 100%;">₹1,000-1,100B</div>
+        </div>
+      </div>
+
+      <h2>Category White Space: The Mouth in Luxury Jewellery</h2>
+
+      <p>The "mouth" is structurally underutilised in mainstream jewellery category design, even while consumer attention is rising. That combination is the definition of exploitable white space.</p>
+
+      <div class="pull-quote">
+        This is the "demand signal without category shelf space" gap—mainstream category frameworks don't treat mouth jewellery as a standard segment, yet top-tier media reports it's becoming mainstream.
+      </div>
+
+      <h4>Why This White Space Can Differentiate</h4>
+      <ol>
+        <li><strong>High-frequency, high-visibility interface.</strong> People speak, smile, eat, laugh. The product literally moves—creating distinct product theatre versus static jewellery sites.</li>
+        <li><strong>Culturally loaded.</strong> Both risk and advantage. It allows deeper storytelling about identity, lineage, rebellion, and refinement—if handled with respect.</li>
+        <li><strong>Already being validated as culturally significant.</strong> The American Museum of Natural History staged "Ice Cold: An Exhibition of Hip-Hop Jewelry" (May 2024–Jan 2025), including grills—mainstream institutional legitimisation.</li>
+      </ol>
+
+      <div class="key-point">
+        <p class="key-point-label">Risk Management</p>
+        <p>Dental health and regulation concerns must be built into strategy and copy. Professional application is repeatedly emphasised, with risks including plaque accumulation, enamel damage, and decay when poorly applied. A premium brand can turn this from liability into advantage by positioning itself as the "responsible authority" in a messy category.</p>
+      </div>
+
+      <h2>Comparable Precedents & Strategy Implications</h2>
+
+      <p>Owning a cultural white space is not primarily about product novelty. It is about the brand's right to speak.</p>
+
+      <h4>Maria Tash and the "Curated Ear" Precedent</h4>
+      <p>A key precedent for "unconventional site" jewellery becoming luxury is the transformation of body piercing from subculture to fine jewellery experience. Maria Tash spent decades shifting piercings away from industrial aesthetics into delicate gold-and-gem jewellery.</p>
+
+      <p><em>Strategic translation:</em> You do not sell the body site first. You sell the jewellery quality, comfort, and everyday compatibility. Then the site becomes "normal."</p>
+
+      <h4>Mejuri and Self-Purchase Reframing</h4>
+      <p>Brands that challenged the expectation that fine jewellery is primarily a gift pushed self-purchase as empowerment.</p>
+
+      <p><em>Strategic translation:</em> Oral adornment is inherently self-directed. You do it because you want your smile to sparkle—aligning with identity-led purchasing logic.</p>
+
+      <h2>Strategic Advantages for Bhavya Ramesh</h2>
+
+      <p>The advantage is not "we will be trendy." That is weak. The advantage is that the campaign can create a defensible position at the intersection of cultural legitimacy, daily-wear growth, and digital influence.</p>
+
+      <div class="advantages">
+        <div class="advantage-card">
+          <h5>A New Category Shelf That Is Structurally Open</h5>
+          <p>Core market frameworks do not treat mouth jewellery as a standard segment, while major media signals it is going mainstream. That gap is brandable white space.</p>
+        </div>
+
+        <div class="advantage-card">
+          <h5>Direct Alignment with India's Daily-Wear Growth</h5>
+          <p>Daily wear is a large and fast-growing share of the jewellery market. Oral adornment can be positioned as the "smallest powerful accessory" in this daily-wear logic.</p>
+        </div>
+
+        <div class="advantage-card">
+          <h5>Digital-First Amplification</h5>
+          <p>With 50–60% of jewellery purchases online-influenced, a campaign built around smiles, speech, and shimmer is natively compatible with the channel that moves demand.</p>
+        </div>
+
+        <div class="advantage-card">
+          <h5>Cultural Depth Reduces "Trend Fragility"</h5>
+          <p>Oral adornment has documented histories across India, the Mediterranean, Mesoamerica, and the Philippines—providing multi-root storytelling and reducing dependency on one influencer cycle.</p>
+        </div>
+
+        <div class="advantage-card">
+          <h5>Premium Positioning Through Responsibility</h5>
+          <p>The category has a visible safety discourse. A brand that anchors professional application and ethical storytelling can differentiate as the "safe authority."</p>
+        </div>
+      </div>
+
+      <!-- Sources -->
+      <section class="sources">
+        <h2>Sources</h2>
+        <div class="source-list">
+          <div class="source-item">
+            <span class="source-title">Redseer (via BlueStone). Industry Report on Jewellery Market in India. 2024.</span>
+            <a href="https://kinclimg1.bluestone.com/static/ir/anno/Redseer_Industry_Report_on_Jewellery_Market_in_India.pdf">bluestone.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">World Gold Council. Jewellery Demand and Trade: India Gold Market Series. 2023.</span>
+            <a href="https://www.gold.org/goldhub/research/jewellery-demand-and-trade-india-gold-market-series">gold.org</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">Financial Times. Tooth gems and grills go mainstream. 2024.</span>
+            <a href="https://www.ft.com/content/c30d7871-2460-425e-8add-6dd6e867562a">ft.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">The Guardian. The jaw-dropping rise of tooth jewellery. 2024.</span>
+            <a href="https://www.theguardian.com/fashion/2024/mar/05/from-35-crystals-to-30000-diamonds-the-jaw-dropping-rise-of-tooth-jewellery">theguardian.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">British Dental Journal. Hans MK et al. "Choumps". 2011.</span>
+            <a href="https://www.nature.com/articles/sj.bdj.2011.730">nature.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">Journal of Research in Medical and Dental Science. Gold Choumps Case Report. 2021.</span>
+            <a href="https://www.jrmds.in/articles/cultural-symbolism-adorned-on-enamel-as-gold-choumps-a-case-report-83831.html">jrmds.in</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">Dental Anthropology Journal. Becker MJ. Etruscan Gold Appliances. 1994.</span>
+            <a href="https://journal.dentalanthropology.org/index.php/jda/article/view/243">dentalanthropology.org</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">The Nod Mag. Frostbite Lab: Jadau Oral Jewellery. 2025.</span>
+            <a href="https://thenodmag.com/content/frostbite-labs-jadau-oral-jewellery-grills-mumbai">thenodmag.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">American Museum of Natural History. Ice Cold: Hip-Hop Jewelry Exhibition. 2024.</span>
+            <a href="https://www.amnh.org/exhibitions/ice-cold-hip-hop-jewelry">amnh.org</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">Vogue. Maria Tash on Elevating the Art of Body Piercing. 2017.</span>
+            <a href="https://www.vogue.com/article/maria-tash-fine-jewelry-designer-interview-ear-decoration-saks-fifth-avenue-pop-up">vogue.com</a>
+          </div>
+
+          <div class="source-item">
+            <span class="source-title">Harvard Business Review. Douglas Holt. Cultural Innovation. 2020.</span>
+            <a href="https://hbr.org/2020/09/cultural-innovation">hbr.org</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="article-footer">
+      <p class="footer-cta">Ready to see the creative vision?</p>
+      <a href="index.html" class="footer-link">View Campaign Pitch</a>
+      <p class="footer-credit">Research compiled by Aditi Venkat</p>
+    </footer>
+  </article>
+
+</body>
+</html>

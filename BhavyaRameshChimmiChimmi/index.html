@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chimmi Chimmi – Case Study by Aditi Venkat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts including Malayalam -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Noto+Serif+Malayalam:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --black-deep: #0a0a0a;
+      --black-soft: #141414;
+      --black-card: #1a1a1a;
+      --ink-light: #fdf9f3;
+      --paper: #fbf8f4;
+      --paper-warm: #f3e6dd;
+      --gold: #c9a962;
+      --gold-soft: #d4bc7e;
+      --pink: #c9879f;
+      --pink-soft: #d4a3b5;
+      --muted: #8a8a8a;
+      --accent: #d9c8c0;
+      --accent-soft: #e9d8d0;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --transition: 300ms ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      background: var(--black-deep);
+      color: var(--ink-light);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Malayalam text styling */
+    .malayalam {
+      font-family: "Noto Serif Malayalam", serif;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== LOGO STYLING ===== */
+    .logo {
+      width: 80px;
+      height: auto;
+      opacity: 0.9;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .logo-hero {
+      width: 120px;
+      margin-bottom: 32px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .logo-divider {
+      width: 50px;
+      opacity: 0.4;
+    }
+
+    .logo-float {
+      position: absolute;
+      width: 60px;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .logo-float.left {
+      left: 5%;
+      top: 20%;
+      transform: rotate(-15deg);
+    }
+
+    .logo-float.right {
+      right: 5%;
+      top: 60%;
+      transform: rotate(15deg);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease-out 0.1s backwards;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(56px, 12vw, 140px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      margin-bottom: 12px;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-title-malayalam {
+      font-family: "Noto Serif Malayalam", serif;
+      font-size: clamp(28px, 5vw, 48px);
+      color: var(--pink);
+      margin-bottom: 28px;
+      animation: fadeInUp 0.8s ease-out 0.25s backwards;
+      font-weight: 400;
+    }
+
+    .hero-tagline {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(22px, 4vw, 32px);
+      color: var(--accent);
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease-out 0.3s backwards;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      color: var(--ink-light);
+    }
+
+    .scroll-indicator {
+      margin-top: 48px;
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator::after {
+      content: '↓';
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-dark {
+      background: var(--black-deep);
+    }
+
+    .section-card {
+      background: var(--black-soft);
+      border-radius: var(--radius-lg);
+      margin: 0 24px;
+      padding: 80px 0;
+    }
+
+    .section-warm {
+      background: var(--paper);
+      color: var(--black-deep);
+    }
+
+    .section-pink {
+      background: linear-gradient(135deg, #1a1418 0%, #0a0a0a 100%);
+    }
+
+    .section-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-kicker .malayalam {
+      font-size: 14px;
+      color: var(--pink);
+      margin-left: 8px;
+    }
+
+    .section-warm .section-kicker {
+      color: #8b7355;
+    }
+
+    .section-warm .section-kicker .malayalam {
+      color: #a67889;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .section-title .pink {
+      color: var(--pink);
+    }
+
+    .section-warm .section-title em {
+      color: #8b7355;
+    }
+
+    .section-warm .section-title .pink {
+      color: #a67889;
+    }
+
+    /* ===== CONTENT BLOCKS ===== */
+    .content-block {
+      margin-bottom: 60px;
+    }
+
+    .content-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose {
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--accent);
+    }
+
+    .section-warm .prose {
+      color: #4a4a4a;
+    }
+
+    .prose p {
+      margin-bottom: 24px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose-poetic {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      line-height: 2;
+      color: var(--ink-light);
+    }
+
+    .prose-poetic p {
+      margin-bottom: 8px;
+    }
+
+    .highlight-text {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ink-light);
+      border-left: 3px solid var(--pink);
+      padding-left: 32px;
+      margin: 48px 0;
+    }
+
+    .section-warm .highlight-text {
+      color: var(--black-deep);
+      border-left-color: #a67889;
+    }
+
+    /* ===== ESSENCE BLOCK - Core Pitch ===== */
+    .essence-block {
+      background: linear-gradient(135deg, rgba(201, 135, 159, 0.08) 0%, rgba(201, 135, 159, 0.02) 100%);
+      border: 1px solid rgba(201, 135, 159, 0.2);
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin: 48px 0;
+      text-align: center;
+    }
+
+    .essence-block p {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      line-height: 1.8;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+    }
+
+    .essence-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .essence-lead {
+      font-size: 32px !important;
+      font-style: italic;
+      color: var(--pink) !important;
+      margin-bottom: 24px !important;
+    }
+
+    .essence-conclusion {
+      font-size: 28px !important;
+      font-weight: 500;
+      color: var(--pink) !important;
+      margin-top: 24px !important;
+      padding-top: 24px;
+      border-top: 1px solid rgba(201, 135, 159, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .essence-block {
+        padding: 32px 24px;
+      }
+      .essence-lead {
+        font-size: 24px !important;
+      }
+      .essence-conclusion {
+        font-size: 22px !important;
+      }
+    }
+
+    /* ===== MALAYALAM HIGHLIGHT ===== */
+    .malayalam-block {
+      text-align: center;
+      padding: 48px 0;
+    }
+
+    .malayalam-large {
+      font-family: "Noto Serif Malayalam", serif;
+      font-size: clamp(36px, 8vw, 72px);
+      color: var(--pink);
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    .malayalam-meaning {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--muted);
+    }
+
+    /* ===== TAGS ===== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      border: 1px solid var(--pink);
+      color: var(--pink);
+      border-radius: 100px;
+    }
+
+    /* ===== TWO COLUMN LAYOUT ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ===== ASPECT CARDS ===== */
+    .aspect-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .aspect-card {
+      background: var(--black-card);
+      border-radius: var(--radius-md);
+      padding: 32px;
+      border: 1px solid rgba(201, 135, 159, 0.1);
+      transition: var(--transition);
+    }
+
+    .aspect-card:hover {
+      border-color: rgba(201, 135, 159, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .aspect-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--ink-light);
+    }
+
+    .aspect-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ===== BULLET LIST ===== */
+    .bullet-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .bullet-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+      font-size: 10px;
+      top: 6px;
+    }
+
+    .section-warm .bullet-list li {
+      color: #4a4a4a;
+    }
+
+    .section-warm .bullet-list li::before {
+      color: #a67889;
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 60px auto;
+      gap: 20px;
+    }
+
+    .divider-line {
+      width: 60px;
+      height: 1px;
+      background: var(--pink);
+      opacity: 0.3;
+    }
+
+    .divider-logo {
+      width: 40px;
+      opacity: 0.5;
+    }
+
+    /* ===== CREATIVE WORLD SECTION ===== */
+    .creative-block {
+      margin-bottom: 64px;
+    }
+
+    .creative-block h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      color: var(--ink-light);
+    }
+
+    .creative-block h3 .malayalam {
+      font-size: 18px;
+      color: var(--pink);
+      margin-left: 12px;
+      font-weight: 400;
+    }
+
+    .creative-block p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--accent);
+    }
+
+    /* ===== EXPRESSIONS LIST ===== */
+    .expressions-list {
+      list-style: none;
+      margin-top: 32px;
+    }
+
+    .expressions-list li {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-style: italic;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(201, 135, 159, 0.15);
+      color: var(--ink-light);
+    }
+
+    .expressions-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* ===== OUTCOME SECTION ===== */
+    .outcome-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin: 48px 0;
+    }
+
+    .outcome-point {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .outcome-point span {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    .outcome-point .malayalam {
+      display: block;
+      font-size: 16px;
+      color: var(--pink);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .outcome-points {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 80px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(201, 135, 159, 0.1);
+    }
+
+    .footer-logo {
+      width: 60px;
+      margin: 0 auto 24px;
+      opacity: 0.7;
+    }
+
+    .footer-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 8px;
+    }
+
+    .footer-malayalam {
+      font-family: "Noto Serif Malayalam", serif;
+      font-size: 18px;
+      color: var(--pink);
+      margin-bottom: 32px;
+    }
+
+    .footer-link {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      border-bottom: 1px solid var(--pink);
+      padding-bottom: 4px;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--ink-light);
+      border-color: var(--ink-light);
+    }
+
+    .footer-credit {
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-credit a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ===== RESEARCH LINK ===== */
+    .research-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 24px;
+      transition: var(--transition);
+    }
+
+    .research-link:hover {
+      color: var(--pink);
+    }
+
+    .research-link::after {
+      content: '→';
+      transition: transform 0.2s ease;
+    }
+
+    .research-link:hover::after {
+      transform: translateX(4px);
+    }
+
+    .section-warm .research-link {
+      color: #6a6a6a;
+    }
+
+    .section-warm .research-link:hover {
+      color: #a67889;
+    }
+
+    .footer-research {
+      margin-bottom: 32px;
+    }
+
+    .footer-research-link {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink);
+      border: 1px solid var(--pink);
+      padding: 14px 32px;
+      border-radius: 100px;
+      display: inline-block;
+      transition: var(--transition);
+      margin-bottom: 16px;
+    }
+
+    .footer-research-link:hover {
+      background: var(--pink);
+      color: var(--black-deep);
+    }
+
+    /* ===== BACK LINK ===== */
+    .back-link {
+      position: fixed;
+      top: 32px;
+      left: 32px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: var(--transition);
+      z-index: 100;
+    }
+
+    .back-link:hover {
+      color: var(--pink);
+    }
+
+    .back-link::before {
+      content: '←';
+      margin-right: 8px;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 0;
+      }
+
+      .section-card {
+        margin: 0 16px;
+        padding: 48px 0;
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .hero-meta {
+        gap: 24px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .back-link {
+        top: 20px;
+        left: 20px;
+      }
+
+      .logo-float {
+        display: none;
+      }
+
+      .logo-hero {
+        width: 80px;
+      }
+    }
+
+    /* Print Styles */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11pt;
+        line-height: 1.5;
+      }
+
+      /* Hide non-essential elements */
+      .back-link,
+      .scroll-indicator,
+      .logo-float,
+      .logo-divider {
+        display: none !important;
+      }
+
+      /* Reset animations */
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      /* Hero adjustments */
+      .hero {
+        background: #fff !important;
+        padding: 40px 0 !important;
+        min-height: auto !important;
+      }
+
+      .hero-title {
+        color: #000 !important;
+        -webkit-text-stroke: 0 !important;
+        font-size: 48pt !important;
+      }
+
+      .hero-title span {
+        color: #000 !important;
+      }
+
+      .hero-title-malayalam {
+        color: #666 !important;
+      }
+
+      .hero-tagline {
+        color: #333 !important;
+      }
+
+      .hero-kicker {
+        color: #666 !important;
+        border-color: #666 !important;
+      }
+
+      .hero-meta span {
+        color: #333 !important;
+      }
+
+      .logo-hero {
+        filter: invert(1) !important;
+        width: 60px !important;
+      }
+
+      /* Section cards */
+      .section-card {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 30px 0 !important;
+        page-break-inside: avoid;
+      }
+
+      .section-title {
+        color: #000 !important;
+      }
+
+      .section-subtitle {
+        color: #666 !important;
+      }
+
+      p, li {
+        color: #333 !important;
+      }
+
+      /* Essence block */
+      .essence-block {
+        background: #f5f5f5 !important;
+        border: 2px solid #c9879f !important;
+        page-break-inside: avoid;
+      }
+
+      .essence-block p {
+        color: #000 !important;
+      }
+
+      /* Lists */
+      ul li::before {
+        color: #c9879f !important;
+      }
+
+      /* Research link */
+      .research-link {
+        color: #c9879f !important;
+        border-color: #c9879f !important;
+      }
+
+      .research-link::after {
+        content: " (" attr(href) ")" !important;
+        font-size: 9pt;
+        color: #666;
+      }
+
+      /* Footer */
+      footer {
+        background: #f5f5f5 !important;
+        page-break-before: always;
+      }
+
+      footer h2,
+      footer p {
+        color: #000 !important;
+      }
+
+      footer a {
+        color: #c9879f !important;
+      }
+
+      /* Page breaks */
+      .section-card:nth-child(3),
+      .section-card:nth-child(5) {
+        page-break-before: always;
+      }
+
+      /* Show link URLs */
+      a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 9pt;
+        color: #666;
+        word-break: break-all;
+      }
+
+      /* Container width for print */
+      .container {
+        max-width: 100% !important;
+        padding: 0 20px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="back-link">Back to Portfolio</a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img src="logo.png" alt="Bhavya Ramesh Logo" class="logo logo-hero">
+    <div class="hero-kicker">Creative Brand Strategy Pitch</div>
+    <h1 class="hero-title">
+      <span>Chimmi</span>
+      <span>Chimmi</span>
+    </h1>
+    <p class="hero-title-malayalam">ചിമ്മി ചിമ്മി</p>
+    <p class="hero-tagline">Sparkle when you speak.</p>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Brand</div>
+        <div class="meta-value">Bhavya Ramesh Jewellery</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Project Type</div>
+        <div class="meta-value">Creative Brand Strategy Pitch</div>
+      </div>
+    </div>
+
+    <div class="tags" style="margin-top: 32px; justify-content: center;">
+      <span class="tag">Cultural Branding</span>
+      <span class="tag">Creative Strategy</span>
+      <span class="tag">Integrated Campaign</span>
+    </div>
+
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- MALAYALAM MEANING -->
+  <section class="section-pink">
+    <div class="container">
+      <div class="malayalam-block reveal">
+        <p class="malayalam-large">ചിമ്മി ചിമ്മി</p>
+        <p class="malayalam-meaning">"Chimmi Chimmi" — Malayalam for sparkling, twinkling, glittering</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CONTEXT -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal">The Context <span class="malayalam">പശ്ചാത്തലം</span></div>
+      <h2 class="section-title reveal">Adornment in Indian jewelry culture has traditionally been <em>still.</em></h2>
+
+      <div class="prose-poetic reveal">
+        <p>It lives on wrists held together for photographs.</p>
+        <p>On necks waiting for ceremonies.</p>
+        <p>On ears that listen quietly.</p>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <img src="logo.png" alt="" class="divider-logo">
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="prose reveal">
+        <p>But Indian identity has never been silent.</p>
+        <p>Across generations, communities have adorned their teeth with gold and silver. Not as excess. As presence. As protection, status, rebellion, and continuity.</p>
+        <p>Today, that lineage resurfaces through tooth gems, grills, and oral adornment. Not as nostalgia, but as self-authored expression.</p>
+        <p>Bhavya Ramesh already operates at this intersection. Where craft meets defiance. Where jewelry is not an occasion, but a point of view.</p>
+      </div>
+
+      <div class="highlight-text reveal">
+        Chimmi Chimmi asks a simple question: What if jewelry didn't wait to be noticed? What if it announced itself every time you spoke?
+      </div>
+
+      <a href="research.html" class="research-link reveal">Explore the cultural evidence</a>
+    </div>
+  </section>
+
+  <!-- THE OPPORTUNITY -->
+  <section class="section-card">
+    <div class="container">
+      <div class="section-kicker reveal">The Opportunity <span class="malayalam">അവസരം</span></div>
+      <h2 class="section-title reveal">On Bhavya Ramesh's website, grills exist. But the link leads <span class="pink">nowhere.</span></h2>
+
+      <div class="prose reveal">
+        <p>A signal that oral adornment belongs in the brand's universe, but hasn't yet been given language, context, or cultural gravity.</p>
+        <p>At the same time, tooth gems have found renewed popularity in India through creators, musicians, and cultural tastemakers. Many of them already align with Bhavya Ramesh's visual and ideological world.</p>
+      </div>
+
+      <div class="highlight-text reveal">
+        This wasn't a trend to jump on. It was a history waiting to be reframed.
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CULTURAL TENSION -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal">The Cultural Tension <span class="malayalam">സംഘർഷം</span></div>
+      <h2 class="section-title reveal">Luxury jewelry often glorifies <span class="pink">silence.</span></h2>
+
+      <div class="prose-poetic reveal">
+        <p>Elegance is framed as restraint.</p>
+        <p>Adornment is expected to stay in its place.</p>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <img src="logo.png" alt="" class="divider-logo">
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="essence-block reveal">
+        <p class="essence-lead">But real power isn't quiet.</p>
+        <p>It interrupts. It flashes mid-sentence. It reveals itself when you laugh, sing, argue, or bite back.</p>
+        <p>The mouth, one of the most expressive parts of the body, has been largely ignored as a site of adornment in contemporary Indian jewelry narratives.</p>
+        <p class="essence-conclusion">Chimmi Chimmi exists to change that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE INSIGHT -->
+  <section class="section-warm">
+    <div class="container">
+      <div class="section-kicker reveal">The Insight <span class="malayalam">ഉൾക്കാഴ്ച</span></div>
+      <h2 class="section-title reveal">Oral adornment has <span class="pink">always</span> existed in Indian culture.</h2>
+
+      <div class="prose reveal">
+        <p>Across age, gender expression, and geography, gold and silver teeth were never about decoration alone. They were about visibility, resilience, and identity.</p>
+        <p>Today's grills and tooth gems aren't a departure from tradition. They are its evolution.</p>
+      </div>
+
+      <div class="highlight-text reveal">
+        Adornment of the mouth is intimate, confrontational, and alive. It moves only when you do.
+      </div>
+
+      <a href="research.html" class="research-link reveal">See the market data</a>
+    </div>
+  </section>
+
+  <!-- THE IDEA -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal">The Idea <span class="malayalam">ആശയം</span></div>
+      <h2 class="section-title reveal">Chimmi Chimmi. <span class="pink">Sparkle when you speak.</span></h2>
+
+      <div class="malayalam-block reveal" style="padding: 32px 0;">
+        <p class="malayalam-large" style="font-size: clamp(28px, 6vw, 56px);">മിന്നുക. സംസാരിക്കുമ്പോൾ.</p>
+      </div>
+
+      <div class="prose reveal">
+        <p>A campaign that reclaims the mouth as a site of power.</p>
+        <p>Grills and oral jewelry are positioned not as costume or shock, but as everyday adornment. Genderless. Age-agnostic. Unapologetic.</p>
+      </div>
+
+      <div class="highlight-text reveal">
+        Jewelry that doesn't sit still. Jewelry that activates with voice.
+      </div>
+    </div>
+  </section>
+
+  <!-- THE INTENT -->
+  <section class="section-card">
+    <div class="container">
+      <div class="section-kicker reveal">The Intent <span class="malayalam">ഉദ്ദേശ്യം</span></div>
+      <h2 class="section-title reveal">Chimmi Chimmi is not built around a single <span class="pink">demographic.</span></h2>
+
+      <div class="prose reveal">
+        <p>It speaks across a spectrum:</p>
+      </div>
+
+      <ul class="bullet-list reveal">
+        <li>People who carry ancestral memory through metal</li>
+        <li>People who wear adornment as self-authorship</li>
+        <li>People who move fluidly between masculinity and femininity</li>
+        <li>People who treat jewelry as identity, not inheritance</li>
+      </ul>
+
+      <div class="prose reveal" style="margin-top: 32px;">
+        <p>Young women are present in this world, but not centered by default. They are participants, not the narrative anchor.</p>
+        <p>The campaign prioritizes cultural continuity over trend cycles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CREATIVE WORLD -->
+  <section class="section-dark">
+    <div class="container-wide">
+      <div class="section-kicker reveal">The Creative World <span class="malayalam">സൃഷ്ടിപരമായ ലോകം</span></div>
+      <h2 class="section-title reveal" style="margin-bottom: 64px;">Where craft meets <span class="pink">expression.</span></h2>
+
+      <div class="two-col">
+        <div class="creative-block reveal">
+          <h3>Casting <span class="malayalam">നടീനടന്മാർ</span></h3>
+          <p>Bhavya Ramesh's existing diaspora of models expands to include a wider age range and expressions of gender and identity.</p>
+          <p style="margin-top: 16px;">Subjects are not posed. They are speaking, laughing, singing, breathing.</p>
+          <p style="margin-top: 16px; color: var(--pink); font-style: italic;">The mouth is always in motion.</p>
+        </div>
+
+        <div class="creative-block reveal">
+          <h3>Visual Language <span class="malayalam">ദൃശ്യഭാഷ</span></h3>
+          <p>Extreme close-ups capture teeth catching light mid-word. Jewelry is revealed through expression, not stillness.</p>
+          <p style="margin-top: 16px;">Adornment appears as punctuation. A glint between sentences. A flash during laughter.</p>
+        </div>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <img src="logo.png" alt="" class="divider-logo">
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="creative-block reveal">
+        <h3>Sound <span class="malayalam">ശബ്ദം</span></h3>
+        <p>Classic Carnatic vocals are remixed with breath, pauses, metallic textures, and mouth sounds.</p>
+        <p style="margin-top: 16px;">The mouth becomes both subject and instrument. The music doesn't overpower the visuals. It listens to them.</p>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <img src="logo.png" alt="" class="divider-logo">
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="creative-block reveal">
+        <h3>Campaign Expressions <span class="malayalam">പ്രചാരണ ആവിഷ്കാരങ്ങൾ</span></h3>
+        <ul class="expressions-list">
+          <li>Short films focused on speech, voice, and presence</li>
+          <li>Creator-led oral histories and conversations</li>
+          <li>Visual stories where grills are revealed only when the subject speaks</li>
+          <li>Editorial stills that prioritize intimacy over polish</li>
+        </ul>
+        <p style="margin-top: 32px; color: var(--pink); font-style: italic; font-family: 'Playfair Display', serif; font-size: 18px;">The jewelry is never explained first. The person always is.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY BHAVYA RAMESH -->
+  <section class="section-warm">
+    <div class="container">
+      <div class="section-kicker reveal">Why Bhavya Ramesh <span class="malayalam">എന്തുകൊണ്ട്</span></div>
+      <h2 class="section-title reveal">Bhavya Ramesh has consistently challenged where jewelry belongs and <span class="pink">who it is for.</span></h2>
+
+      <div class="prose reveal">
+        <p>Chimmi Chimmi doesn't stretch the brand. It sharpens it.</p>
+        <p>It reinforces Bhavya Ramesh's core belief:</p>
+      </div>
+
+      <div class="highlight-text reveal">
+        Adornment is not about occasions. It's about how you occupy space.
+      </div>
+    </div>
+  </section>
+
+  <!-- THE OUTCOME -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal">The Outcome (Envisioned) <span class="malayalam">ഫലം</span></div>
+      <h2 class="section-title reveal">Chimmi Chimmi positions grills and oral jewelry as:</h2>
+
+      <div class="outcome-points reveal">
+        <div class="outcome-point">
+          <span>Culturally grounded</span>
+          <span class="malayalam">സാംസ്കാരികമായി അടിസ്ഥാനമുള്ള</span>
+        </div>
+        <div class="outcome-point">
+          <span>Emotionally charged</span>
+          <span class="malayalam">വൈകാരികമായി നിറഞ്ഞ</span>
+        </div>
+        <div class="outcome-point">
+          <span>Wearable every day</span>
+          <span class="malayalam">എല്ലാ ദിവസവും ധരിക്കാവുന്ന</span>
+        </div>
+      </div>
+
+      <div class="prose reveal" style="text-align: center;">
+        <p>Not as a novelty. But as a declaration.</p>
+      </div>
+
+      <div class="highlight-text reveal" style="text-align: center; border-left: none; padding-left: 0; max-width: 600px; margin: 48px auto;">
+        Jewelry that doesn't wait for permission. Jewelry that shines when you speak.
+      </div>
+
+      <div class="malayalam-block reveal">
+        <p class="malayalam-large" style="font-size: clamp(32px, 7vw, 64px);">ചിമ്മി ചിമ്മി ✦</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="logo.png" alt="Bhavya Ramesh Logo" class="footer-logo">
+    <p class="footer-title">Thank you for reading.</p>
+    <p class="footer-malayalam">നന്ദി</p>
+    <div class="footer-research">
+      <a href="research.html" class="footer-research-link">Read the Full Research</a>
+    </div>
+    <a href="../index.html" class="footer-link">View Full Portfolio</a>
+    <p class="footer-credit">
+      Case study by <a href="../index.html">Aditi Venkat</a>
+    </p>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealOnScroll = () => {
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (top < windowHeight - 100) {
+          el.classList.add('visible');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+  </script>
+
+</body>
+</html>

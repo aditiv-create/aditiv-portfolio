@@ -1531,6 +1531,109 @@
 }
 
 /* ============================================================
+   PITCHES SECTION — BRAND STRATEGY PITCHES
+   ============================================================ */
+
+.pitches-section {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  z-index: 2;
+  position: relative;
+}
+
+.pitches-section .section-header {
+  margin-bottom: 20px;
+}
+
+.pitches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 32px;
+  margin-top: 40px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px;
+}
+
+.project-card.pitch-card {
+  border: 1px solid rgba(201, 135, 159, 0.4) !important;
+  min-height: 360px;
+}
+
+.project-card.pitch-card::before {
+  background: linear-gradient(135deg, rgba(201, 135, 159, 0.08), rgba(201, 135, 159, 0.02));
+}
+
+.project-card.pitch-card:hover {
+  border-color: rgba(201, 135, 159, 0.6);
+  box-shadow: 0 35px 80px rgba(0, 0, 0, 0.15),
+              0 0 40px rgba(201, 135, 159, 0.1);
+}
+
+.project-card.pitch-card .project-label {
+  color: #c9879f;
+}
+
+.project-card.pitch-card h3 {
+  color: #2b211d !important;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.project-card.pitch-card .pitch-tagline {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #c9879f !important;
+  margin-bottom: 16px;
+}
+
+.project-card.pitch-card p {
+  color: #5a4740 !important;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.pitch-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.pitch-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 135, 159, 0.3);
+  background: rgba(201, 135, 159, 0.08);
+  color: #c9879f;
+}
+
+.project-card.pitch-card .project-link {
+  color: #c9879f;
+  transition: color 0.2s ease;
+}
+
+.project-card.pitch-card .project-link:hover {
+  color: #a8736a;
+}
+
+@media (max-width: 768px) {
+  .pitches-grid {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+
+  .project-card.pitch-card h3 {
+    font-size: 26px;
+  }
+}
+
+/* ============================================================
    ARTICLES — CLEAN + EDITORIAL
    ============================================================ */
 
@@ -2251,6 +2354,38 @@ section[data-no-angle="true"]::after {
               <span class="pill">Collaborative</span>
               <span class="pill">Story-focused</span>
             </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- BRAND STRATEGY PITCHES -->
+      <section id="pitches" class="section section-light angled-bottom pitches-section">
+        <div class="section-header reveal">
+          <div>
+            <div class="section-kicker">Strategy Pitches</div>
+            <div class="section-title sans">Creative brand strategy in action</div>
+          </div>
+          <div class="section-note">
+            Speculative brand pitches that blend cultural research, strategic insight, and creative direction.
+          </div>
+        </div>
+
+        <div class="pitches-grid reveal">
+          <!-- Pitch 1: Chimmi Chimmi -->
+          <article class="project-card pitch-card">
+            <div class="project-label">Cultural Branding / Creative Strategy</div>
+            <h3>Chimmi Chimmi</h3>
+            <p class="pitch-tagline">Sparkle when you speak.</p>
+            <p>
+              A speculative brand strategy pitch for Bhavya Ramesh Jewellery, exploring oral adornment
+              through South Asian cultural heritage—from traditional gold teeth to modern tooth gems.
+            </p>
+            <div class="pitch-tags">
+              <span class="pitch-tag">Cultural Research</span>
+              <span class="pitch-tag">Integrated Campaign</span>
+              <span class="pitch-tag">Brand Positioning</span>
+            </div>
+            <a href="BhavyaRameshChimmiChimmi/index.html" class="project-link">View pitch →</a>
           </article>
         </div>
       </section>

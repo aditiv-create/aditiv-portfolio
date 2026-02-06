@@ -289,18 +289,27 @@
     }
 
     .section-dark {
-      background: radial-gradient(
-        circle at top,
-        #171d33 0,
-        #050713 50%,
-        #02030a 100%
-      );
+      background:
+        linear-gradient(rgba(201, 135, 159, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.03) 1px, transparent 1px),
+        radial-gradient(
+          circle at top,
+          #171d33 0,
+          #050713 50%,
+          #02030a 100%
+        );
+      background-size: 40px 40px, 40px 40px, 100% 100%;
       color: var(--ink-light);
     }
 
     .section-light {
       background: var(--paper);
       color: var(--ink-dark);
+      /* Subtle graph paper texture for cohesion */
+      background-image:
+        linear-gradient(rgba(201, 135, 159, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
     .angled-top::before,
@@ -650,8 +659,22 @@
     /* ---------- ABOUT (photo left, scrapbook, overlapping card) ---------- */
 
     .about-section {
-      padding-bottom: 40px;
+      padding: 120px 0;
       z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      position: relative;
+      /* Graph paper background */
+      background-color: #f8f4f0;
+      background-image:
+        linear-gradient(rgba(201, 135, 159, 0.12) 1.5px, transparent 1.5px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.12) 1.5px, transparent 1.5px),
+        linear-gradient(rgba(201, 135, 159, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.06) 1px, transparent 1px);
+      background-size: 80px 80px, 80px 80px, 20px 20px, 20px 20px;
+      background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
     }
 
     .about-grid {
@@ -729,15 +752,15 @@
     .pill-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
       margin-top: 8px;
     }
 
     .pill {
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: 0.18em;
-      padding: 5px 10px;
+      letter-spacing: 0.15em;
+      padding: 8px 14px;
       border-radius: 999px;
       border: 1px solid rgba(191, 163, 146, 0.9);
       background: #f5ebe3;
@@ -756,10 +779,392 @@
       }
     }
 
+    /* ---------- ABOUT FOLDER TABS ---------- */
+    .about-folder-container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 20px;
+    }
+
+    .folder-tabs {
+      display: flex;
+      gap: 0;
+      position: relative;
+      z-index: 2;
+      padding-left: 28px;
+    }
+
+    .folder-tab {
+      background: #e8ddd4;
+      border: 1px solid #c7ae9d;
+      border-bottom: none;
+      padding: 14px 36px 16px;
+      border-radius: 14px 14px 0 0;
+      cursor: pointer;
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7e6960;
+      position: relative;
+      transition: all 0.2s ease;
+      margin-right: -1px;
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,0.3),
+        0 -2px 4px rgba(0,0,0,0.05);
+    }
+
+    .folder-tab::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      border-radius: 12px 12px 0 0;
+    }
+
+    .folder-tab:hover:not(.active) {
+      background: #f0e6dd;
+      transform: translateY(-2px);
+    }
+
+    .folder-tab.active {
+      background: #fdf8f2;
+      color: #2b211d;
+      z-index: 3;
+      box-shadow:
+        inset 0 2px 4px rgba(255,255,255,0.5),
+        0 -3px 6px rgba(0,0,0,0.08);
+    }
+
+    .folder-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #fdf8f2;
+    }
+
+    .tab-text {
+      position: relative;
+    }
+
+    .folder-content {
+      background: #fdf8f2;
+      border: 2px solid #d4c4b8;
+      border-radius: 0 20px 20px 20px;
+      padding: 56px 64px;
+      position: relative;
+      z-index: 1;
+      box-shadow:
+        0 4px 20px rgba(0,0,0,0.08),
+        0 8px 40px rgba(0,0,0,0.06),
+        inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Floating decorative elements */
+    .about-decor {
+      position: absolute;
+      z-index: 0;
+    }
+
+    /* Pixel art link icons */
+    .pixel-link {
+      pointer-events: auto;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .pixel-link:hover {
+      transform: scale(1.1) translateY(-4px);
+      filter: brightness(1.1);
+    }
+
+    .pixel-link svg {
+      filter: drop-shadow(0 2px 8px rgba(201,135,159,0.3));
+      transition: filter 0.3s ease;
+    }
+
+    .pixel-link:hover svg {
+      filter: drop-shadow(0 4px 12px rgba(201,135,159,0.5));
+    }
+
+    .pixel-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #b07088;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .pixel-link:hover .pixel-label {
+      opacity: 1;
+    }
+
+    /* Skills icon - top left */
+    .decor-1 {
+      top: 12%;
+      left: 6%;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Small star - top right area */
+    .decor-2 {
+      top: 18%;
+      right: 15%;
+      pointer-events: none;
+      animation: float 5s ease-in-out infinite 0.5s;
+    }
+
+    /* Small square - bottom left */
+    .decor-3 {
+      bottom: 30%;
+      left: 12%;
+      pointer-events: none;
+      animation: float 3.5s ease-in-out infinite 1s;
+    }
+
+    /* Storytelling/Articles icon - bottom right */
+    .decor-story {
+      bottom: 15%;
+      right: 8%;
+      animation: float 4.5s ease-in-out infinite 0.3s;
+    }
+
+    /* Small circle - bottom right corner */
+    .decor-5 {
+      bottom: 8%;
+      right: 18%;
+      font-size: 24px;
+      color: rgba(176, 112, 136, 0.2);
+      pointer-events: none;
+      animation: float 5.5s ease-in-out infinite 0.8s;
+    }
+
+    /* Resume icon - bottom left */
+    .decor-resume {
+      bottom: 18%;
+      left: 6%;
+      animation: float 4s ease-in-out infinite 0.6s;
+    }
+
+    @media (max-width: 900px) {
+      .about-decor:not(.pixel-link) {
+        display: none;
+      }
+
+      .decor-1 {
+        top: auto;
+        bottom: -70px;
+        left: 10%;
+      }
+
+      .decor-story {
+        top: auto;
+        bottom: -70px;
+        right: 10%;
+      }
+
+      .decor-resume {
+        top: auto;
+        bottom: -70px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .pixel-link {
+        display: none;
+      }
+    }
+
+    .folder-panel {
+      display: none;
+      animation: fadeInPanel 0.3s ease;
+    }
+
+    .folder-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeInPanel {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Intro Card (Default View) */
+    .intro-card {
+      display: flex;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .intro-photo {
+      flex-shrink: 0;
+      width: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #ddd1c7;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .intro-photo img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center 15%;
+      filter: saturate(1.02) contrast(1.04);
+    }
+
+    .intro-text {
+      flex: 1;
+    }
+
+    .intro-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #9a8a82;
+      margin-bottom: 16px;
+    }
+
+    .intro-headline {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 4.5vw, 52px);
+      font-weight: 500;
+      line-height: 1.15;
+      color: #2b211d;
+      margin-bottom: 24px;
+    }
+
+    .highlight-pink {
+      background: linear-gradient(180deg, transparent 50%, rgba(201, 135, 159, 0.35) 50%);
+      padding: 0 6px;
+      margin: 0 -6px;
+    }
+
+    .intro-summary {
+      font-size: 17px;
+      line-height: 1.7;
+      color: #6a5a52;
+      margin-bottom: 28px;
+    }
+
+    .gpa-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #c9879f 0%, #b07088 100%);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* Story Card */
+    .story-card {
+      max-width: 680px;
+    }
+
+    .story-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      margin-bottom: 16px;
+      color: #2b211d;
+    }
+
+    .story-card p {
+      font-size: 14px;
+      line-height: 1.9;
+      color: #50413a;
+      margin-bottom: 16px;
+    }
+
+    .story-card p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .about-section {
+        padding: 60px 0;
+      }
+
+      .about-folder-container {
+        padding: 0 16px;
+      }
+
+      .folder-tabs {
+        padding-left: 10px;
+      }
+
+      .folder-tab {
+        padding: 10px 18px 12px;
+        font-size: 11px;
+      }
+
+      .folder-content {
+        padding: 28px 24px;
+        border-radius: 0 12px 12px 12px;
+      }
+
+      .intro-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 28px;
+      }
+
+      .intro-photo {
+        width: 240px;
+      }
+
+      .intro-photo img {
+        height: 300px;
+      }
+
+      .intro-headline {
+        font-size: 28px;
+      }
+
+      .intro-headline br {
+        display: none;
+      }
+
+      .intro-text .pill-row {
+        justify-content: center;
+      }
+
+      .gpa-badge {
+        display: block;
+        margin: 8px auto 0;
+        width: fit-content;
+      }
+    }
+
     /* ---------- EXPERIENCE (Azuki-style + hollow EXPERIENCE) ---------- */
 
     .experience-section {
-      padding-top: 190px; /* extra space because about-card overlaps above */
+      padding-top: 100px;
       z-index: 2;
       position: relative;
     }
@@ -1236,51 +1641,338 @@
       }
     }
 
-    /* Skills section styling */
+    /* Skills section styling - Square boxes */
+    .skills-title {
+      font-family: "Courier Prime", monospace;
+      font-size: 16px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201, 135, 159, 0.7);
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
     .skills-section {
-      padding-bottom: 80px;
+      padding: 100px 0 80px;
+      /* Graph paper background for cohesion */
+      background-color: #0a0a0f;
+      background-image:
+        linear-gradient(rgba(201, 135, 159, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 500px;
     }
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto 40px;
-      padding: 0 20px;
+    .skill-boxes {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      align-items: center;
     }
 
-    .skill-block {
-      background: #050814;
-      border-radius: var(--radius-md);
+    /* Staggered default layout */
+    .skill-box:nth-child(1) {
+      transform: translateY(-15px) rotate(-1.5deg);
+    }
+
+    .skill-box:nth-child(2) {
+      transform: translateY(8px);
+    }
+
+    .skill-box:nth-child(3) {
+      transform: translateY(-10px) rotate(1.5deg);
+    }
+
+    /* When expanded, reorganize layout */
+    .skill-boxes.has-expanded {
+      align-items: flex-start;
+    }
+
+    .skill-boxes.has-expanded .skill-box {
+      transform: none !important;
+    }
+
+    .skill-box {
+      background: rgba(10, 10, 15, 0.9);
+      border: 2px solid rgba(201, 135, 159, 0.25);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+
+      /* Default: square boxes */
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+    }
+
+    .skill-box:hover:not(.expanded) {
+      border-color: rgba(201, 135, 159, 0.5);
+      box-shadow: 0 8px 32px rgba(201, 135, 159, 0.15);
+    }
+
+    /* When a box is expanded */
+    .skill-box.expanded {
+      width: 480px;
+      height: auto;
+      min-height: 280px;
+      border-color: rgba(201, 135, 159, 0.6);
+      box-shadow: 0 12px 40px rgba(201, 135, 159, 0.2);
+    }
+
+    /* When another box is expanded, shrink the others */
+    .skill-boxes.has-expanded .skill-box:not(.expanded) {
+      width: 120px;
+      height: 120px;
+    }
+
+    .skill-box-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       padding: 20px;
-      border: 1px solid rgba(145, 131, 122, 0.9);
-      font-size: 14px;
+      flex: 1;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-box.expanded .skill-box-header {
+      flex: 0;
+      padding: 20px 24px;
+      justify-content: flex-start;
+      border-bottom: 1px solid rgba(201, 135, 159, 0.2);
+    }
+
+    .skill-boxes.has-expanded .skill-box:not(.expanded) .skill-box-header {
+      padding: 12px;
+      gap: 4px;
+    }
+
+    .prompt-symbol {
+      font-family: "Courier Prime", monospace;
+      font-size: 20px;
+      color: #c9879f;
+      opacity: 0.7;
+      transition: all 0.4s ease;
+    }
+
+    .skill-box:hover .prompt-symbol,
+    .skill-box.expanded .prompt-symbol {
+      opacity: 1;
+    }
+
+    .skill-boxes.has-expanded .skill-box:not(.expanded) .prompt-symbol {
+      font-size: 12px;
+    }
+
+    .prompt-text {
+      font-family: "Courier Prime", monospace;
+      font-size: 22px;
+      font-weight: 400;
+      color: #f5f0eb;
+      letter-spacing: 0.02em;
+      transition: all 0.4s ease;
+      white-space: nowrap;
+    }
+
+    .skill-box.expanded .prompt-text {
+      font-size: 18px;
+    }
+
+    .skill-boxes.has-expanded .skill-box:not(.expanded) .prompt-text {
+      font-size: 11px;
+    }
+
+    .cursor {
+      font-family: "Courier Prime", monospace;
+      font-size: 22px;
+      color: #c9879f;
+      animation: blink 1s step-end infinite;
+      transition: all 0.4s ease;
+    }
+
+    .skill-box.expanded .cursor {
+      font-size: 18px;
+      animation: none;
+      opacity: 0.5;
+    }
+
+    .skill-boxes.has-expanded .skill-box:not(.expanded) .cursor {
+      font-size: 11px;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .skill-box-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-box.expanded .skill-box-content {
+      padding: 24px 28px;
+      max-height: 400px;
+      opacity: 1;
+    }
+
+    .skill-item {
+      display: inline-block;
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
       color: #d9cfc6;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      line-height: 1.6;
+      background: rgba(201, 135, 159, 0.1);
+      border: 1px solid rgba(201, 135, 159, 0.25);
+      padding: 10px 16px;
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
     }
 
-    .skill-block:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px rgba(217, 200, 192, 0.2);
-      border-color: rgba(217, 200, 192, 0.6);
+    .skill-box.expanded .skill-item {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Responsive adjustments for skills grid */
+    /* Staggered animation for skill items */
+    .skill-box.expanded .skill-item:nth-child(1) { transition-delay: 0.05s; }
+    .skill-box.expanded .skill-item:nth-child(2) { transition-delay: 0.1s; }
+    .skill-box.expanded .skill-item:nth-child(3) { transition-delay: 0.15s; }
+    .skill-box.expanded .skill-item:nth-child(4) { transition-delay: 0.2s; }
+    .skill-box.expanded .skill-item:nth-child(5) { transition-delay: 0.25s; }
+    .skill-box.expanded .skill-item:nth-child(6) { transition-delay: 0.3s; }
+    .skill-box.expanded .skill-item:nth-child(7) { transition-delay: 0.35s; }
+    .skill-box.expanded .skill-item:nth-child(8) { transition-delay: 0.4s; }
+    .skill-box.expanded .skill-item:nth-child(9) { transition-delay: 0.45s; }
+    .skill-box.expanded .skill-item:nth-child(10) { transition-delay: 0.5s; }
+
+    .skill-item:hover {
+      background: rgba(201, 135, 159, 0.2);
+      border-color: rgba(201, 135, 159, 0.5);
+      color: #fff;
+    }
+
     @media (max-width: 900px) {
-      .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+      .skills-title {
+        font-size: 14px;
+        margin-bottom: 35px;
+      }
+
+      .skills-section {
+        padding: 80px 0 70px;
+      }
+
+      .skill-boxes {
+        flex-wrap: wrap;
+        padding: 0 20px;
+        gap: 20px;
+      }
+
+      .skill-box {
+        width: 160px;
+        height: 160px;
+      }
+
+      .skill-box:nth-child(1),
+      .skill-box:nth-child(2),
+      .skill-box:nth-child(3) {
+        transform: none;
+      }
+
+      .skill-boxes.has-expanded {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .skill-box.expanded {
+        width: 100%;
+        max-width: 400px;
+        order: -1;
+        margin-bottom: 10px;
+      }
+
+      .skill-boxes.has-expanded .skill-box:not(.expanded) {
+        width: 120px;
+        height: 120px;
+      }
+
+      .prompt-text {
+        font-size: 18px;
+      }
+
+      .cursor {
+        font-size: 18px;
       }
     }
 
-    .skill-block h4 {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent-soft);
-      margin-bottom: 6px;
+    @media (max-width: 480px) {
+      .skill-box {
+        width: 130px;
+        height: 130px;
+      }
+
+      .prompt-text {
+        font-size: 16px;
+      }
+
+      .cursor {
+        font-size: 16px;
+      }
+
+      .skill-box.expanded {
+        width: 100%;
+      }
+
+      .skill-boxes.has-expanded .skill-box:not(.expanded) {
+        width: 90px;
+        height: 90px;
+      }
+
+      .skill-boxes.has-expanded .skill-box:not(.expanded) .prompt-text {
+        font-size: 10px;
+      }
+
+      .skill-boxes.has-expanded .skill-box:not(.expanded) .cursor {
+        font-size: 10px;
+      }
+
+      .skill-item {
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+
+      .skills-title {
+        font-size: 13px;
+        margin-bottom: 30px;
+      }
+
+      .skills-section {
+        padding: 70px 0 60px;
+        min-height: auto;
+      }
+
+      .skill-box.expanded .skill-box-content {
+        padding: 16px 18px;
+      }
     }
 
     /* Simple resume text without box */
@@ -1359,6 +2051,11 @@
   position: relative;
   z-index: 2;
   padding-bottom: 40px;
+  /* Subtle graph paper for cohesion */
+  background-image:
+    linear-gradient(rgba(201, 135, 159, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201, 135, 159, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 .portfolio-section::before {
@@ -1371,7 +2068,7 @@
   font-size: clamp(54px, 10vw, 110px);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(41, 31, 27, 0.12);
+  color: rgba(201, 135, 159, 0.08);
   pointer-events: none;
   z-index: 0;
   white-space: nowrap;
@@ -1731,6 +2428,11 @@
     .contact-section {
       padding-top: 170px; /* extra top padding because portfolio overlaps down */
       z-index: 1;
+      /* Graph paper background for cohesion */
+      background-image:
+        linear-gradient(rgba(201, 135, 159, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 135, 159, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
     .contact-grid {
@@ -2290,71 +2992,160 @@ section[data-no-angle="true"]::after {
 
       <!-- ABOUT -->
 <section id="about" class="section section-light about-section" data-no-angle="true">
-        <div class="section-header reveal">
-          <div>
-            <div class="section-kicker">About</div>
-            <div class="section-title serif">
-              Who I am beyond bullet points
-            </div>
-          </div>
-          <div class="section-note">
-            Strategy brain, design brain, and "let's actually ship this" brain
-            in one person.
-          </div>
+        <!-- Decorative floating elements with pixel art links -->
+
+        <!-- Skills pixel art icon - links to skills section -->
+        <a href="#skills" class="about-decor decor-1 pixel-link" title="View my skills">
+          <svg width="56" height="56" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+            <!-- Gear/cog pixel art for skills -->
+            <rect x="6" y="0" width="4" height="2" fill="#c9879f"/>
+            <rect x="6" y="14" width="4" height="2" fill="#c9879f"/>
+            <rect x="0" y="6" width="2" height="4" fill="#c9879f"/>
+            <rect x="14" y="6" width="2" height="4" fill="#c9879f"/>
+            <rect x="2" y="2" width="2" height="2" fill="#c9879f"/>
+            <rect x="12" y="2" width="2" height="2" fill="#c9879f"/>
+            <rect x="2" y="12" width="2" height="2" fill="#c9879f"/>
+            <rect x="12" y="12" width="2" height="2" fill="#c9879f"/>
+            <rect x="4" y="4" width="8" height="8" fill="#d4a3b5"/>
+            <rect x="6" y="6" width="4" height="4" fill="#f8f4f0"/>
+          </svg>
+          <span class="pixel-label">Skills</span>
+        </a>
+
+        <!-- Small decorative star -->
+        <div class="about-decor decor-2">
+          <svg width="24" height="24" viewBox="0 0 8 8" style="image-rendering: pixelated;">
+            <rect x="3" y="0" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+            <rect x="3" y="6" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+            <rect x="0" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+            <rect x="6" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+            <rect x="3" y="3" width="2" height="2" fill="rgba(201,135,159,0.6)"/>
+          </svg>
         </div>
 
-        <div class="about-grid">
-          <aside class="about-board reveal-left">
-            <div class="board-inner">
-              <div class="board-photo">
-                <!-- keep this src the same as your working path; change only if needed -->
-                <img
-                  src="aditi-headshot.jpg"
-                  alt="Portrait of Aditi Venkat"
-                />
+        <!-- Small decorative square -->
+        <div class="about-decor decor-3">
+          <svg width="20" height="20" viewBox="0 0 6 6" style="image-rendering: pixelated;">
+            <rect x="1" y="1" width="4" height="4" fill="none" stroke="rgba(176,112,136,0.35)" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- Storytelling pixel art icon - links to articles section -->
+        <a href="#articles" class="about-decor decor-story pixel-link" title="Read my articles">
+          <svg width="52" height="52" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+            <!-- Open book pixel art for storytelling -->
+            <rect x="1" y="4" width="6" height="10" fill="#d4a3b5"/>
+            <rect x="9" y="4" width="6" height="10" fill="#d4a3b5"/>
+            <rect x="7" y="3" width="2" height="12" fill="#c9879f"/>
+            <rect x="2" y="5" width="4" height="1" fill="#f8f4f0"/>
+            <rect x="2" y="7" width="4" height="1" fill="#f8f4f0"/>
+            <rect x="2" y="9" width="3" height="1" fill="#f8f4f0"/>
+            <rect x="10" y="5" width="4" height="1" fill="#f8f4f0"/>
+            <rect x="10" y="7" width="4" height="1" fill="#f8f4f0"/>
+            <rect x="11" y="9" width="3" height="1" fill="#f8f4f0"/>
+            <rect x="0" y="13" width="7" height="1" fill="#b07088"/>
+            <rect x="9" y="13" width="7" height="1" fill="#b07088"/>
+          </svg>
+          <span class="pixel-label">Articles</span>
+        </a>
+
+        <!-- Small circle decoration -->
+        <div class="about-decor decor-5">○</div>
+
+        <!-- Resume pixel art icon - links to resume -->
+        <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
+           class="about-decor decor-resume pixel-link"
+           target="_blank"
+           title="View my resume">
+          <svg width="56" height="64" viewBox="0 0 14 16" style="image-rendering: pixelated;">
+            <!-- Paper background -->
+            <rect x="1" y="0" width="12" height="16" fill="#f5ebe3"/>
+            <!-- Folded corner -->
+            <rect x="10" y="0" width="3" height="3" fill="#d4c4b8"/>
+            <rect x="11" y="0" width="2" height="2" fill="#c9879f"/>
+            <!-- Header line -->
+            <rect x="2" y="2" width="6" height="1" fill="#c9879f"/>
+            <!-- Text lines -->
+            <rect x="2" y="4" width="9" height="1" fill="#b07088"/>
+            <rect x="2" y="6" width="7" height="1" fill="#d4c4b8"/>
+            <rect x="2" y="8" width="9" height="1" fill="#d4c4b8"/>
+            <rect x="2" y="10" width="5" height="1" fill="#d4c4b8"/>
+            <rect x="2" y="12" width="8" height="1" fill="#d4c4b8"/>
+            <rect x="2" y="14" width="4" height="1" fill="#d4c4b8"/>
+          </svg>
+          <span class="pixel-label">Resume</span>
+        </a>
+
+        <div class="about-folder-container reveal">
+          <!-- Folder Tabs -->
+          <div class="folder-tabs">
+            <button class="folder-tab active" data-tab="intro">
+              <span class="tab-text">Me</span>
+            </button>
+            <button class="folder-tab" data-tab="story">
+              <span class="tab-text">My Story</span>
+            </button>
+          </div>
+
+          <!-- Folder Content -->
+          <div class="folder-content">
+            <!-- Intro Tab (Default) -->
+            <div class="folder-panel active" data-panel="intro">
+              <div class="intro-card">
+                <div class="intro-photo">
+                  <img src="aditi-headshot.jpg" alt="Portrait of Aditi Venkat" />
+                </div>
+                <div class="intro-text">
+                  <p class="intro-kicker">Digital Marketing Strategist</p>
+                  <h3 class="intro-headline">
+                    I blend <span class="highlight-pink">data science</span><br>
+                    with <span class="highlight-pink">storytelling</span>
+                  </h3>
+                  <p class="intro-summary">
+                    Virginia Tech grad <span class="gpa-badge">3.97 GPA</span> · Mumbai roots · Always curious
+                  </p>
+                  <div class="pill-row">
+                    <span class="pill">Analytically Driven</span>
+                    <span class="pill">Strategically Minded</span>
+                    <span class="pill">Collaborative</span>
+                    <span class="pill">Story-focused</span>
+                  </div>
+                </div>
               </div>
-              <p class="board-caption">
-  I grew up in Mumbai and moved across disciplines. From IT to
-  digital marketing, carrying pieces of every detour with me.
-  That mix of cultures, timelines, and people is how I understand
-  audiences today.
-</p>
-
             </div>
-          </aside>
 
-          <article class="about-text-panel reveal-right">
-            <div class="card-tag">Story</div>
-            <h3>From people-watching to practical strategy.</h3>
-            <p>
-  I'm a digital marketing strategist who blends quantitative rigor with creative intuition.
-  A recent Virginia Tech graduate with a degree in Digital Marketing Strategy (3.97 GPA),
-  I learn as much from customer behavior models and sentiment analysis as I do from
-  real conversations. I take messy inputs—briefs, datasets, market signals—and turn
-  them into campaigns that are both analytically sound and emotionally resonant.
-</p>
-
-<p>
-  My work sits at the intersection of data science and storytelling. I build segmentation
-  models, run conjoint analyses, and forecast demand—then translate those insights into
-  strategic recommendations that teams can actually act on. Whether it's Python for NLP,
-  Enginius for decision modeling, or slide decks for stakeholder presentations, I focus
-  on making complexity clear.
-</p>
-
-<p>
-  Right now I'm exploring how advanced analytics, AI tools, and behavioral research
-  can work together to create marketing that's both intelligent and human-centered.
-</p>
-
-
-            <div class="pill-row">
-              <span class="pill">Analytically Driven</span>
-              <span class="pill">Strategically Minded</span>
-              <span class="pill">Collaborative</span>
-              <span class="pill">Story-focused</span>
+            <!-- Story Tab -->
+            <div class="folder-panel" data-panel="story">
+              <div class="story-card">
+                <div class="card-tag">Story</div>
+                <h3>From people-watching to practical strategy.</h3>
+                <p>
+                  I grew up in Mumbai and moved across disciplines. From IT to
+                  digital marketing, carrying pieces of every detour with me.
+                  That mix of cultures, timelines, and people is how I understand
+                  audiences today.
+                </p>
+                <p>
+                  I'm a digital marketing strategist who blends quantitative rigor with creative intuition.
+                  A recent Virginia Tech graduate with a degree in Digital Marketing Strategy (3.97 GPA),
+                  I learn as much from customer behavior models and sentiment analysis as I do from
+                  real conversations. I take messy inputs—briefs, datasets, market signals—and turn
+                  them into campaigns that are both analytically sound and emotionally resonant.
+                </p>
+                <p>
+                  My work sits at the intersection of data science and storytelling. I build segmentation
+                  models, run conjoint analyses, and forecast demand—then translate those insights into
+                  strategic recommendations that teams can actually act on. Whether it's Python for NLP,
+                  Enginius for decision modeling, or slide decks for stakeholder presentations, I focus
+                  on making complexity clear.
+                </p>
+                <p>
+                  Right now I'm exploring how advanced analytics, AI tools, and behavioral research
+                  can work together to create marketing that's both intelligent and human-centered.
+                </p>
+              </div>
             </div>
-          </article>
+          </div>
         </div>
       </section>
 
@@ -2518,42 +3309,68 @@ section[data-no-angle="true"]::after {
         id="skills"
         class="section section-dark angled-bottom skills-section"
       >
-        <div class="section-header reveal">
-          <div>
-            <div class="section-kicker">Skills & tools</div>
-            <div class="section-title sans">How I like to work</div>
+        <div class="skills-title reveal">Skills</div>
+        <div class="skill-boxes has-expanded reveal">
+          <!-- Creative -->
+          <div class="skill-box" data-skill="creative">
+            <div class="skill-box-header">
+              <span class="prompt-symbol">></span>
+              <span class="prompt-text">Creative</span>
+              <span class="cursor">_</span>
+            </div>
+            <div class="skill-box-content">
+              <span class="skill-item">Adobe Creative Suite</span>
+              <span class="skill-item">CapCut</span>
+              <span class="skill-item">Instagram</span>
+              <span class="skill-item">Pinterest</span>
+              <span class="skill-item">Data Visualization</span>
+              <span class="skill-item">Slide Decks</span>
+              <span class="skill-item">Storytelling</span>
+            </div>
+          </div>
+
+          <!-- Strategy & Analytics -->
+          <div class="skill-box expanded" data-skill="strategy">
+            <div class="skill-box-header">
+              <span class="prompt-symbol">></span>
+              <span class="prompt-text">Strategy</span>
+              <span class="cursor">_</span>
+            </div>
+            <div class="skill-box-content">
+              <span class="skill-item">Segmentation & Targeting</span>
+              <span class="skill-item">Customer Preference Modeling</span>
+              <span class="skill-item">Conjoint Analysis</span>
+              <span class="skill-item">Competitor Analysis</span>
+              <span class="skill-item">Marketing Decision Models</span>
+              <span class="skill-item">Google Analytics</span>
+              <span class="skill-item">HubSpot</span>
+              <span class="skill-item">Meta Ads Manager</span>
+              <span class="skill-item">SEO</span>
+              <span class="skill-item">A/B Testing</span>
+            </div>
+          </div>
+
+          <!-- Data & Research -->
+          <div class="skill-box" data-skill="data">
+            <div class="skill-box-header">
+              <span class="prompt-symbol">></span>
+              <span class="prompt-text">Data</span>
+              <span class="cursor">_</span>
+            </div>
+            <div class="skill-box-content">
+              <span class="skill-item">Python</span>
+              <span class="skill-item">NLP & Sentiment Analysis</span>
+              <span class="skill-item">Choice Modeling</span>
+              <span class="skill-item">Demand Forecasting</span>
+              <span class="skill-item">Enginius</span>
+              <span class="skill-item">Amazon Comprehend</span>
+              <span class="skill-item">MS Azure</span>
+              <span class="skill-item">HTML/CSS</span>
+              <span class="skill-item">Git</span>
+            </div>
           </div>
         </div>
 
-        <div class="skills-grid">
-                <div class="skill-block">
-                  <h4>Creative</h4>
-                  Adobe Creative Suite · CapCut · Instagram · Pinterest · Data Visualization · Slide Decks · Storytelling.
-                </div>
-                <div class="skill-block">
-                  <h4>Strategy & Analytics</h4>
-                  Segmentation & Targeting · Customer Preference Modeling · Conjoint Analysis
-                  · Competitor Analysis · Marketing Decision Models · Resource Allocation
-                  · Strategic Positioning · Google Analytics · HubSpot · Meta Ads Manager · SEO · Social Media
-                  · Email Marketing · A/B Testing.
-                </div>
-                <div class="skill-block">
-                  <h4>Data & Research</h4>
-                  Python (Data Cleaning & Analysis) · NLP & Sentiment Analysis · Choice Modeling
-                  · Demand Forecasting · Enginius · Amazon Comprehend · MS Azure · Quantitative Frameworks
-                  · React · VS Code · Markdown · HTML/CSS · Git · Responsive Design.
-                </div>
-        </div>
-
-        <div class="resume-text reveal">
-          Want the full picture? My resume includes timelines, metrics, and certifications.
-          <a
-            href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-            class="resume-link-inline"
-            download
-            >Download resume →</a
-          >
-        </div>
       </section>
 
 <!-- ===========================
@@ -2769,6 +3586,55 @@ section[data-no-angle="true"]::after {
 // WRAP EVERYTHING IN DOMCONTENTLOADED
 // =========================
 window.addEventListener("DOMContentLoaded", () => {
+
+// =========================
+// ABOUT FOLDER TABS
+// =========================
+const folderTabs = document.querySelectorAll('.folder-tab');
+const folderPanels = document.querySelectorAll('.folder-panel');
+
+folderTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetPanel = tab.dataset.tab;
+
+    // Update active tab
+    folderTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Update active panel
+    folderPanels.forEach(panel => {
+      panel.classList.remove('active');
+      if (panel.dataset.panel === targetPanel) {
+        panel.classList.add('active');
+      }
+    });
+  });
+});
+
+// =========================
+// SKILL BOXES INTERACTION
+// =========================
+const skillBoxes = document.querySelectorAll('.skill-box');
+const skillBoxesContainer = document.querySelector('.skill-boxes');
+
+skillBoxes.forEach(box => {
+  box.addEventListener('click', () => {
+    const wasExpanded = box.classList.contains('expanded');
+
+    // Close all boxes first
+    skillBoxes.forEach(otherBox => {
+      otherBox.classList.remove('expanded');
+    });
+
+    // Toggle the clicked box (if it wasn't already expanded)
+    if (!wasExpanded) {
+      box.classList.add('expanded');
+      skillBoxesContainer.classList.add('has-expanded');
+    } else {
+      skillBoxesContainer.classList.remove('has-expanded');
+    }
+  });
+});
 
 // =========================
 // ADD TINY ORBITING SPARKLES TO TIMELINE

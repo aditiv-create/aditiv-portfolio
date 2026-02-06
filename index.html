@@ -1080,6 +1080,60 @@
       border-radius: 20px;
       margin-left: 6px;
       vertical-align: middle;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.2s ease;
+    }
+
+    .gpa-badge:hover {
+      transform: scale(1.05);
+    }
+
+    .gpa-popup {
+      position: absolute;
+      bottom: calc(100% + 15px);
+      left: 50%;
+      transform: translateX(-50%) scale(0.8);
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      white-space: nowrap;
+    }
+
+    .gpa-popup::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 10px solid transparent;
+      border-top-color: #fff;
+    }
+
+    .gpa-badge.show-popup .gpa-popup {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .gpa-popup img {
+      display: block;
+      max-width: 200px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .gpa-popup-text {
+      font-family: "Courier Prime", monospace;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+      font-style: italic;
     }
 
     /* Story Card */
@@ -3102,7 +3156,7 @@ section[data-no-angle="true"]::after {
                     with <span class="highlight-pink">storytelling</span>
                   </h3>
                   <p class="intro-summary">
-                    Virginia Tech grad <span class="gpa-badge">3.97 GPA</span> · Mumbai roots · Always curious
+                    Virginia Tech grad <span class="gpa-badge" onclick="this.classList.toggle('show-popup')">3.95 GPA<span class="gpa-popup"><img src="gpa.jpeg" alt="GPA proof"><span class="gpa-popup-text">yep really.</span></span></span> · Mumbai roots · Always curious
                   </p>
                   <div class="pill-row">
                     <span class="pill">Analytically Driven</span>
@@ -3127,7 +3181,7 @@ section[data-no-angle="true"]::after {
                 </p>
                 <p>
                   I'm a digital marketing strategist who blends quantitative rigor with creative intuition.
-                  A recent Virginia Tech graduate with a degree in Digital Marketing Strategy (3.97 GPA),
+                  A recent Virginia Tech graduate with a degree in Digital Marketing Strategy (3.95 GPA),
                   I learn as much from customer behavior models and sentiment analysis as I do from
                   real conversations. I take messy inputs—briefs, datasets, market signals—and turn
                   them into campaigns that are both analytically sound and emotionally resonant.
@@ -3634,6 +3688,16 @@ skillBoxes.forEach(box => {
       skillBoxesContainer.classList.remove('has-expanded');
     }
   });
+});
+
+// =========================
+// GPA POPUP - CLOSE ON CLICK OUTSIDE
+// =========================
+document.addEventListener('click', (e) => {
+  const gpaBadge = document.querySelector('.gpa-badge');
+  if (gpaBadge && !gpaBadge.contains(e.target)) {
+    gpaBadge.classList.remove('show-popup');
+  }
 });
 
 // =========================

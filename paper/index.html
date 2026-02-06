@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brady's Distillery - UK Market Research</title>
+    <title>Brady's Distillery</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Caveat:wght@400;600&family=Klee+One:wght@400;600&family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400;600&family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
@@ -824,6 +824,395 @@
             margin-top: 3rem;
         }
 
+        /* ============================================================
+           TOP-LEVEL PAGE TABS
+           ============================================================ */
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+            animation: pageFadeIn 0.6s ease;
+        }
+
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Immersive mode — hide header/footer on brand strategy */
+        body.bs-immersive .header,
+        body.bs-immersive footer {
+            display: none;
+        }
+
+        body.bs-immersive {
+            background: #0a0806;
+        }
+
+        /* Discreet entry link on research page */
+        .bs-enter-link {
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(200, 170, 120, 0.35);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .bs-enter-link:hover {
+            color: rgba(200, 170, 120, 0.7);
+        }
+
+        /* Discreet back link */
+        .bs-back-link {
+            position: fixed;
+            top: 24px;
+            left: 28px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(200, 170, 120, 0.25);
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 50;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .bs-back-link:hover {
+            color: rgba(200, 170, 120, 0.6);
+        }
+
+        /* ============================================================
+           BRAND STRATEGY — CREATIVE PITCH PAGE
+           ============================================================ */
+        .bs-page {
+            background: #0a0806;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bs-page * {
+            color: inherit;
+        }
+
+        /* Hero with background image */
+        .bs-hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            text-align: center;
+            padding: 0 40px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bs-hero-img {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('bradysbottle.jpg') center center / cover no-repeat;
+            filter: brightness(0.35) saturate(0.8);
+        }
+
+        .bs-hero-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(to top, #0a0806 0%, transparent 100%);
+        }
+
+        .bs-hero-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(200, 170, 120, 0.6);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bs-hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 400;
+            color: #f5efe8;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bs-hero h1 em {
+            font-style: italic;
+            color: #c8a25c;
+        }
+
+        .bs-hero-line {
+            width: 60px;
+            height: 1px;
+            background: #c8a25c;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Full-bleed image blocks */
+        .bs-img-full {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bs-img-full img {
+            width: 100%;
+            height: 55vh;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.7) saturate(0.85);
+        }
+
+        .bs-img-full::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                linear-gradient(to bottom, #0a0806 0%, transparent 15%),
+                linear-gradient(to top, #0a0806 0%, transparent 15%);
+            pointer-events: none;
+        }
+
+        .bs-img-full .bs-img-caption {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: rgba(200, 170, 120, 0.4);
+            z-index: 1;
+        }
+
+        /* Two-image row */
+        .bs-img-duo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px;
+            margin: 0;
+        }
+
+        .bs-img-duo img {
+            width: 100%;
+            height: 45vh;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.65) saturate(0.8);
+            transition: filter 0.5s ease;
+        }
+
+        .bs-img-duo img:hover {
+            filter: brightness(0.8) saturate(0.9);
+        }
+
+        /* Sections */
+        .bs-section {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            position: relative;
+        }
+
+        .bs-divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(200, 170, 120, 0.2);
+            margin: 0 auto;
+        }
+
+        /* Typography */
+        .bs-overline {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(200, 170, 120, 0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .bs-heading {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            color: #f5efe8;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+        }
+
+        .bs-heading em {
+            font-style: italic;
+            color: #c8a25c;
+        }
+
+        .bs-body {
+            font-family: 'Karla', 'Inter', sans-serif;
+            font-size: 1.1rem;
+            line-height: 2;
+            color: rgba(245, 239, 232, 0.6);
+            margin-bottom: 1.2rem;
+        }
+
+        .bs-body strong {
+            color: #f5efe8;
+            font-weight: 600;
+        }
+
+        .bs-body em {
+            font-style: italic;
+            color: #c8a25c;
+        }
+
+        .bs-pull-quote {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(200, 162, 92, 0.7);
+            line-height: 1.5;
+            padding: 2.5rem 0;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .bs-whisper {
+            font-family: 'Karla', 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(245, 239, 232, 0.3);
+            text-align: center;
+            letter-spacing: 0.03em;
+            padding: 1.5rem 0;
+        }
+
+        /* Belongs list */
+        .bs-belongs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .bs-belongs-item {
+            font-family: 'Karla', 'Inter', sans-serif;
+            font-size: 1rem;
+            color: rgba(245, 239, 232, 0.5);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(200, 170, 120, 0.07);
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+        }
+
+        .bs-belongs-item:hover {
+            color: #c8a25c;
+            padding-left: 12px;
+        }
+
+        .bs-belongs-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Conversation quote */
+        .bs-conversation {
+            background: rgba(200, 170, 120, 0.03);
+            border-left: 2px solid rgba(200, 162, 92, 0.25);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .bs-conversation p {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: rgba(245, 239, 232, 0.55);
+            line-height: 1.8;
+            margin-bottom: 0.4rem;
+        }
+
+        .bs-conversation p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Final brand block */
+        .bs-finale {
+            text-align: center;
+            padding: 120px 40px;
+            position: relative;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(180, 130, 60, 0.05) 0%, transparent 50%),
+                #0a0806;
+        }
+
+        .bs-finale h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: #f5efe8;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .bs-finale-taglines {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .bs-finale-tagline {
+            font-family: 'Karla', 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(245, 239, 232, 0.4);
+            line-height: 1;
+            padding: 0.8rem 0;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid rgba(200, 170, 120, 0.05);
+        }
+
+        .bs-finale-tagline:last-child {
+            border-bottom: none;
+        }
+
+        /* Scroll animations */
+        .bs-reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .bs-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .bs-reveal-delay-1 { transition-delay: 0.15s; }
+        .bs-reveal-delay-2 { transition-delay: 0.3s; }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 768px) {
             .header {
                 padding: 2rem 1rem 1.5rem;
@@ -837,6 +1226,10 @@
             .subtitle {
                 font-size: 1rem;
                 letter-spacing: 0.08em;
+            }
+
+            .bs-enter-link {
+                font-size: 0.6rem;
             }
 
             .team-credits {
@@ -969,6 +1362,57 @@
             footer .designer-credit {
                 font-size: 0.75rem;
             }
+
+            /* Brand Strategy mobile */
+            .bs-hero {
+                padding: 0 24px 60px;
+                min-height: 75vh;
+            }
+
+            .bs-section {
+                padding: 50px 24px;
+            }
+
+            .bs-finale {
+                padding: 70px 24px;
+            }
+
+            .bs-body {
+                font-size: 0.95rem;
+            }
+
+            .bs-img-full img {
+                height: 35vh;
+            }
+
+            .bs-img-duo {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .bs-img-duo img {
+                height: 30vh;
+            }
+
+            .bs-img-full .bs-img-caption {
+                bottom: 24px;
+                right: 24px;
+                font-size: 0.6rem;
+            }
+
+            .bs-conversation {
+                padding: 1.2rem 1.5rem;
+            }
+
+            .bs-conversation p {
+                font-size: 1rem;
+            }
+
+            .bs-back-link {
+                top: 16px;
+                left: 16px;
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
@@ -977,7 +1421,13 @@
         <div class="header">
             <h1>Brady's Distillery</h1>
             <div class="subtitle">UK Market Expansion Research</div>
+            <a class="bs-enter-link" onclick="switchPage('brandstrategy')">View Brand Strategy →</a>
         </div>
+
+        <!-- ============================================================
+             RESEARCH PAGE
+             ============================================================ -->
+        <div id="page-research" class="page-view active">
 
         <!-- Sticky Navigation -->
         <div class="sticky-nav">
@@ -1360,7 +1810,113 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div><!-- end page-research -->
+
+        <!-- ============================================================
+             BRAND STRATEGY PAGE
+             ============================================================ -->
+        <div id="page-brandstrategy" class="page-view">
+            <div class="bs-page">
+                <a class="bs-back-link" href="../index.html#pitches">← Portfolio</a>
+
+                <!-- HERO — bottle by firelight -->
+                <div class="bs-hero">
+                    <div class="bs-hero-img"></div>
+                    <div class="bs-hero-label bs-reveal">Brady's Distillery &mdash; Brand Strategy</div>
+                    <h1 class="bs-reveal bs-reveal-delay-1">A Secret Worth<br><em>Importing.</em></h1>
+                    <div class="bs-hero-line bs-reveal bs-reveal-delay-2"></div>
+                </div>
+
+                <!-- THE SETUP -->
+                <div class="bs-section" style="text-align: center;">
+                    <p class="bs-body bs-reveal">The UK doesn't need another whiskey trying to prove something.</p>
+                    <p class="bs-body bs-reveal">They want something <em>quieter. Rarer. Intentional.</em></p>
+                    <p class="bs-pull-quote bs-reveal">That's Brady's.</p>
+                </div>
+
+                <!-- SHELF IMAGE — the product in its world -->
+                <div class="bs-img-full bs-reveal">
+                    <img src="bradys.webp" alt="Brady's Accomplice on the shelf">
+                    <span class="bs-img-caption">Roanoke, Virginia</span>
+                </div>
+
+                <!-- ORIGIN -->
+                <div class="bs-section">
+                    <div class="bs-overline bs-reveal">Origin</div>
+                    <h2 class="bs-heading bs-reveal">Not Bourbon Country.<br><em>That's the Point.</em></h2>
+                    <p class="bs-body bs-reveal">A small town. A distillery that still feels <strong>human.</strong></p>
+                    <p class="bs-body bs-reveal">Where whiskey isn't <em>produced</em>&mdash;it's <em>crafted.</em></p>
+                    <p class="bs-whisper bs-reveal">Luxury is about care. The kind you can't scale.</p>
+                </div>
+
+                <!-- CRAFT DUO — hands + distiller at work -->
+                <div class="bs-img-duo bs-reveal">
+                    <img src="bradyshands.jpg" alt="Hand-crafting from the barrel">
+                    <img src="bradyspeople.jpg" alt="Distiller at the copper still">
+                </div>
+
+                <!-- THE NEW LUXURY -->
+                <div class="bs-section">
+                    <div class="bs-overline bs-reveal">Positioning</div>
+                    <h2 class="bs-heading bs-reveal">The New Luxury<br>Is <em>Private</em></h2>
+                    <p class="bs-body bs-reveal">In the best bars in London, Paris, Milan&mdash;people aren't chasing the most famous bottle. They're chasing the one that feels like a <strong>discovery.</strong></p>
+                    <div class="bs-conversation bs-reveal">
+                        <p>&ldquo;What is that?&rdquo;</p>
+                        <p>&ldquo;That's Brady's. Hard to get.&rdquo;</p>
+                    </div>
+                    <p class="bs-whisper bs-reveal">That's the whole thing.</p>
+                </div>
+
+                <!-- STILL IMAGE — the machinery -->
+                <div class="bs-img-full bs-reveal">
+                    <img src="bradysmachine.webp" alt="Copper still at Brady's Distillery">
+                    <span class="bs-img-caption">The craft</span>
+                </div>
+
+                <!-- INTEGRITY -->
+                <div class="bs-section">
+                    <div class="bs-overline bs-reveal">Value</div>
+                    <h2 class="bs-heading bs-reveal">Imported for <em>Integrity.</em><br>Not Hype.</h2>
+                    <p class="bs-body bs-reveal">The craftsmanship. The patience. American distilling tradition, done quietly and precisely.</p>
+                    <p class="bs-body bs-reveal">Not competing with Scotch. Offering something <em>different.</em></p>
+                    <p class="bs-whisper bs-reveal">A tailored suit, not fast fashion.</p>
+                </div>
+
+                <div class="bs-divider"></div>
+
+                <!-- PLACEMENT -->
+                <div class="bs-section" style="text-align: center;">
+                    <div class="bs-overline bs-reveal">Placement</div>
+                    <h2 class="bs-heading bs-reveal">Where Brady's <em>Belongs</em></h2>
+                    <div class="bs-belongs-grid bs-reveal">
+                        <div class="bs-belongs-item">private members clubs</div>
+                        <div class="bs-belongs-item">Michelin-level cocktail rooms</div>
+                        <div class="bs-belongs-item">hotel bars where the lighting is low</div>
+                        <div class="bs-belongs-item">whiskey tastings that feel like rituals</div>
+                    </div>
+                    <p class="bs-whisper bs-reveal" style="margin-top: 2rem;">For bartenders who <em>curate</em>, not stock.<br>For guests who <em>savour</em>, not consume.</p>
+                </div>
+
+                <div class="bs-divider"></div>
+
+                <!-- BRAND STORY -->
+                <div class="bs-section" style="text-align: center;">
+                    <p class="bs-pull-quote bs-reveal">A bottle that feels like a secret<br>passed from one bar to another.</p>
+                </div>
+
+                <!-- FINALE -->
+                <div class="bs-finale">
+                    <h2 class="bs-reveal">Brady's Distillery</h2>
+                    <div class="bs-finale-taglines bs-reveal">
+                        <div class="bs-finale-tagline">Hand-crafted in Roanoke.</div>
+                        <div class="bs-finale-tagline">Poured in the right places.</div>
+                        <div class="bs-finale-tagline">Spoken about softly.</div>
+                        <div class="bs-finale-tagline">Remembered deeply.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div><!-- end page-brandstrategy -->
 
         <!-- Footer -->
         <footer>
@@ -1377,6 +1933,54 @@
     </div>
 
     <script>
+        // ============================================================
+        // TOP-LEVEL PAGE SWITCHING
+        // ============================================================
+        function switchPage(pageName) {
+            // Hide all page views
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById('page-' + pageName).classList.add('active');
+
+            // Immersive mode for brand strategy — hide header/footer
+            if (pageName === 'brandstrategy') {
+                document.body.classList.add('bs-immersive');
+                setTimeout(initBSReveal, 100);
+            } else {
+                document.body.classList.remove('bs-immersive');
+            }
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        // ============================================================
+        // BRAND STRATEGY SCROLL REVEAL
+        // ============================================================
+        function initBSReveal() {
+            const bsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.bs-reveal').forEach(el => {
+                el.classList.remove('visible');
+                bsObserver.observe(el);
+            });
+        }
+
+        // Auto-open brand strategy if URL has #brandstrategy
+        if (window.location.hash === '#brandstrategy') {
+            switchPage('brandstrategy');
+        }
+
+        // ============================================================
+        // RESEARCH TAB SWITCHING
+        // ============================================================
         function openTab(evt, tabName) {
             // Hide all tab contents
             const tabContents = document.getElementsByClassName('tab-content');

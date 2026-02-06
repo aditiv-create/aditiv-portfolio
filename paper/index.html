@@ -1638,24 +1638,36 @@
 
             /* Brand Strategy mobile */
             .bs-hero {
-                padding: 0 24px 60px;
-                min-height: 75vh;
+                padding: 0 24px;
+                min-height: 85vh;
+            }
+
+            .bs-hero h1 {
+                font-size: clamp(2.4rem, 10vw, 3.5rem);
             }
 
             .bs-section {
-                padding: 50px 24px;
+                padding: 60px 24px;
+            }
+
+            .bs-section-wide {
+                padding: 60px 24px;
             }
 
             .bs-finale {
-                padding: 70px 24px;
+                padding: 80px 24px;
             }
 
             .bs-body {
                 font-size: 0.95rem;
             }
 
+            .bs-img-full {
+                height: 40vh;
+            }
+
             .bs-img-full img {
-                height: 35vh;
+                height: 50vh;
             }
 
             .bs-img-duo {
@@ -1664,7 +1676,7 @@
             }
 
             .bs-img-duo img {
-                height: 30vh;
+                height: 35vh;
             }
 
             .bs-img-full .bs-img-caption {
@@ -1674,7 +1686,7 @@
             }
 
             .bs-conversation {
-                padding: 1.2rem 1.5rem;
+                padding: 1.5rem 1.8rem;
             }
 
             .bs-conversation p {
@@ -1685,6 +1697,36 @@
                 top: 16px;
                 left: 16px;
                 font-size: 0.6rem;
+            }
+
+            .bs-belongs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bs-hscroll-card {
+                flex: 0 0 280px;
+                padding: 32px 24px;
+            }
+
+            .bs-hscroll-label {
+                padding: 0 24px;
+            }
+
+            .bs-hscroll-track {
+                padding: 0 24px;
+            }
+
+            .bs-stat-row {
+                gap: 24px;
+                padding: 40px 24px;
+            }
+
+            .bs-gradient-break {
+                height: 120px;
+            }
+
+            .bs-hero-scroll {
+                bottom: 24px;
             }
         }
     </style>
@@ -2090,32 +2132,37 @@
              ============================================================ -->
         <div id="page-brandstrategy" class="page-view">
             <div class="bs-page">
+                <div class="bs-progress" id="bsProgress"></div>
                 <a class="bs-back-link" href="../index.html#pitches">← Portfolio</a>
 
-                <!-- HERO — bottle by firelight -->
+                <!-- HERO — cinematic fullscreen -->
                 <div class="bs-hero">
                     <div class="bs-hero-img"></div>
                     <div class="bs-hero-label bs-reveal">Brady's Distillery &mdash; Brand Strategy</div>
                     <h1 class="bs-reveal bs-reveal-delay-1">A Secret Worth<br><em>Importing.</em></h1>
                     <div class="bs-hero-line bs-reveal bs-reveal-delay-2"></div>
+                    <div class="bs-hero-scroll">Scroll</div>
                 </div>
 
-                <!-- THE SETUP -->
+                <!-- THE SETUP — centered dramatic intro -->
                 <div class="bs-section" style="text-align: center;">
                     <p class="bs-body bs-reveal">The UK doesn't need another whiskey trying to prove something.</p>
                     <p class="bs-body bs-reveal">They want something <em>quieter. Rarer. Intentional.</em></p>
-                    <p class="bs-pull-quote bs-reveal">That's Brady's.</p>
+                    <p class="bs-pull-quote bs-reveal-scale">That's Brady's.</p>
                 </div>
 
-                <!-- SHELF IMAGE — the product in its world -->
-                <div class="bs-img-full bs-reveal">
-                    <img src="bradys.webp" alt="Brady's Accomplice on the shelf">
+                <!-- GRADIENT BREAK -->
+                <div class="bs-gradient-break"></div>
+
+                <!-- SHELF IMAGE — parallax feel -->
+                <div class="bs-img-full bs-reveal-scale">
+                    <img src="bradys.webp" alt="Brady's Accomplice on the shelf" class="bs-parallax-img">
                     <span class="bs-img-caption">Roanoke, Virginia</span>
                 </div>
 
                 <!-- ORIGIN -->
                 <div class="bs-section">
-                    <div class="bs-overline bs-reveal">Origin</div>
+                    <div class="bs-overline bs-reveal-left">Origin</div>
                     <h2 class="bs-heading bs-reveal">Not Bourbon Country.<br><em>That's the Point.</em></h2>
                     <p class="bs-body bs-reveal">A small town. A distillery that still feels <strong>human.</strong></p>
                     <p class="bs-body bs-reveal">Where whiskey isn't <em>produced</em>&mdash;it's <em>crafted.</em></p>
@@ -2123,68 +2170,108 @@
                 </div>
 
                 <!-- CRAFT DUO — hands + distiller at work -->
-                <div class="bs-img-duo bs-reveal">
-                    <img src="bradyshands.jpg" alt="Hand-crafting from the barrel">
-                    <img src="bradyspeople.jpg" alt="Distiller at the copper still">
+                <div class="bs-img-duo">
+                    <div class="bs-img-duo-wrap bs-reveal-left">
+                        <img src="bradyshands.jpg" alt="Hand-crafting from the barrel">
+                    </div>
+                    <div class="bs-img-duo-wrap bs-reveal-right">
+                        <img src="bradyspeople.jpg" alt="Distiller at the copper still">
+                    </div>
+                </div>
+
+                <!-- STATS STRIP -->
+                <div class="bs-stat-row">
+                    <div class="bs-stat bs-reveal bs-reveal-delay-1">
+                        <div class="bs-stat-number">£2.47B</div>
+                        <div class="bs-stat-label">UK Whiskey Market by 2029</div>
+                    </div>
+                    <div class="bs-stat bs-reveal bs-reveal-delay-2">
+                        <div class="bs-stat-number">52%</div>
+                        <div class="bs-stat-label">On-trade consumption</div>
+                    </div>
+                    <div class="bs-stat bs-reveal bs-reveal-delay-3">
+                        <div class="bs-stat-number">No. 1</div>
+                        <div class="bs-stat-label">US Whiskey growth in UK</div>
+                    </div>
                 </div>
 
                 <!-- THE NEW LUXURY -->
                 <div class="bs-section">
-                    <div class="bs-overline bs-reveal">Positioning</div>
+                    <div class="bs-overline bs-reveal-left">Positioning</div>
                     <h2 class="bs-heading bs-reveal">The New Luxury<br>Is <em>Private</em></h2>
                     <p class="bs-body bs-reveal">In the best bars in London, Paris, Milan&mdash;people aren't chasing the most famous bottle. They're chasing the one that feels like a <strong>discovery.</strong></p>
-                    <div class="bs-conversation bs-reveal">
+                    <div class="bs-conversation bs-reveal-scale">
                         <p>&ldquo;What is that?&rdquo;</p>
                         <p>&ldquo;That's Brady's. Hard to get.&rdquo;</p>
                     </div>
                     <p class="bs-whisper bs-reveal">That's the whole thing.</p>
                 </div>
 
+                <!-- GRADIENT BREAK -->
+                <div class="bs-gradient-break"></div>
+
                 <!-- STILL IMAGE — the machinery -->
-                <div class="bs-img-full bs-reveal">
-                    <img src="bradysmachine.webp" alt="Copper still at Brady's Distillery">
+                <div class="bs-img-full bs-reveal-scale">
+                    <img src="bradysmachine.webp" alt="Copper still at Brady's Distillery" class="bs-parallax-img">
                     <span class="bs-img-caption">The craft</span>
                 </div>
 
                 <!-- INTEGRITY -->
                 <div class="bs-section">
-                    <div class="bs-overline bs-reveal">Value</div>
+                    <div class="bs-overline bs-reveal-left">Value</div>
                     <h2 class="bs-heading bs-reveal">Imported for <em>Integrity.</em><br>Not Hype.</h2>
                     <p class="bs-body bs-reveal">The craftsmanship. The patience. American distilling tradition, done quietly and precisely.</p>
                     <p class="bs-body bs-reveal">Not competing with Scotch. Offering something <em>different.</em></p>
                     <p class="bs-whisper bs-reveal">A tailored suit, not fast fashion.</p>
                 </div>
 
-                <div class="bs-divider"></div>
-
-                <!-- PLACEMENT -->
-                <div class="bs-section" style="text-align: center;">
-                    <div class="bs-overline bs-reveal">Placement</div>
-                    <h2 class="bs-heading bs-reveal">Where Brady's <em>Belongs</em></h2>
-                    <div class="bs-belongs-grid bs-reveal">
-                        <div class="bs-belongs-item">private members clubs</div>
-                        <div class="bs-belongs-item">Michelin-level cocktail rooms</div>
-                        <div class="bs-belongs-item">hotel bars where the lighting is low</div>
-                        <div class="bs-belongs-item">whiskey tastings that feel like rituals</div>
+                <!-- HORIZONTAL SCROLL — PLACEMENT CARDS -->
+                <div class="bs-hscroll-section">
+                    <div class="bs-hscroll-label bs-reveal">Where Brady's Belongs</div>
+                    <div class="bs-hscroll-track">
+                        <div class="bs-hscroll-card bs-reveal bs-reveal-delay-1">
+                            <span class="bs-card-number">01</span>
+                            <h3>Private Members Clubs</h3>
+                            <p>The kind of room where you don't need a menu. Where the bartender already knows what to pour.</p>
+                        </div>
+                        <div class="bs-hscroll-card bs-reveal bs-reveal-delay-2">
+                            <span class="bs-card-number">02</span>
+                            <h3>Michelin-Level Cocktail Rooms</h3>
+                            <p>Where every ingredient is intentional. Where craft isn't a label&mdash;it's a standard.</p>
+                        </div>
+                        <div class="bs-hscroll-card bs-reveal bs-reveal-delay-3">
+                            <span class="bs-card-number">03</span>
+                            <h3>Hotel Bars Where the Lighting Is Low</h3>
+                            <p>The back corner of a five-star lobby. A conversation that starts with &ldquo;what's that you're drinking?&rdquo;</p>
+                        </div>
+                        <div class="bs-hscroll-card bs-reveal bs-reveal-delay-4">
+                            <span class="bs-card-number">04</span>
+                            <h3>Whiskey Tastings That Feel Like Rituals</h3>
+                            <p>Not events. Experiences. Where the story matters as much as the spirit.</p>
+                        </div>
                     </div>
-                    <p class="bs-whisper bs-reveal" style="margin-top: 2rem;">For bartenders who <em>curate</em>, not stock.<br>For guests who <em>savour</em>, not consume.</p>
                 </div>
 
-                <div class="bs-divider"></div>
-
-                <!-- BRAND STORY -->
                 <div class="bs-section" style="text-align: center;">
-                    <p class="bs-pull-quote bs-reveal">A bottle that feels like a secret<br>passed from one bar to another.</p>
+                    <p class="bs-whisper bs-reveal">For bartenders who <em>curate</em>, not stock.<br>For guests who <em>savour</em>, not consume.</p>
+                </div>
+
+                <!-- GRADIENT BREAK -->
+                <div class="bs-gradient-break"></div>
+
+                <!-- BRAND STORY PULL QUOTE -->
+                <div class="bs-section" style="text-align: center;">
+                    <p class="bs-pull-quote bs-reveal-scale">A bottle that feels like a secret<br>passed from one bar to another.</p>
                 </div>
 
                 <!-- FINALE -->
                 <div class="bs-finale">
                     <h2 class="bs-reveal">Brady's Distillery</h2>
-                    <div class="bs-finale-taglines bs-reveal">
-                        <div class="bs-finale-tagline">Hand-crafted in Roanoke.</div>
-                        <div class="bs-finale-tagline">Poured in the right places.</div>
-                        <div class="bs-finale-tagline">Spoken about softly.</div>
-                        <div class="bs-finale-tagline">Remembered deeply.</div>
+                    <div class="bs-finale-taglines">
+                        <div class="bs-finale-tagline bs-reveal bs-reveal-delay-1">Hand-crafted in Roanoke.</div>
+                        <div class="bs-finale-tagline bs-reveal bs-reveal-delay-2">Poured in the right places.</div>
+                        <div class="bs-finale-tagline bs-reveal bs-reveal-delay-3">Spoken about softly.</div>
+                        <div class="bs-finale-tagline bs-reveal bs-reveal-delay-4">Remembered deeply.</div>
                     </div>
                 </div>
 
@@ -2229,21 +2316,50 @@
         }
 
         // ============================================================
-        // BRAND STRATEGY SCROLL REVEAL
+        // BRAND STRATEGY SCROLL REVEAL + EFFECTS
         // ============================================================
+        let bsObserver = null;
+        let bsScrollHandler = null;
+
         function initBSReveal() {
-            const bsObserver = new IntersectionObserver((entries) => {
+            // Reveal observer for all animation types
+            if (bsObserver) bsObserver.disconnect();
+            bsObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-            document.querySelectorAll('.bs-reveal').forEach(el => {
+            const revealSelectors = '.bs-reveal, .bs-reveal-scale, .bs-reveal-left, .bs-reveal-right';
+            document.querySelectorAll(revealSelectors).forEach(el => {
                 el.classList.remove('visible');
                 bsObserver.observe(el);
             });
+
+            // Scroll progress bar
+            if (bsScrollHandler) window.removeEventListener('scroll', bsScrollHandler);
+            bsScrollHandler = function() {
+                const bsPage = document.querySelector('.bs-page');
+                if (!bsPage) return;
+                const scrollTop = window.scrollY;
+                const docHeight = bsPage.scrollHeight - window.innerHeight;
+                const progress = Math.min((scrollTop / docHeight) * 100, 100);
+                const bar = document.getElementById('bsProgress');
+                if (bar) bar.style.width = progress + '%';
+
+                // Parallax on full-bleed images
+                document.querySelectorAll('.bs-parallax-img').forEach(img => {
+                    const rect = img.closest('.bs-img-full').getBoundingClientRect();
+                    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+                    if (inView) {
+                        const offset = (rect.top / window.innerHeight) * 15;
+                        img.style.transform = 'translateY(' + (-10 + offset) + '%)';
+                    }
+                });
+            };
+            window.addEventListener('scroll', bsScrollHandler, { passive: true });
         }
 
         // Auto-open brand strategy if URL has #brandstrategy

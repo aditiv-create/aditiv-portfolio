@@ -270,7 +270,56 @@
     }
 
     .section-pink {
-      background: linear-gradient(135deg, #1a1418 0%, #0a0a0a 100%);
+      background: #0a0a0a;
+      position: relative;
+      overflow: hidden;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section-pink-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .section-pink-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.25) saturate(0.4) contrast(1.1);
+    }
+
+    /* Grain to mask low-res */
+    .section-pink-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+
+    /* Vignette + gradient */
+    .section-pink-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 30%, rgba(10, 10, 10, 0.7) 100%),
+        linear-gradient(to top, rgba(10, 10, 10, 0.6) 0%, transparent 30%),
+        linear-gradient(to bottom, rgba(10, 10, 10, 0.5) 0%, transparent 30%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .section-pink .container {
+      position: relative;
+      z-index: 2;
     }
 
     .section-kicker {
@@ -781,17 +830,346 @@
       margin-right: 8px;
     }
 
+    /* ===== EDITORIAL IMAGE BLOCKS (low-res friendly) ===== */
+
+    /* Contained editorial image — not full-bleed, uses heavy atmosphere */
+    .cc-img-editorial {
+      max-width: 560px;
+      margin: 60px auto;
+      position: relative;
+      padding: 0 24px;
+    }
+
+    .cc-img-editorial-inner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      aspect-ratio: 4 / 5;
+    }
+
+    .cc-img-editorial img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.45) saturate(0.6) contrast(1.1);
+      transition: filter 0.8s ease;
+    }
+
+    .cc-img-editorial:hover img {
+      filter: brightness(0.55) saturate(0.7) contrast(1.1);
+    }
+
+    /* Grain overlay to mask low res */
+    .cc-img-editorial-inner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+    }
+
+    /* Vignette + gradient overlay */
+    .cc-img-editorial-inner::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 40%, rgba(10, 10, 10, 0.6) 100%),
+        linear-gradient(to bottom, transparent 60%, rgba(10, 10, 10, 0.4) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cc-img-editorial .cc-img-caption {
+      text-align: center;
+      margin-top: 16px;
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201, 135, 159, 0.3);
+    }
+
+    /* Wide editorial — for landscape/artifact images */
+    .cc-img-editorial.wide .cc-img-editorial-inner {
+      aspect-ratio: 16 / 9;
+    }
+
+    /* Small editorial — thumbnail feel */
+    .cc-img-editorial.compact {
+      max-width: 380px;
+    }
+
+    .cc-img-editorial.compact .cc-img-editorial-inner {
+      aspect-ratio: 1 / 1;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .cc-img-editorial {
+        max-width: 100%;
+        margin: 40px auto;
+      }
+
+      .cc-img-editorial.compact {
+        max-width: 260px;
+      }
+    }
+
+    /* ===== SPLIT LAYOUT — image beside text ===== */
+    .split-section {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .split-section.reverse {
+      grid-template-columns: 1fr 280px;
+    }
+
+    .split-img {
+      position: sticky;
+      top: 120px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin: 0 24px;
+      aspect-ratio: 3 / 4;
+    }
+
+    /* Grain */
+    .split-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 2;
+      mix-blend-mode: overlay;
+    }
+
+    /* Vignette */
+    .split-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 25%, rgba(10, 10, 10, 0.55) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .split-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.4) saturate(0.55) contrast(1.1);
+      transition: filter 0.8s ease;
+    }
+
+    .split-img:hover img {
+      filter: brightness(0.55) saturate(0.7) contrast(1.05);
+    }
+
+    .split-content {
+      min-width: 0;
+    }
+
+    @media (max-width: 900px) {
+      .split-section,
+      .split-section.reverse {
+        grid-template-columns: 1fr;
+      }
+
+      .split-img {
+        max-width: 260px;
+        margin: 0 auto 32px;
+        position: relative;
+        top: auto;
+      }
+    }
+
+    /* ===== SCROLL PROGRESS ===== */
+    .cc-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--pink), var(--gold), var(--pink));
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* ===== GRADIENT MESH BREAK ===== */
+    .gradient-break {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-break::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(201, 135, 159, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, rgba(201, 169, 98, 0.04) 0%, transparent 50%);
+      animation: ccMeshShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes ccMeshShift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(3%, -2%) scale(1.1); }
+    }
+
+    /* ===== CREATIVE WORLD CARD GRID ===== */
+    .creative-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .creative-card {
+      background: rgba(201, 135, 159, 0.04);
+      border: 1px solid rgba(201, 135, 159, 0.1);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .creative-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--pink), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .creative-card:hover {
+      background: rgba(201, 135, 159, 0.08);
+      border-color: rgba(201, 135, 159, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .creative-card:hover::before {
+      opacity: 1;
+    }
+
+    .creative-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+    }
+
+    .creative-card h3 .malayalam {
+      font-size: 14px;
+      color: var(--pink);
+      margin-left: 8px;
+    }
+
+    .creative-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .creative-card .card-number {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5rem;
+      color: rgba(201, 135, 159, 0.08);
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      line-height: 1;
+    }
+
+    .creative-card .card-accent {
+      color: var(--pink);
+      font-style: italic;
+      margin-top: 12px;
+      font-family: "Playfair Display", serif;
+    }
+
+    @media (max-width: 768px) {
+      .creative-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 20px;
+      }
+
+      .creative-card {
+        padding: 28px 22px;
+      }
+    }
+
     /* ===== ANIMATIONS ===== */
     .reveal {
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+    .reveal-delay-4 { transition-delay: 0.6s; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
@@ -827,6 +1205,10 @@
 
       .logo-hero {
         width: 80px;
+      }
+
+      .gradient-break {
+        height: 100px;
       }
     }
 
@@ -984,12 +1366,14 @@
 </head>
 <body>
 
+  <div class="cc-progress" id="ccProgress"></div>
+
   <a href="../index.html" class="back-link">Back to Portfolio</a>
 
   <!-- HERO -->
   <section class="hero">
     <img src="logo.png" alt="Bhavya Ramesh Logo" class="logo logo-hero">
-    <div class="hero-kicker">Creative Brand Strategy Pitch</div>
+    <div class="hero-kicker reveal reveal-delay-1">Creative Brand Strategy Pitch</div>
     <h1 class="hero-title">
       <span>Chimmi</span>
       <span>Chimmi</span>
@@ -1017,8 +1401,11 @@
     <div class="scroll-indicator">Scroll</div>
   </section>
 
-  <!-- MALAYALAM MEANING -->
+  <!-- MALAYALAM MEANING — painting as atmospheric background -->
   <section class="section-pink">
+    <div class="section-pink-bg">
+      <img src="chimmichimmi.jpg" alt="Classical Indian jewelry and adornment">
+    </div>
     <div class="container">
       <div class="malayalam-block reveal">
         <p class="malayalam-large">ചിമ്മി ചിമ്മി</p>
@@ -1029,50 +1416,67 @@
 
   <!-- THE CONTEXT -->
   <section class="section-dark">
-    <div class="container">
-      <div class="section-kicker reveal">The Context <span class="malayalam">പശ്ചാത്തലം</span></div>
-      <h2 class="section-title reveal">Adornment in Indian jewelry culture has traditionally been <em>still.</em></h2>
-
-      <div class="prose-poetic reveal">
-        <p>It lives on wrists held together for photographs.</p>
-        <p>On necks waiting for ceremonies.</p>
-        <p>On ears that listen quietly.</p>
+    <div class="split-section">
+      <div class="split-img reveal-left">
+        <img src="chimmichimmimallu.jpg" alt="Traditional South Indian adornment">
       </div>
+      <div class="split-content">
+        <div class="container">
+          <div class="section-kicker reveal-left">The Context <span class="malayalam">പശ്ചാത്തലം</span></div>
+          <h2 class="section-title reveal">Adornment in Indian jewelry culture has traditionally been <em>still.</em></h2>
 
-      <div class="divider">
-        <span class="divider-line"></span>
-        <img src="logo.png" alt="" class="divider-logo">
-        <span class="divider-line"></span>
+          <div class="prose-poetic reveal">
+            <p>It lives on wrists held together for photographs.</p>
+            <p>On necks waiting for ceremonies.</p>
+            <p>On ears that listen quietly.</p>
+          </div>
+
+          <div class="divider">
+            <span class="divider-line"></span>
+            <img src="logo.png" alt="" class="divider-logo">
+            <span class="divider-line"></span>
+          </div>
+
+          <div class="prose reveal">
+            <p>But Indian identity has never been silent.</p>
+            <p>Across generations, communities have adorned their teeth with gold and silver. Not as excess. As presence. As protection, status, rebellion, and continuity.</p>
+            <p>Today, that lineage resurfaces through tooth gems, grills, and oral adornment. Not as nostalgia, but as self-authored expression.</p>
+            <p>Bhavya Ramesh already operates at this intersection. Where craft meets defiance. Where jewelry is not an occasion, but a point of view.</p>
+          </div>
+
+          <div class="highlight-text reveal-scale">
+            Chimmi Chimmi asks a simple question: What if jewelry didn't wait to be noticed? What if it announced itself every time you spoke?
+          </div>
+
+          <a href="research.html" class="research-link reveal">Explore the cultural evidence</a>
+        </div>
       </div>
-
-      <div class="prose reveal">
-        <p>But Indian identity has never been silent.</p>
-        <p>Across generations, communities have adorned their teeth with gold and silver. Not as excess. As presence. As protection, status, rebellion, and continuity.</p>
-        <p>Today, that lineage resurfaces through tooth gems, grills, and oral adornment. Not as nostalgia, but as self-authored expression.</p>
-        <p>Bhavya Ramesh already operates at this intersection. Where craft meets defiance. Where jewelry is not an occasion, but a point of view.</p>
-      </div>
-
-      <div class="highlight-text reveal">
-        Chimmi Chimmi asks a simple question: What if jewelry didn't wait to be noticed? What if it announced itself every time you spoke?
-      </div>
-
-      <a href="research.html" class="research-link reveal">Explore the cultural evidence</a>
     </div>
   </section>
 
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
   <!-- THE OPPORTUNITY -->
   <section class="section-card">
-    <div class="container">
-      <div class="section-kicker reveal">The Opportunity <span class="malayalam">അവസരം</span></div>
-      <h2 class="section-title reveal">On Bhavya Ramesh's website, grills exist. But the link leads <span class="pink">nowhere.</span></h2>
+    <div class="split-section reverse">
+      <div class="split-content">
+        <div class="container">
+          <div class="section-kicker reveal-left">The Opportunity <span class="malayalam">അവസരം</span></div>
+          <h2 class="section-title reveal">On Bhavya Ramesh's website, grills exist. But the link leads <span class="pink">nowhere.</span></h2>
 
-      <div class="prose reveal">
-        <p>A signal that oral adornment belongs in the brand's universe, but hasn't yet been given language, context, or cultural gravity.</p>
-        <p>At the same time, tooth gems have found renewed popularity in India through creators, musicians, and cultural tastemakers. Many of them already align with Bhavya Ramesh's visual and ideological world.</p>
+          <div class="prose reveal">
+            <p>A signal that oral adornment belongs in the brand's universe, but hasn't yet been given language, context, or cultural gravity.</p>
+            <p>At the same time, tooth gems have found renewed popularity in India through creators, musicians, and cultural tastemakers. Many of them already align with Bhavya Ramesh's visual and ideological world.</p>
+          </div>
+
+          <div class="highlight-text reveal-scale">
+            This wasn't a trend to jump on. It was a history waiting to be reframed.
+          </div>
+        </div>
       </div>
-
-      <div class="highlight-text reveal">
-        This wasn't a trend to jump on. It was a history waiting to be reframed.
+      <div class="split-img reveal-right">
+        <img src="chimmichimmiindianbaddie.jpg" alt="Bold gold adornment">
       </div>
     </div>
   </section>
@@ -1080,7 +1484,7 @@
   <!-- THE CULTURAL TENSION -->
   <section class="section-dark">
     <div class="container">
-      <div class="section-kicker reveal">The Cultural Tension <span class="malayalam">സംഘർഷം</span></div>
+      <div class="section-kicker reveal-left">The Cultural Tension <span class="malayalam">സംഘർഷം</span></div>
       <h2 class="section-title reveal">Luxury jewelry often glorifies <span class="pink">silence.</span></h2>
 
       <div class="prose-poetic reveal">
@@ -1094,7 +1498,7 @@
         <span class="divider-line"></span>
       </div>
 
-      <div class="essence-block reveal">
+      <div class="essence-block reveal-scale">
         <p class="essence-lead">But real power isn't quiet.</p>
         <p>It interrupts. It flashes mid-sentence. It reveals itself when you laugh, sing, argue, or bite back.</p>
         <p>The mouth, one of the most expressive parts of the body, has been largely ignored as a site of adornment in contemporary Indian jewelry narratives.</p>
@@ -1103,10 +1507,13 @@
     </div>
   </section>
 
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
   <!-- THE INSIGHT -->
   <section class="section-warm">
     <div class="container">
-      <div class="section-kicker reveal">The Insight <span class="malayalam">ഉൾക്കാഴ്ച</span></div>
+      <div class="section-kicker reveal-left">The Insight <span class="malayalam">ഉൾക്കാഴ്ച</span></div>
       <h2 class="section-title reveal">Oral adornment has <span class="pink">always</span> existed in Indian culture.</h2>
 
       <div class="prose reveal">
@@ -1114,7 +1521,7 @@
         <p>Today's grills and tooth gems aren't a departure from tradition. They are its evolution.</p>
       </div>
 
-      <div class="highlight-text reveal">
+      <div class="highlight-text reveal-scale">
         Adornment of the mouth is intimate, confrontational, and alive. It moves only when you do.
       </div>
 
@@ -1122,13 +1529,21 @@
     </div>
   </section>
 
+  <!-- EDITORIAL: Ancient Oral Adornment -->
+  <div class="cc-img-editorial wide compact reveal-scale">
+    <div class="cc-img-editorial-inner">
+      <img src="EtruscanDentalBridges.jpeg" alt="Etruscan gold dental bridges — oral adornment since antiquity">
+    </div>
+    <div class="cc-img-caption">Etruscan dental bridges, c. 700 BCE</div>
+  </div>
+
   <!-- THE IDEA -->
   <section class="section-dark">
     <div class="container">
-      <div class="section-kicker reveal">The Idea <span class="malayalam">ആശയം</span></div>
+      <div class="section-kicker reveal-left">The Idea <span class="malayalam">ആശയം</span></div>
       <h2 class="section-title reveal">Chimmi Chimmi. <span class="pink">Sparkle when you speak.</span></h2>
 
-      <div class="malayalam-block reveal" style="padding: 32px 0;">
+      <div class="malayalam-block reveal-scale" style="padding: 32px 0;">
         <p class="malayalam-large" style="font-size: clamp(28px, 6vw, 56px);">മിന്നുക. സംസാരിക്കുമ്പോൾ.</p>
       </div>
 
@@ -1137,16 +1552,24 @@
         <p>Grills and oral jewelry are positioned not as costume or shock, but as everyday adornment. Genderless. Age-agnostic. Unapologetic.</p>
       </div>
 
-      <div class="highlight-text reveal">
+      <div class="highlight-text reveal-scale">
         Jewelry that doesn't sit still. Jewelry that activates with voice.
       </div>
     </div>
   </section>
 
+  <!-- EDITORIAL: The Mouth in Motion -->
+  <div class="cc-img-editorial compact reveal-scale">
+    <div class="cc-img-editorial-inner">
+      <img src="chimmichimmiplayfulvibe.jpg" alt="Playful expression — the mouth in motion">
+    </div>
+    <div class="cc-img-caption">The mouth in motion</div>
+  </div>
+
   <!-- THE INTENT -->
   <section class="section-card">
     <div class="container">
-      <div class="section-kicker reveal">The Intent <span class="malayalam">ഉദ്ദേശ്യം</span></div>
+      <div class="section-kicker reveal-left">The Intent <span class="malayalam">ഉദ്ദേശ്യം</span></div>
       <h2 class="section-title reveal">Chimmi Chimmi is not built around a single <span class="pink">demographic.</span></h2>
 
       <div class="prose reveal">
@@ -1167,62 +1590,51 @@
     </div>
   </section>
 
-  <!-- THE CREATIVE WORLD -->
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- THE CREATIVE WORLD — HORIZONTAL SCROLL CARDS -->
   <section class="section-dark">
     <div class="container-wide">
-      <div class="section-kicker reveal">The Creative World <span class="malayalam">സൃഷ്ടിപരമായ ലോകം</span></div>
-      <h2 class="section-title reveal" style="margin-bottom: 64px;">Where craft meets <span class="pink">expression.</span></h2>
+      <div class="section-kicker reveal-left">The Creative World <span class="malayalam">സൃഷ്ടിപരമായ ലോകം</span></div>
+      <h2 class="section-title reveal" style="margin-bottom: 48px;">Where craft meets <span class="pink">expression.</span></h2>
+    </div>
 
-      <div class="two-col">
-        <div class="creative-block reveal">
+    <div class="creative-grid">
+        <div class="creative-card reveal reveal-delay-1">
+          <span class="card-number">01</span>
           <h3>Casting <span class="malayalam">നടീനടന്മാർ</span></h3>
-          <p>Bhavya Ramesh's existing diaspora of models expands to include a wider age range and expressions of gender and identity.</p>
-          <p style="margin-top: 16px;">Subjects are not posed. They are speaking, laughing, singing, breathing.</p>
-          <p style="margin-top: 16px; color: var(--pink); font-style: italic;">The mouth is always in motion.</p>
+          <p>Bhavya Ramesh's diaspora of models expands to include a wider age range and expressions of gender and identity. Subjects are not posed. They are speaking, laughing, singing, breathing.</p>
+          <p class="card-accent">The mouth is always in motion.</p>
         </div>
 
-        <div class="creative-block reveal">
+        <div class="creative-card reveal reveal-delay-2">
+          <span class="card-number">02</span>
           <h3>Visual Language <span class="malayalam">ദൃശ്യഭാഷ</span></h3>
-          <p>Extreme close-ups capture teeth catching light mid-word. Jewelry is revealed through expression, not stillness.</p>
-          <p style="margin-top: 16px;">Adornment appears as punctuation. A glint between sentences. A flash during laughter.</p>
+          <p>Extreme close-ups capture teeth catching light mid-word. Jewelry is revealed through expression, not stillness. A glint between sentences. A flash during laughter.</p>
+          <p class="card-accent">Adornment appears as punctuation.</p>
         </div>
-      </div>
 
-      <div class="divider">
-        <span class="divider-line"></span>
-        <img src="logo.png" alt="" class="divider-logo">
-        <span class="divider-line"></span>
-      </div>
+        <div class="creative-card reveal reveal-delay-3">
+          <span class="card-number">03</span>
+          <h3>Sound <span class="malayalam">ശബ്ദം</span></h3>
+          <p>Classic Carnatic vocals remixed with breath, pauses, metallic textures, and mouth sounds. The mouth becomes both subject and instrument.</p>
+          <p class="card-accent">The music listens to the visuals.</p>
+        </div>
 
-      <div class="creative-block reveal">
-        <h3>Sound <span class="malayalam">ശബ്ദം</span></h3>
-        <p>Classic Carnatic vocals are remixed with breath, pauses, metallic textures, and mouth sounds.</p>
-        <p style="margin-top: 16px;">The mouth becomes both subject and instrument. The music doesn't overpower the visuals. It listens to them.</p>
-      </div>
-
-      <div class="divider">
-        <span class="divider-line"></span>
-        <img src="logo.png" alt="" class="divider-logo">
-        <span class="divider-line"></span>
-      </div>
-
-      <div class="creative-block reveal">
-        <h3>Campaign Expressions <span class="malayalam">പ്രചാരണ ആവിഷ്കാരങ്ങൾ</span></h3>
-        <ul class="expressions-list">
-          <li>Short films focused on speech, voice, and presence</li>
-          <li>Creator-led oral histories and conversations</li>
-          <li>Visual stories where grills are revealed only when the subject speaks</li>
-          <li>Editorial stills that prioritize intimacy over polish</li>
-        </ul>
-        <p style="margin-top: 32px; color: var(--pink); font-style: italic; font-family: 'Playfair Display', serif; font-size: 18px;">The jewelry is never explained first. The person always is.</p>
-      </div>
+        <div class="creative-card reveal reveal-delay-4">
+          <span class="card-number">04</span>
+          <h3>Expressions <span class="malayalam">ആവിഷ്കാരങ്ങൾ</span></h3>
+          <p>Short films on speech and presence. Creator-led oral histories. Visual stories where grills appear only when the subject speaks. Editorial stills prioritizing intimacy over polish.</p>
+          <p class="card-accent">The person is always explained first.</p>
+        </div>
     </div>
   </section>
 
   <!-- WHY BHAVYA RAMESH -->
   <section class="section-warm">
     <div class="container">
-      <div class="section-kicker reveal">Why Bhavya Ramesh <span class="malayalam">എന്തുകൊണ്ട്</span></div>
+      <div class="section-kicker reveal-left">Why Bhavya Ramesh <span class="malayalam">എന്തുകൊണ്ട്</span></div>
       <h2 class="section-title reveal">Bhavya Ramesh has consistently challenged where jewelry belongs and <span class="pink">who it is for.</span></h2>
 
       <div class="prose reveal">
@@ -1230,16 +1642,19 @@
         <p>It reinforces Bhavya Ramesh's core belief:</p>
       </div>
 
-      <div class="highlight-text reveal">
+      <div class="highlight-text reveal-scale">
         Adornment is not about occasions. It's about how you occupy space.
       </div>
     </div>
   </section>
 
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
   <!-- THE OUTCOME -->
   <section class="section-dark">
     <div class="container">
-      <div class="section-kicker reveal">The Outcome (Envisioned) <span class="malayalam">ഫലം</span></div>
+      <div class="section-kicker reveal-left">The Outcome (Envisioned) <span class="malayalam">ഫലം</span></div>
       <h2 class="section-title reveal">Chimmi Chimmi positions grills and oral jewelry as:</h2>
 
       <div class="outcome-points reveal">
@@ -1261,11 +1676,11 @@
         <p>Not as a novelty. But as a declaration.</p>
       </div>
 
-      <div class="highlight-text reveal" style="text-align: center; border-left: none; padding-left: 0; max-width: 600px; margin: 48px auto;">
+      <div class="highlight-text reveal-scale" style="text-align: center; border-left: none; padding-left: 0; max-width: 600px; margin: 48px auto;">
         Jewelry that doesn't wait for permission. Jewelry that shines when you speak.
       </div>
 
-      <div class="malayalam-block reveal">
+      <div class="malayalam-block reveal-scale">
         <p class="malayalam-large" style="font-size: clamp(32px, 7vw, 64px);">ചിമ്മി ചിമ്മി ✦</p>
       </div>
     </div>
@@ -1286,22 +1701,46 @@
   </footer>
 
   <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
+    // Reveal on scroll — supports all animation types
+    const revealSelectors = '.reveal, .reveal-scale, .reveal-left, .reveal-right';
+    const allReveals = document.querySelectorAll(revealSelectors);
 
-    const revealOnScroll = () => {
-      reveals.forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (top < windowHeight - 100) {
-          el.classList.add('visible');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
       });
-    };
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
+    allReveals.forEach(el => observer.observe(el));
+
+    // Scroll progress bar + side image visibility
+    const sideImages = document.getElementById('ccSideImages');
+    const contentSections = document.querySelectorAll('.section-dark, .section-card, .section-warm');
+    const footerEl = document.querySelector('footer');
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min((scrollTop / docHeight) * 100, 100);
+      const bar = document.getElementById('ccProgress');
+      if (bar) bar.style.width = progress + '%';
+
+      // Show side images only during the middle content sections
+      if (sideImages) {
+        const viewH = window.innerHeight;
+        const startShow = viewH * 1.5;
+        const footerTop = footerEl ? footerEl.getBoundingClientRect().top + scrollTop : Infinity;
+        const stopShow = footerTop - viewH;
+
+        if (scrollTop > startShow && scrollTop < stopShow) {
+          sideImages.classList.add('active');
+        } else {
+          sideImages.classList.remove('active');
+        }
+      }
+    }, { passive: true });
   </script>
 
 </body>

@@ -923,7 +923,7 @@
     /* ===== SPLIT LAYOUT — image beside text ===== */
     .split-section {
       display: grid;
-      grid-template-columns: 280px 1fr;
+      grid-template-columns: 360px 1fr;
       gap: 0;
       max-width: 1200px;
       margin: 0 auto;
@@ -931,7 +931,7 @@
     }
 
     .split-section.reverse {
-      grid-template-columns: 1fr 280px;
+      grid-template-columns: 1fr 360px;
     }
 
     .split-img {
@@ -1715,31 +1715,13 @@
 
     allReveals.forEach(el => observer.observe(el));
 
-    // Scroll progress bar + side image visibility
-    const sideImages = document.getElementById('ccSideImages');
-    const contentSections = document.querySelectorAll('.section-dark, .section-card, .section-warm');
-    const footerEl = document.querySelector('footer');
-
+    // Scroll progress bar
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min((scrollTop / docHeight) * 100, 100);
       const bar = document.getElementById('ccProgress');
       if (bar) bar.style.width = progress + '%';
-
-      // Show side images only during the middle content sections
-      if (sideImages) {
-        const viewH = window.innerHeight;
-        const startShow = viewH * 1.5;
-        const footerTop = footerEl ? footerEl.getBoundingClientRect().top + scrollTop : Infinity;
-        const stopShow = footerTop - viewH;
-
-        if (scrollTop > startShow && scrollTop < stopShow) {
-          sideImages.classList.add('active');
-        } else {
-          sideImages.classList.remove('active');
-        }
-      }
     }, { passive: true });
   </script>
 

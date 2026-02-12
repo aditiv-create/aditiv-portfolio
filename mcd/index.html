@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Reward That's Always There – McDonald's Strategy Pitch by Aditi Venkat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --black-deep: #0a0a0a;
+      --black-soft: #141414;
+      --black-card: #1a1a1a;
+      --ink-light: #fdf9f3;
+      --paper: #fbf8f4;
+      --paper-warm: #f3e6dd;
+      --gold: #d4a017;
+      --gold-soft: #e8b84b;
+      --red: #c1272d;
+      --red-soft: #d4474d;
+      --muted: #8a8a8a;
+      --accent: #d9c8c0;
+      --accent-soft: #e9d8d0;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --transition: 300ms ease-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      background: var(--black-deep);
+      color: var(--ink-light);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain texture */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease-out 0.1s backwards;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 10vw, 120px);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease-out 0.2s backwards;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-tagline {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(20px, 3.5vw, 30px);
+      color: var(--accent);
+      margin-bottom: 60px;
+      animation: fadeInUp 0.8s ease-out 0.3s backwards;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      animation: fadeInUp 0.8s ease-out 0.4s backwards;
+    }
+
+    .meta-item {
+      text-align: center;
+    }
+
+    .meta-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .meta-value {
+      font-size: 15px;
+      color: var(--ink-light);
+    }
+
+    .scroll-indicator {
+      margin-top: 48px;
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator::after {
+      content: '\2193';
+      display: block;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ===== TAGS ===== */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .tag {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 100px;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-dark {
+      background: var(--black-deep);
+    }
+
+    .section-card {
+      background: var(--black-soft);
+      border-radius: var(--radius-lg);
+      margin: 0 24px;
+      padding: 80px 0;
+    }
+
+    .section-warm {
+      background: var(--paper);
+      color: var(--black-deep);
+    }
+
+    .section-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-warm .section-kicker {
+      color: #8b7355;
+    }
+
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .section-title .red {
+      color: var(--red);
+    }
+
+    .section-warm .section-title em {
+      color: #8b7355;
+    }
+
+    .section-warm .section-title .red {
+      color: var(--red);
+    }
+
+    /* ===== CONTENT BLOCKS ===== */
+    .content-block {
+      margin-bottom: 60px;
+    }
+
+    .content-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose {
+      font-size: 17px;
+      line-height: 1.85;
+      color: var(--accent);
+    }
+
+    .section-warm .prose {
+      color: #4a4a4a;
+    }
+
+    .prose p {
+      margin-bottom: 24px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose-poetic {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      line-height: 2;
+      color: var(--ink-light);
+    }
+
+    .prose-poetic p {
+      margin-bottom: 8px;
+    }
+
+    .highlight-text {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--ink-light);
+      border-left: 3px solid var(--gold);
+      padding-left: 32px;
+      margin: 48px 0;
+    }
+
+    .section-warm .highlight-text {
+      color: var(--black-deep);
+      border-left-color: var(--red);
+    }
+
+    /* ===== ESSENCE BLOCK ===== */
+    .essence-block {
+      background: linear-gradient(135deg, rgba(212, 160, 23, 0.08) 0%, rgba(212, 160, 23, 0.02) 100%);
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      border-radius: 16px;
+      padding: 48px 40px;
+      margin: 48px 0;
+      text-align: center;
+    }
+
+    .essence-block p {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      line-height: 1.8;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+    }
+
+    .essence-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .essence-lead {
+      font-size: 32px !important;
+      font-style: italic;
+      color: var(--gold) !important;
+      margin-bottom: 24px !important;
+    }
+
+    .essence-conclusion {
+      font-size: 28px !important;
+      font-weight: 500;
+      color: var(--red) !important;
+      margin-top: 24px !important;
+      padding-top: 24px;
+      border-top: 1px solid rgba(212, 160, 23, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .essence-block {
+        padding: 32px 24px;
+      }
+      .essence-lead {
+        font-size: 24px !important;
+      }
+      .essence-conclusion {
+        font-size: 22px !important;
+      }
+    }
+
+    /* ===== STATS STRIP ===== */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      padding: 48px 24px;
+      margin: 48px 0;
+      border-top: 1px solid rgba(212, 160, 23, 0.15);
+      border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    @media (max-width: 600px) {
+      .stats-strip {
+        gap: 32px;
+      }
+    }
+
+    /* ===== BULLET LIST ===== */
+    .bullet-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .bullet-list li::before {
+      content: '\2726';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 10px;
+      top: 6px;
+    }
+
+    .section-warm .bullet-list li {
+      color: #4a4a4a;
+    }
+
+    .section-warm .bullet-list li::before {
+      color: var(--red);
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 60px auto;
+      gap: 20px;
+    }
+
+    .divider-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.3;
+    }
+
+    .divider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.4;
+    }
+
+    /* ===== TWO COLUMN LAYOUT ===== */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* ===== CREATIVE WORLD CARD GRID ===== */
+    .creative-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .creative-card {
+      background: rgba(212, 160, 23, 0.04);
+      border: 1px solid rgba(212, 160, 23, 0.1);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .creative-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .creative-card:hover {
+      background: rgba(212, 160, 23, 0.08);
+      border-color: rgba(212, 160, 23, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .creative-card:hover::before {
+      opacity: 1;
+    }
+
+    .creative-card h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+    }
+
+    .creative-card p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .creative-card .card-number {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5rem;
+      color: rgba(212, 160, 23, 0.08);
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      line-height: 1;
+    }
+
+    .creative-card .card-accent {
+      color: var(--gold);
+      font-style: italic;
+      margin-top: 12px;
+      font-family: "Playfair Display", serif;
+    }
+
+    @media (max-width: 768px) {
+      .creative-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 20px;
+      }
+
+      .creative-card {
+        padding: 28px 22px;
+      }
+    }
+
+    /* ===== FILM SEQUENCE ===== */
+    .film-sequence {
+      margin: 48px 0;
+    }
+
+    .film-scene {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.08);
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      font-style: italic;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .film-scene:last-child {
+      border-bottom: none;
+    }
+
+    .film-direction {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      font-style: normal;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .film-final {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .film-final p {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(22px, 4vw, 32px);
+      font-style: italic;
+      color: var(--ink-light);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .film-final .arches {
+      font-size: 14px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 24px;
+      font-family: "Courier Prime", monospace;
+    }
+
+    /* ===== WHAT THIS ISN'T LIST ===== */
+    .isnt-list {
+      list-style: none;
+      margin: 32px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .isnt-list li {
+      font-family: "Playfair Display", serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--accent);
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .isnt-list li::before {
+      content: '\2715';
+      position: absolute;
+      left: 0;
+      color: rgba(193, 39, 45, 0.5);
+      font-size: 12px;
+      top: 4px;
+      font-style: normal;
+    }
+
+    @media (max-width: 600px) {
+      .isnt-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== SOCIAL PROMPT BLOCK ===== */
+    .social-prompt {
+      background: rgba(212, 160, 23, 0.06);
+      border: 1px solid rgba(212, 160, 23, 0.15);
+      border-radius: 16px;
+      padding: 40px;
+      margin: 48px 0;
+    }
+
+    .social-prompt .prompt-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .social-prompt .prompt-question {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 32px;
+    }
+
+    .social-responses {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .social-response {
+      font-family: "Courier Prime", monospace;
+      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--accent);
+    }
+
+    .social-reply {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-style: italic;
+      color: var(--gold);
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .social-prompt {
+        padding: 28px 20px;
+      }
+    }
+
+    /* ===== TWO-COL DETAIL BLOCKS ===== */
+    .detail-block {
+      margin-bottom: 32px;
+    }
+
+    .detail-block h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 16px;
+      color: var(--ink-light);
+    }
+
+    .detail-block p {
+      font-size: 15px;
+      color: var(--accent);
+      line-height: 1.8;
+    }
+
+    .section-warm .detail-block h3 {
+      color: var(--black-deep);
+    }
+
+    .section-warm .detail-block p {
+      color: #4a4a4a;
+    }
+
+    /* ===== OUTCOME POINTS ===== */
+    .outcome-points {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin: 48px 0;
+    }
+
+    .outcome-point {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .outcome-point span {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    @media (max-width: 768px) {
+      .outcome-points {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 80px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(212, 160, 23, 0.1);
+    }
+
+    .footer-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-style: italic;
+      color: var(--ink-light);
+      margin-bottom: 32px;
+    }
+
+    .footer-link {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 4px;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--ink-light);
+      border-color: var(--ink-light);
+    }
+
+    .footer-credit {
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .footer-credit a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ===== BACK LINK ===== */
+    .back-link {
+      position: fixed;
+      top: 32px;
+      left: 32px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: var(--transition);
+      z-index: 100;
+    }
+
+    .back-link:hover {
+      color: var(--gold);
+    }
+
+    .back-link::before {
+      content: '\2190';
+      margin-right: 8px;
+    }
+
+    /* ===== SCROLL PROGRESS ===== */
+    .mcd-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    /* ===== GRADIENT MESH BREAK ===== */
+    .gradient-break {
+      height: 180px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gradient-break::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(212, 160, 23, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 50%, rgba(193, 39, 45, 0.04) 0%, transparent 50%);
+      animation: meshShift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes meshShift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(3%, -2%) scale(1.1); }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+    .reveal-delay-4 { transition-delay: 0.6s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      section {
+        padding: 60px 0;
+      }
+
+      .section-card {
+        margin: 0 16px;
+        padding: 48px 0;
+      }
+
+      .hero {
+        padding: 100px 24px 60px;
+      }
+
+      .hero-meta {
+        gap: 24px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .back-link {
+        top: 20px;
+        left: 20px;
+      }
+
+      .gradient-break {
+        height: 100px;
+      }
+    }
+
+    /* ===== SPLIT LAYOUT — image beside text (Emma Kerencheva style) ===== */
+    /* Sections containing split layouts need less padding since split handles it */
+    section:has(.split-section) {
+      padding: 0;
+    }
+
+    /* ===== SPLIT LAYOUT — image beside text ===== */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+      padding: 64px 40px;
+    }
+
+    .split-section.reverse .split-img {
+      order: 2;
+    }
+
+    .split-section.reverse .split-content {
+      order: 1;
+    }
+
+    .split-img {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow:
+        0 8px 40px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(212, 160, 23, 0.06);
+    }
+
+    .split-img img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      filter: brightness(0.9) saturate(1.1) contrast(1.05);
+    }
+
+    /* Subtle grain overlay */
+    .split-img::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: 14px;
+    }
+
+    /* Softer treatment on light backgrounds */
+    .section-warm .split-img {
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.15),
+        0 0 48px rgba(193, 39, 45, 0.06);
+    }
+
+    .section-warm .split-img img {
+      filter: brightness(1) saturate(1.05) contrast(1.02);
+    }
+
+    .split-content {
+      padding: 16px 8px;
+    }
+
+    /* ===== FULL-BLEED ATMOSPHERIC IMAGE ===== */
+    .mcd-img-atmosphere {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 40px;
+    }
+
+    .mcd-img-atmosphere img {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      filter: brightness(0.65) saturate(1.15) contrast(1.1);
+      box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(212, 160, 23, 0.05);
+    }
+
+    .mcd-img-atmosphere .atmosphere-text {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(20px, 3vw, 28px);
+      font-style: italic;
+      color: var(--ink-light);
+      text-align: center;
+      width: 80%;
+      max-width: 500px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .split-section {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 40px 20px;
+      }
+
+      .split-section.reverse .split-img {
+        order: 0;
+      }
+
+      .split-section.reverse .split-content {
+        order: 0;
+      }
+
+      .split-content {
+        padding: 8px 4px;
+      }
+
+      .mcd-img-atmosphere {
+        padding: 16px 20px;
+      }
+    }
+
+    /* ===== PRINT ===== */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11pt;
+        line-height: 1.5;
+      }
+
+      .back-link,
+      .scroll-indicator,
+      .mcd-progress,
+      .gradient-break {
+        display: none !important;
+      }
+
+      .reveal, .reveal-scale, .reveal-left, .reveal-right {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      .hero {
+        background: #fff !important;
+        padding: 40px 0 !important;
+        min-height: auto !important;
+      }
+
+      .hero-title {
+        color: #000 !important;
+        font-size: 36pt !important;
+      }
+
+      section {
+        padding: 30px 0 !important;
+      }
+
+      .section-card {
+        background: #fff !important;
+        margin: 0 !important;
+        page-break-inside: avoid;
+      }
+
+      .section-title {
+        color: #000 !important;
+      }
+
+      p, li {
+        color: #333 !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        padding: 0 20px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mcd-progress" id="mcdProgress"></div>
+
+  <a href="../index.html" class="back-link">Back to Portfolio</a>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-kicker reveal reveal-delay-1">Creative Brand Strategy Pitch</div>
+    <h1 class="hero-title">
+      <span>The Reward</span>
+      <span>That's Always</span>
+      <span>There.</span>
+    </h1>
+    <p class="hero-tagline">A McDonald's Brand Strategy Pitch</p>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Brand</div>
+        <div class="meta-value">McDonald's</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Project Type</div>
+        <div class="meta-value">Creative Brand Strategy Pitch</div>
+      </div>
+    </div>
+
+    <div class="tags" style="margin-top: 32px; justify-content: center;">
+      <span class="tag">Cross-Generational Strategy</span>
+      <span class="tag">Emotional Positioning</span>
+      <span class="tag">Integrated Campaign</span>
+    </div>
+
+    <div class="scroll-indicator">Scroll</div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal-left">The Problem</div>
+      <h2 class="section-title reveal">In a culture obsessed with big milestones, brands compete for the <em>loudest moment.</em></h2>
+
+      <div class="prose-poetic reveal">
+        <p>But McDonald's doesn't live in milestones.</p>
+        <p>It lives in the in-between.</p>
+      </div>
+
+      <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-dot"></span>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="prose reveal">
+        <p>And yet, culturally, "treat" language has been framed as childish, indulgent, or occasional.</p>
+      </div>
+
+      <div class="highlight-text reveal-scale">
+        The opportunity: Reposition McDonald's not as a celebration splurge, but as a cross-generational emotional reset.
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- THE REALITY -->
+  <section class="section-card">
+    <div class="container">
+      <div class="section-kicker reveal-left">The Reality</div>
+      <h2 class="section-title reveal">McDonald's is not <em>niche.</em></h2>
+
+      <div class="stats-strip reveal-scale">
+        <div class="stat">
+          <div class="stat-number">87%</div>
+          <div class="stat-label">US households visited</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">54x</div>
+          <div class="stat-label">avg visits per year</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">No. 1</div>
+          <div class="stat-label">across all adult QSR bands</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">66%</div>
+          <div class="stat-label">of Americans visited</div>
+        </div>
+      </div>
+
+      <div class="prose reveal">
+        <p>This is not youth hype. This is habitual, cross-generational behavior.</p>
+        <p>If the average shopper visits weekly, the brand is not occasional indulgence.</p>
+      </div>
+
+      <div class="essence-block reveal-scale">
+        <p class="essence-lead">It is emotional infrastructure.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE HUMAN INSIGHT — image beside text -->
+  <section class="section-dark">
+    <div class="split-section reverse">
+      <div class="split-img reveal-right">
+        <img src="mcdwhw.jpg" alt="Studying at McDonald's — the ordinary pause">
+      </div>
+      <div class="split-content">
+        <div class="section-kicker reveal-left">The Human Insight</div>
+        <h2 class="section-title reveal" style="font-size: clamp(28px, 4vw, 40px);">Across qualitative research, a recurring theme <em>appears.</em></h2>
+
+        <div class="prose reveal">
+          <p>Fast food is framed as a treat.</p>
+          <p>Parents describe "treating" their children. Teens describe impulse visits after seeing an ad. Adults admit continued attachment despite health awareness.</p>
+        </div>
+
+        <div class="prose-poetic reveal" style="margin-top: 32px;">
+          <p>The words vary.</p>
+          <p>The function does not.</p>
+        </div>
+
+        <div class="essence-block reveal-scale">
+          <p class="essence-lead">Permission. Reward. Relief.</p>
+          <p>Not because something extraordinary happened.</p>
+          <p class="essence-conclusion">Because something ordinary ended.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- THE TENSION — image beside text -->
+  <section class="section-dark">
+    <div class="split-section">
+      <div class="split-img reveal-left">
+        <img src="animetiredasf.jpg" alt="Exhausted — the day that took something out of you">
+      </div>
+      <div class="split-content">
+        <div class="section-kicker reveal-left">The Tension</div>
+        <h2 class="section-title reveal">Modern culture celebrates the <span class="red">big win.</span></h2>
+
+        <div class="prose reveal">
+          <p>But most people are just trying to get through the day.</p>
+        </div>
+
+        <div class="highlight-text reveal-scale">
+          McDonald's doesn't need to own the finish line. It owns the pause.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE IDEA -->
+  <section class="section-dark">
+    <div class="container" style="text-align: center;">
+      <div class="section-kicker reveal-left" style="text-align: center;">The Idea</div>
+
+      <div class="reveal-scale" style="padding: 32px 0;">
+        <p style="font-family: 'Playfair Display', serif; font-size: clamp(36px, 7vw, 72px); font-weight: 400; line-height: 1.1; color: var(--ink-light); margin-bottom: 24px;">
+          The Reward That's<br>Always There.
+        </p>
+      </div>
+
+      <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <p>Not for your biggest achievement.</p>
+        <p>For the day you just made it through.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATMOSPHERIC IMAGE — THE SMALL WIN (full-bleed breather) -->
+  <div class="mcd-img-atmosphere reveal-scale">
+    <img src="mcdwbff.jpg" alt="Friends celebrating under the golden arches">
+    <div class="atmosphere-text">The little win.</div>
+  </div>
+
+  <!-- CREATIVE EXPRESSION — image beside text -->
+  <section class="section-warm" style="overflow: hidden;">
+    <div class="split-section reverse">
+      <div class="split-img reveal-right">
+        <img src="animemcd.jpg" alt="McDonald's — the familiar comfort">
+      </div>
+      <div class="split-content">
+        <div class="section-kicker reveal-left">Creative Expression</div>
+        <h2 class="section-title reveal" style="font-size: clamp(28px, 4vw, 40px);">The tone is restrained. Observational. <em>Underplayed.</em></h2>
+
+        <div class="prose-poetic reveal">
+          <p>No sentimental music swells.</p>
+          <p>No heroic storytelling arcs.</p>
+          <p>No generational clich&eacute;s.</p>
+        </div>
+
+        <div class="divider">
+          <span class="divider-line" style="background: var(--red);"></span>
+          <span class="divider-dot" style="background: var(--red);"></span>
+          <span class="divider-line" style="background: var(--red);"></span>
+        </div>
+
+        <div class="prose reveal">
+          <p>Just real moments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILM — "MADE IT THROUGH" -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal-left">Film &mdash; "Made It Through"</div>
+      <h2 class="section-title reveal">60 seconds. No voiceover until the <em>final frame.</em></h2>
+
+      <div class="prose reveal" style="margin-bottom: 32px;">
+        <p>A sequence of quiet slices:</p>
+      </div>
+
+      <div class="film-sequence">
+        <div class="film-scene reveal reveal-delay-1">
+          A student closing a laptop after submitting an assignment.
+          <div class="film-direction">Interior / dorm room / night</div>
+        </div>
+        <div class="film-scene reveal reveal-delay-2">
+          A nurse stepping into morning light after a shift.
+          <div class="film-direction">Exterior / hospital entrance / dawn</div>
+        </div>
+        <div class="film-scene reveal reveal-delay-3">
+          A dad sitting in his parked car before going inside.
+          <div class="film-direction">Interior / driveway / evening</div>
+        </div>
+        <div class="film-scene reveal reveal-delay-4">
+          A woman in her 60s laughing with friends at a booth.
+          <div class="film-direction">Interior / McDonald's / afternoon</div>
+        </div>
+        <div class="film-scene reveal">
+          A teenager in the backseat after practice, head against the window.
+          <div class="film-direction">Interior / car / sunset</div>
+        </div>
+      </div>
+
+      <div class="prose reveal" style="margin-top: 32px;">
+        <p>In each scene, the product appears casually. No dramatic reveal. No product glamorization. Just presence.</p>
+      </div>
+
+      <div class="film-final reveal-scale">
+        <p>For the days that take something out of you.</p>
+        <p style="color: var(--gold);">The reward that's always there.</p>
+        <div class="arches">Golden Arches</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OOH — image beside cards -->
+  <section class="section-dark">
+    <div class="split-section">
+      <div class="split-img reveal-left">
+        <img src="mcdincarwgf.jpg" alt="McDonald's in the car — the pause">
+      </div>
+      <div class="split-content">
+        <div class="section-kicker reveal-left">OOH &mdash; Minimal System</div>
+        <h2 class="section-title reveal" style="font-size: clamp(26px, 3.5vw, 36px);">Product as icon. Copy as <em>whisper.</em></h2>
+
+        <div class="creative-card reveal reveal-delay-1" style="margin-bottom: 16px;">
+          <h3>Fries on passenger seat.</h3>
+          <p class="card-accent">Made it through today.</p>
+        </div>
+        <div class="creative-card reveal reveal-delay-2" style="margin-bottom: 16px;">
+          <h3>Hash brown on wrapper.</h3>
+          <p class="card-accent">Morning: 1. You: 0.</p>
+        </div>
+        <div class="creative-card reveal reveal-delay-3" style="margin-bottom: 16px;">
+          <h3>Iced coffee in cupholder.</h3>
+          <p class="card-accent">A reset, in a cup.</p>
+        </div>
+        <div class="creative-card reveal reveal-delay-4">
+          <h3>Shared fries across table.</h3>
+          <p class="card-accent">The little win.</p>
+        </div>
+
+        <div class="prose reveal" style="margin-top: 32px;">
+          <p>No overstatement. No price callout. No promotional shouting. Confidence through simplicity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- SOCIAL — image beside text -->
+  <section class="section-dark">
+    <div class="split-section reverse">
+      <div class="split-img reveal-right">
+        <img src="mcdinsummerhomealone.jpg" alt="Eating alone at home — the quiet reset">
+      </div>
+      <div class="split-content">
+        <div class="section-kicker reveal-left">Social &mdash; Small Win Check-In</div>
+        <h2 class="section-title reveal" style="font-size: clamp(26px, 3.5vw, 36px);">McDonald's becomes the internet's simplest <em>ritual.</em></h2>
+
+        <div class="social-prompt reveal-scale">
+          <div class="prompt-label">Daily Prompt</div>
+          <div class="prompt-question">What did you get through today?</div>
+
+          <div class="social-responses">
+            <span class="social-response">"Didn't quit."</span>
+            <span class="social-response">"Finished the week."</span>
+            <span class="social-response">"Got out of bed."</span>
+            <span class="social-response">"Survived back-to-back meetings."</span>
+          </div>
+
+          <div class="social-reply">Reward unlocked.</div>
+        </div>
+
+        <div class="prose reveal">
+          <p>Select responses are turned into OOH executions in real time. The brand acknowledges effort, not achievement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- CASTING & TONE -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal-left">Casting & Tone</div>
+      <h2 class="section-title reveal">Cross-generational without <em>sentimentality.</em></h2>
+
+      <div class="two-col">
+        <div class="detail-block reveal-left">
+          <h3>Casting Logic</h3>
+          <ul class="bullet-list">
+            <li>No "cute grandparent moment."</li>
+            <li>No "inspirational piano montage."</li>
+            <li>Real lighting. Natural pacing.</li>
+            <li>Imperfect environments.</li>
+            <li>Diverse age representation without pointing at it.</li>
+          </ul>
+          <div class="prose" style="margin-top: 24px;">
+            <p>The generational inclusion is subtle. The emotion is universal.</p>
+          </div>
+        </div>
+
+        <div class="detail-block reveal-right">
+          <h3>Tone Calibration</h3>
+          <div class="prose">
+            <p>To avoid childish framing: Avoid "deserve." Avoid "you earned it." Avoid reward as indulgence.</p>
+            <p>This is not "you've been good." This is <em>"you made it."</em></p>
+            <p>To avoid Hallmark: No swelling music. No slow-motion food glamor shots. The product is familiar, not fetishized.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS WORKS -->
+  <section class="section-warm">
+    <div class="container">
+      <div class="section-kicker reveal-left">Why This Works</div>
+      <h2 class="section-title reveal">Strategy meets <span class="red">creative truth.</span></h2>
+
+      <div class="two-col">
+        <div class="detail-block reveal-left">
+          <h3>Strategically</h3>
+          <ul class="bullet-list">
+            <li>High penetration supports cross-generational universality.</li>
+            <li>Weekly average visitation supports habitual emotional reinforcement.</li>
+            <li>Qualitative research validates "treat" framing across life stages.</li>
+            <li>Quarterly revenue stability supports year-round relevance.</li>
+          </ul>
+        </div>
+
+        <div class="detail-block reveal-right">
+          <h3>Creatively</h3>
+          <ul class="bullet-list">
+            <li>It reclaims "treat" from childish to emotional reset.</li>
+            <li>It elevates McDonald's role without inflating its voice.</li>
+            <li>It builds a platform, not a one-off campaign.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- WHAT THIS ISN'T -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal-left">What This Isn't</div>
+
+      <ul class="isnt-list reveal">
+        <li>Youth culture marketing.</li>
+        <li>Nostalgia.</li>
+        <li>Holiday-centric.</li>
+        <li>Milestone advertising.</li>
+      </ul>
+
+      <div class="highlight-text reveal-scale">
+        It's behavioral truth reframed.
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL POSITIONING -->
+  <section class="section-dark" style="padding-top: 40px;">
+    <div class="container" style="text-align: center;">
+      <div class="section-kicker reveal-left" style="text-align: center;">Final Positioning</div>
+
+      <div class="prose-poetic reveal" style="margin-bottom: 32px;">
+        <p>McDonald's is not the biggest reward.</p>
+        <p>It's the one that shows up consistently.</p>
+      </div>
+
+      <div class="prose reveal" style="text-align: center; max-width: 400px; margin: 0 auto;">
+        <p>Across ages.</p>
+        <p>Across life stages.</p>
+        <p>Across ordinary days.</p>
+      </div>
+
+      <div class="reveal-scale" style="padding: 48px 0;">
+        <p style="font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 56px); font-weight: 400; line-height: 1.1; color: var(--gold);">
+          The Reward That's Always There.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-title">Thank you for reading.</p>
+    <a href="../index.html" class="footer-link">View Full Portfolio</a>
+    <p class="footer-credit">
+      Case study by <a href="../index.html">Aditi Venkat</a>
+    </p>
+  </footer>
+
+  <script>
+    // Reveal on scroll
+    const revealSelectors = '.reveal, .reveal-scale, .reveal-left, .reveal-right';
+    const allReveals = document.querySelectorAll(revealSelectors);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    allReveals.forEach(el => observer.observe(el));
+
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = Math.min((scrollTop / docHeight) * 100, 100);
+      const bar = document.getElementById('mcdProgress');
+      if (bar) bar.style.width = progress + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

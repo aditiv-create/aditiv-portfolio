@@ -95,6 +95,34 @@
       text-align: center;
       padding: 120px 24px 80px;
       position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: url('animemcd.jpg') center center / cover no-repeat;
+      opacity: 0.45;
+      filter: saturate(0.7);
+      z-index: 0;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(10, 10, 10, 0.4) 0%,
+        rgba(10, 10, 10, 0.2) 40%,
+        rgba(10, 10, 10, 0.6) 80%,
+        var(--black-deep) 100%
+      );
+    }
+
+    .hero > *:not(.hero-bg) {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-kicker {
@@ -955,6 +983,67 @@
     .reveal-delay-3 { transition-delay: 0.45s; }
     .reveal-delay-4 { transition-delay: 0.6s; }
 
+    /* ===== LOGIC CHAIN ===== */
+    .logic-chain {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+
+    .logic-chain::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), rgba(212, 160, 23, 0.1));
+    }
+
+    .logic-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 0 24px;
+      padding: 24px 0;
+      position: relative;
+    }
+
+    .logic-number {
+      grid-row: 1 / 3;
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      color: var(--gold);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 50%;
+      background: var(--black-deep);
+      position: relative;
+      z-index: 1;
+    }
+
+    .logic-label {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+      align-self: end;
+    }
+
+    .logic-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink-light);
+      opacity: 0.85;
+      grid-column: 2;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       section {
@@ -1191,6 +1280,7 @@
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-bg"></div>
     <div class="hero-kicker reveal reveal-delay-1">Creative Brand Strategy Pitch</div>
     <h1 class="hero-title">
       <span>The Reward</span>
@@ -1361,11 +1451,7 @@
 
   <!-- THE HUMAN INSIGHT -->
   <section class="section-dark">
-    <div class="mcd-img-atmosphere reveal-scale" style="padding-bottom: 0;">
-      <img src="mcdwhw.jpg" alt="Studying at McDonald's" style="object-position: center 30%;">
-    </div>
-
-    <div class="container" style="padding-top: 56px;">
+    <div class="container">
       <div class="section-kicker reveal-left">The Human Insight</div>
       <h2 class="section-title reveal" style="font-size: clamp(28px, 4vw, 40px);">Across qualitative research, a recurring theme <em>appears.</em></h2>
 
@@ -1429,223 +1515,28 @@
     </div>
   </section>
 
-  <!-- ATMOSPHERIC IMAGE — THE SMALL WIN (full-bleed breather) -->
-  <div class="mcd-img-atmosphere reveal-scale">
-    <img src="mcdwbff.jpg" alt="Friends celebrating under the golden arches">
-    <div class="atmosphere-text">The little win.</div>
-  </div>
-
-  <!-- CAMPAIGN OVERVIEW — bridge from strategy to execution -->
+  <!-- CREATIVE DIRECTION — condensed + link to full campaign -->
   <section class="section-dark">
     <div class="container" style="text-align: center;">
-      <div class="section-kicker reveal-left" style="text-align: center;">Campaign Overview</div>
-      <h2 class="section-title reveal" style="max-width: 700px; margin: 0 auto;">From insight to <em>execution.</em></h2>
+      <div class="section-kicker reveal-left" style="text-align: center;">Creative Direction</div>
+      <h2 class="section-title reveal" style="max-width: 700px; margin: 0 auto;">Restrained. Observational. <em>Underplayed.</em></h2>
 
       <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 24px auto 0;">
-        <p>The platform extends across four touchpoints — each built for restraint, familiarity, and behavioral truth.</p>
+        <p>No sentimental music swells. No heroic storytelling arcs. No generational clich&eacute;s. The tone is built on behavioral truth — real moments, observed without commentary.</p>
       </div>
 
-      <div class="overview-grid reveal" style="margin-top: 48px; text-align: left;">
-        <div class="overview-item">
-          <div class="ov-label">Film</div>
-          <div class="ov-value">60-second observational spot. No voiceover until the final frame.</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">OOH</div>
-          <div class="ov-value">Minimal product-as-icon system with restrained one-line copy.</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">Social</div>
-          <div class="ov-value">Daily "Small Win Check-In" prompt that turns audience responses into real-time OOH.</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">Tone System</div>
-          <div class="ov-value">Cross-generational casting guidelines and anti-sentimentality guardrails.</div>
-        </div>
+      <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 16px auto 0;">
+        <p>The product appears casually. The copy stays quiet. The audience feels seen, not sold to. Across every touchpoint — film, outdoor, social — the discipline is the same: restraint as confidence.</p>
+      </div>
+
+      <div class="reveal-scale" style="margin-top: 48px;">
+        <a href="campaign.html" style="display: inline-block; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 16px 40px; border-radius: 100px; text-decoration: none; transition: all 0.3s ease;">View Full Campaign &rarr;</a>
       </div>
     </div>
   </section>
 
   <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
-
-  <!-- CREATIVE EXPRESSION — image beside text -->
-  <section class="section-warm" style="overflow: hidden;">
-    <div class="split-section reverse">
-      <div class="split-img reveal-right">
-        <img src="animemcd.jpg" alt="McDonald's tray">
-      </div>
-      <div class="split-content">
-        <div class="section-kicker reveal-left">Creative Expression</div>
-        <h2 class="section-title reveal" style="font-size: clamp(28px, 4vw, 40px);">The tone is restrained. Observational. <em>Underplayed.</em></h2>
-
-        <div class="prose-poetic reveal">
-          <p>No sentimental music swells.</p>
-          <p>No heroic storytelling arcs.</p>
-          <p>No generational clich&eacute;s.</p>
-        </div>
-
-        <div class="divider">
-          <span class="divider-line" style="background: var(--red);"></span>
-          <span class="divider-dot" style="background: var(--red);"></span>
-          <span class="divider-line" style="background: var(--red);"></span>
-        </div>
-
-        <div class="prose reveal">
-          <p>Just real moments.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FILM — "MADE IT THROUGH" -->
-  <section class="section-dark">
-    <div class="container">
-      <div class="section-kicker reveal-left">Film &mdash; "Made It Through"</div>
-      <h2 class="section-title reveal">60 seconds. No voiceover until the <em>final frame.</em></h2>
-
-      <div class="prose reveal" style="margin-bottom: 32px;">
-        <p>A sequence of ordinary endings:</p>
-      </div>
-
-      <div class="film-sequence">
-        <div class="film-scene reveal reveal-delay-1">
-          A student closing a laptop after submitting an assignment.
-          <div class="film-direction">Interior / dorm room / night</div>
-        </div>
-        <div class="film-scene reveal reveal-delay-2">
-          A nurse stepping into morning light after a shift.
-          <div class="film-direction">Exterior / hospital entrance / dawn</div>
-        </div>
-        <div class="film-scene reveal reveal-delay-3">
-          A dad sitting in his parked car before going inside.
-          <div class="film-direction">Interior / driveway / evening</div>
-        </div>
-        <div class="film-scene reveal reveal-delay-4">
-          A woman in her 60s laughing with friends at a booth.
-          <div class="film-direction">Interior / McDonald's / afternoon</div>
-        </div>
-        <div class="film-scene reveal">
-          A teenager in the backseat after practice, head against the window.
-          <div class="film-direction">Interior / car / sunset</div>
-        </div>
-      </div>
-
-      <div class="prose reveal" style="margin-top: 32px;">
-        <p>In each scene, the product appears casually. No dramatic reveal. No product glamorization. Just presence.</p>
-      </div>
-
-      <div class="film-final reveal-scale">
-        <p>For the days that take something out of you.</p>
-        <p style="color: var(--gold);">The reward that's always there.</p>
-        <div class="arches">Golden Arches</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- OOH — image beside cards -->
-  <section class="section-dark">
-    <div class="split-section">
-      <div class="split-img reveal-left">
-        <img src="mcdincarwgf.jpg" alt="McDonald's in the car">
-      </div>
-      <div class="split-content">
-        <div class="section-kicker reveal-left">OOH &mdash; Minimal System</div>
-        <h2 class="section-title reveal" style="font-size: clamp(26px, 3.5vw, 36px);">Product as icon. Copy as <em>restraint.</em></h2>
-
-        <div class="creative-card reveal reveal-delay-1" style="margin-bottom: 16px;">
-          <h3>Fries on passenger seat.</h3>
-          <p class="card-accent">Made it through today.</p>
-        </div>
-        <div class="creative-card reveal reveal-delay-2" style="margin-bottom: 16px;">
-          <h3>Hash brown on wrapper.</h3>
-          <p class="card-accent">Morning: 1. You: 0.</p>
-        </div>
-        <div class="creative-card reveal reveal-delay-3" style="margin-bottom: 16px;">
-          <h3>Iced coffee in cupholder.</h3>
-          <p class="card-accent">A reset, in a cup.</p>
-        </div>
-        <div class="creative-card reveal reveal-delay-4">
-          <h3>Shared fries across table.</h3>
-          <p class="card-accent">The little win.</p>
-        </div>
-
-        <div class="prose reveal" style="margin-top: 32px;">
-          <p>No overstatement. No price callout. No promotional shouting. Confidence through simplicity.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GRADIENT BREAK -->
-  <div class="gradient-break"></div>
-
-  <!-- SOCIAL — image beside text -->
-  <section class="section-dark">
-    <div class="split-section reverse">
-      <div class="split-img reveal-right">
-        <img src="mcdinsummerhomealone.jpg" alt="Eating alone at home">
-      </div>
-      <div class="split-content">
-        <div class="section-kicker reveal-left">Social &mdash; Small Win Check-In</div>
-        <h2 class="section-title reveal" style="font-size: clamp(26px, 3.5vw, 36px);">McDonald's becomes the internet's simplest <em>ritual.</em></h2>
-
-        <div class="social-prompt reveal-scale">
-          <div class="prompt-label">Daily Prompt</div>
-          <div class="prompt-question">What did you get through today?</div>
-
-          <div class="social-responses">
-            <span class="social-response">"Didn't quit."</span>
-            <span class="social-response">"Finished the week."</span>
-            <span class="social-response">"Got out of bed."</span>
-            <span class="social-response">"Survived back-to-back meetings."</span>
-          </div>
-
-          <div class="social-reply">Reward unlocked.</div>
-        </div>
-
-        <div class="prose reveal">
-          <p>Select responses are turned into OOH executions in real time. The brand acknowledges effort, not achievement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GRADIENT BREAK -->
-  <div class="gradient-break"></div>
-
-  <!-- CASTING & TONE -->
-  <section class="section-dark">
-    <div class="container">
-      <div class="section-kicker reveal-left">Casting & Tone</div>
-      <h2 class="section-title reveal">Cross-generational without <em>sentimentality.</em></h2>
-
-      <div class="two-col">
-        <div class="detail-block reveal-left">
-          <h3>Casting Logic</h3>
-          <ul class="bullet-list">
-            <li>No "cute grandparent moment."</li>
-            <li>No "inspirational piano montage."</li>
-            <li>Real lighting. Natural pacing.</li>
-            <li>Imperfect environments.</li>
-            <li>Diverse age representation without pointing at it.</li>
-          </ul>
-          <div class="prose" style="margin-top: 24px;">
-            <p>The generational inclusion is subtle. The emotion is universal.</p>
-          </div>
-        </div>
-
-        <div class="detail-block reveal-right">
-          <h3>Tone Calibration</h3>
-          <div class="prose">
-            <p>To avoid childish framing: Avoid "deserve." Avoid "you earned it." Avoid reward as indulgence.</p>
-            <p>This is not "you've been good." This is <em>"you made it."</em></p>
-            <p>To avoid Hallmark: No swelling music. No slow-motion food glamor shots. The product is familiar, not fetishized.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- WHY THIS WORKS -->
   <section class="section-warm">
@@ -1672,6 +1563,67 @@
             <li>It builds a platform, not a one-off campaign.</li>
           </ul>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADIENT BREAK -->
+  <div class="gradient-break"></div>
+
+  <!-- THE LOGIC CHAIN -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="section-kicker reveal-left">The Logic Chain</div>
+      <h2 class="section-title reveal">How we got <em>here.</em></h2>
+
+      <div class="prose reveal" style="margin-bottom: 48px;">
+        <p>Every creative recommendation in this pitch traces back to a single behavioral observation. Here is the full chain:</p>
+      </div>
+
+      <div class="logic-chain">
+        <div class="logic-step reveal reveal-delay-1">
+          <div class="logic-number">01</div>
+          <div class="logic-label">The Human Need</div>
+          <div class="logic-text">People don't eat McDonald's because they're hungry. They eat it because the day took something out of them and they need a small act of permission.</div>
+        </div>
+
+        <div class="logic-step reveal reveal-delay-2">
+          <div class="logic-number">02</div>
+          <div class="logic-label">What People Believe</div>
+          <div class="logic-text">Fast food is framed as a "treat" — indulgent, childish, occasional. Something you earn through achievement or deserve as a splurge.</div>
+        </div>
+
+        <div class="logic-step reveal reveal-delay-3">
+          <div class="logic-number">03</div>
+          <div class="logic-label">The Cultural Tension</div>
+          <div class="logic-text">We live in a productivity-obsessed era that celebrates milestones but ignores maintenance. Social media amplifies wins. Nobody acknowledges the effort of an ordinary day.</div>
+        </div>
+
+        <div class="logic-step reveal reveal-delay-4">
+          <div class="logic-number">04</div>
+          <div class="logic-label">The Strategic Opportunity</div>
+          <div class="logic-text">McDonald's has 87% household penetration and 54 weekly visits per year. This is not occasional indulgence. It is habitual emotional behavior. No competitor in QSR owns endurance.</div>
+        </div>
+
+        <div class="logic-step reveal">
+          <div class="logic-number">05</div>
+          <div class="logic-label">The Idea</div>
+          <div class="logic-text">Reposition McDonald's as the reward for ordinary effort. Not the biggest reward. The one that's always there. The emotional constant in a culture that only celebrates the exceptional.</div>
+        </div>
+      </div>
+
+      <div class="divider" style="margin: 48px auto;">
+        <span class="divider-line"></span>
+        <span class="divider-dot"></span>
+        <span class="divider-line"></span>
+      </div>
+
+      <div class="prose reveal" style="margin-bottom: 24px;">
+        <p><strong>Thesis:</strong> McDonald's should stop competing for the celebratory moment. It should own the recovery. The brand's ubiquity is not a commodity problem — it is its strategic advantage. When something is everywhere, it can be the thing that's always there for you.</p>
+      </div>
+
+      <div class="prose reveal">
+        <p><strong>Strategic Recommendation:</strong> Build a long-term brand platform — not a campaign — that reframes "treat" from indulgence to emotional reset. Execute with restraint across film, OOH, and social. Let the product appear casually. Let the copy stay quiet. Let the audience feel seen, not sold to.</p>
       </div>
     </div>
   </section>

@@ -314,7 +314,7 @@
       50% { transform: translateY(-8px); }
     }
 
-    .about-decor { position: absolute; z-index: 0; }
+    .about-decor { position: absolute; z-index: 10; }
 
     .pixel-link {
       pointer-events: auto; cursor: pointer;
@@ -339,6 +339,19 @@
     .decor-5 { bottom: 8%; right: 18%; font-size: 24px; color: rgba(176, 112, 136, 0.2); pointer-events: none; animation: float 5.5s ease-in-out infinite 0.8s; }
     .decor-resume { bottom: 18%; left: 6%; animation: float 4s ease-in-out infinite 0.6s; }
     .decor-cassette { top: 8%; right: 6%; animation: float 3.8s ease-in-out infinite 0.4s; }
+    .decor-articon { top: 30%; right: 10%; animation: float 4.2s ease-in-out infinite 0.2s; }
+
+    .articon-img {
+      width: 70px;
+      height: auto;
+      border-radius: 10px;
+      filter: drop-shadow(0 4px 12px rgba(201, 135, 159, 0.3));
+      transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .pixel-link:hover .articon-img {
+      filter: drop-shadow(0 6px 16px rgba(201, 135, 159, 0.5));
+      transform: scale(1.08);
+    }
 
     .cassette-img {
       width: 100px;
@@ -358,7 +371,7 @@
     .draggable.dragging {
       cursor: grabbing;
       animation: none !important;
-      z-index: 50;
+      z-index: 99;
       filter: drop-shadow(0 8px 24px rgba(180, 100, 130, 0.4));
     }
 
@@ -368,8 +381,20 @@
       .decor-story { top: auto; bottom: -70px; right: 10%; }
       .decor-resume { top: auto; bottom: -70px; left: 50%; transform: translateX(-50%); }
       .decor-cassette { top: auto; bottom: -70px; right: 30%; }
+      .decor-articon { top: auto; bottom: -70px; right: 50%; transform: translateX(50%); }
     }
-    @media (max-width: 600px) { .pixel-link { display: none; } }
+    @media (max-width: 600px) {
+      .pixel-link { position: relative; }
+      .pixel-link svg { width: 28px; height: 28px; }
+      .cassette-img { width: 60px; }
+      .articon-img { width: 50px; }
+      .pixel-label { font-size: 8px; }
+      .decor-1 { left: 5%; }
+      .decor-story { right: 5%; }
+      .decor-cassette { right: 5%; }
+      .decor-resume { left: 5%; }
+      .decor-articon { right: 15%; }
+    }
 
     .folder-panel { display: none; animation: fadeInPanel 0.3s ease; }
     .folder-panel.active { display: block; }
@@ -458,6 +483,16 @@
       .intro-headline br { display: none; }
       .intro-text .pill-row { justify-content: center; }
       .gpa-badge { display: block; margin: 8px auto 0; width: fit-content; }
+    }
+    @media (max-width: 480px) {
+      .compact-hero-title { font-size: clamp(32px, 10vw, 48px); }
+      .compact-hero-tagline { font-size: 14px; }
+      .intro-photo { width: 200px; }
+      .intro-photo img { height: 250px; }
+      .intro-headline { font-size: 24px; }
+      .folder-content { padding: 22px 18px; }
+      .folder-tab { padding: 8px 14px; font-size: 10px; }
+      .skill-item { font-size: 12px; padding: 7px 12px; }
     }
 
     /* ================================
@@ -870,7 +905,7 @@
     }
     @media (max-width: 480px) {
       .top-nav { top: 16px; right: 16px; }
-      .top-nav-link { font-size: 10px; padding: 8px 14px; }
+      .top-nav-link { font-size: 10px; padding: 10px 16px; min-height: 40px; display: flex; align-items: center; }
     }
 
     /* ===== SCROLL PROGRESS BAR ===== */
@@ -897,7 +932,6 @@
     <!-- TOP NAV -->
     <nav class="top-nav" aria-label="Main navigation">
       <a href="index.html" class="top-nav-link">Home</a>
-      <a href="art.html" class="top-nav-link">Art</a>
     </nav>
 
     <main>
@@ -989,6 +1023,13 @@
             <rect x="2" y="14" width="4" height="1" fill="#d4c4b8"/>
           </svg>
           <span class="pixel-label">Resume</span>
+        </a>
+
+        <a href="art.html"
+           class="about-decor decor-articon pixel-link draggable"
+           title="Other things I do">
+          <img src="art/aditiicon.png" alt="Art & more" class="articon-img" />
+          <span class="pixel-label">Art</span>
         </a>
 
         <div class="about-folder-container reveal">

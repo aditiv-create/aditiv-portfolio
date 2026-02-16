@@ -380,25 +380,16 @@
 
     @media (max-width: 900px) {
       .about-decor:not(.pixel-link) { display: none; }
-      .decor-1 { top: auto; bottom: -70px; left: 10%; }
-      .decor-story { top: auto; bottom: -70px; right: 10%; }
-      .decor-resume { top: auto; bottom: -70px; left: 50%; transform: translateX(-50%); }
-      .decor-cassette { top: auto; bottom: -70px; right: 30%; }
-      .decor-articon { top: auto; bottom: -70px; right: 50%; transform: translateX(50%); }
-    }
-    @media (max-width: 700px) {
-      .about-section { padding-bottom: 40px; overflow: visible; }
-      /* Wrapper becomes a visible flex row */
+      /* Switch to icon row below the card */
       .decor-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 28px;
         flex-wrap: wrap;
-        padding: 32px 16px 0;
+        padding: 36px 20px 0;
         position: relative;
       }
-      .about-decor:not(.pixel-link) { display: none !important; }
       .about-decor.pixel-link {
         position: static !important;
         animation: none !important;
@@ -409,12 +400,17 @@
         bottom: auto !important;
         z-index: auto !important;
       }
-      .pixel-link svg { width: 36px; height: 36px; }
-      .cassette-img { width: 50px !important; transform: rotate(90deg) rotate(-8deg) !important; }
-      .articon-img { width: 44px !important; }
-      .pixel-label { font-size: 9px; opacity: 1; }
-      /* Disable dragging on mobile */
+      .pixel-label { opacity: 1; }
+      .cassette-img { width: 60px !important; transform: rotate(90deg) rotate(-8deg) !important; }
+      .articon-img { width: 50px !important; }
       .draggable { cursor: pointer !important; }
+    }
+    @media (max-width: 480px) {
+      .decor-wrapper { gap: 22px; padding: 28px 16px 0; }
+      .pixel-link svg { width: 36px; height: 36px; }
+      .cassette-img { width: 50px !important; }
+      .articon-img { width: 44px !important; }
+      .pixel-label { font-size: 9px; }
     }
 
     .folder-panel { display: none; animation: fadeInPanel 0.3s ease; }

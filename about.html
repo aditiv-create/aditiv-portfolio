@@ -375,6 +375,9 @@
       filter: drop-shadow(0 8px 24px rgba(180, 100, 130, 0.4));
     }
 
+    /* Desktop: wrapper is transparent, children float absolutely */
+    .decor-wrapper { display: contents; }
+
     @media (max-width: 900px) {
       .about-decor:not(.pixel-link) { display: none; }
       .decor-1 { top: auto; bottom: -70px; left: 10%; }
@@ -383,17 +386,35 @@
       .decor-cassette { top: auto; bottom: -70px; right: 30%; }
       .decor-articon { top: auto; bottom: -70px; right: 50%; transform: translateX(50%); }
     }
-    @media (max-width: 600px) {
-      .pixel-link { position: relative; }
-      .pixel-link svg { width: 28px; height: 28px; }
-      .cassette-img { width: 60px; }
-      .articon-img { width: 50px; }
-      .pixel-label { font-size: 8px; }
-      .decor-1 { left: 5%; }
-      .decor-story { right: 5%; }
-      .decor-cassette { right: 5%; }
-      .decor-resume { left: 5%; }
-      .decor-articon { right: 15%; }
+    @media (max-width: 700px) {
+      .about-section { padding-bottom: 40px; overflow: visible; }
+      /* Wrapper becomes a visible flex row */
+      .decor-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 28px;
+        flex-wrap: wrap;
+        padding: 32px 16px 0;
+        position: relative;
+      }
+      .about-decor:not(.pixel-link) { display: none !important; }
+      .about-decor.pixel-link {
+        position: static !important;
+        animation: none !important;
+        transform: none !important;
+        right: auto !important;
+        left: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        z-index: auto !important;
+      }
+      .pixel-link svg { width: 36px; height: 36px; }
+      .cassette-img { width: 50px !important; transform: rotate(90deg) rotate(-8deg) !important; }
+      .articon-img { width: 44px !important; }
+      .pixel-label { font-size: 9px; opacity: 1; }
+      /* Disable dragging on mobile */
+      .draggable { cursor: pointer !important; }
     }
 
     .folder-panel { display: none; animation: fadeInPanel 0.3s ease; }
@@ -471,8 +492,8 @@
     }
 
     @media (max-width: 768px) {
-      .about-section { padding: 60px 0; }
-      .about-folder-container { padding: 0 16px; }
+      .about-section { padding: 60px 0; overflow: visible; }
+      .about-folder-container { padding: 0 12px; width: 100%; }
       .folder-tabs { padding-left: 10px; }
       .folder-tab { padding: 10px 18px 12px; font-size: 11px; }
       .folder-content { padding: 28px 24px; border-radius: 0 12px 12px 12px; }
@@ -946,91 +967,6 @@
 
       <!-- ABOUT -->
       <section id="about" class="section section-dark about-section" data-no-angle="true">
-        <!-- Decorative floating elements with pixel art links -->
-        <a href="#skills" class="about-decor decor-1 pixel-link draggable" title="View my skills">
-          <svg width="56" height="56" viewBox="0 0 16 16" style="image-rendering: pixelated;">
-            <rect x="6" y="0" width="4" height="2" fill="#c9879f"/>
-            <rect x="6" y="14" width="4" height="2" fill="#c9879f"/>
-            <rect x="0" y="6" width="2" height="4" fill="#c9879f"/>
-            <rect x="14" y="6" width="2" height="4" fill="#c9879f"/>
-            <rect x="2" y="2" width="2" height="2" fill="#c9879f"/>
-            <rect x="12" y="2" width="2" height="2" fill="#c9879f"/>
-            <rect x="2" y="12" width="2" height="2" fill="#c9879f"/>
-            <rect x="12" y="12" width="2" height="2" fill="#c9879f"/>
-            <rect x="4" y="4" width="8" height="8" fill="#d4a3b5"/>
-            <rect x="6" y="6" width="4" height="4" fill="#f8f4f0"/>
-          </svg>
-          <span class="pixel-label">Skills</span>
-        </a>
-
-        <div class="about-decor decor-2">
-          <svg width="24" height="24" viewBox="0 0 8 8" style="image-rendering: pixelated;">
-            <rect x="3" y="0" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
-            <rect x="3" y="6" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
-            <rect x="0" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
-            <rect x="6" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
-            <rect x="3" y="3" width="2" height="2" fill="rgba(201,135,159,0.6)"/>
-          </svg>
-        </div>
-
-        <div class="about-decor decor-3">
-          <svg width="20" height="20" viewBox="0 0 6 6" style="image-rendering: pixelated;">
-            <rect x="1" y="1" width="4" height="4" fill="none" stroke="rgba(176,112,136,0.35)" stroke-width="1"/>
-          </svg>
-        </div>
-
-        <a href="index.html#articles" class="about-decor decor-story pixel-link draggable" title="Read my articles">
-          <svg width="52" height="52" viewBox="0 0 16 16" style="image-rendering: pixelated;">
-            <rect x="1" y="4" width="6" height="10" fill="#d4a3b5"/>
-            <rect x="9" y="4" width="6" height="10" fill="#d4a3b5"/>
-            <rect x="7" y="3" width="2" height="12" fill="#c9879f"/>
-            <rect x="2" y="5" width="4" height="1" fill="#f8f4f0"/>
-            <rect x="2" y="7" width="4" height="1" fill="#f8f4f0"/>
-            <rect x="2" y="9" width="3" height="1" fill="#f8f4f0"/>
-            <rect x="10" y="5" width="4" height="1" fill="#f8f4f0"/>
-            <rect x="10" y="7" width="4" height="1" fill="#f8f4f0"/>
-            <rect x="11" y="9" width="3" height="1" fill="#f8f4f0"/>
-            <rect x="0" y="13" width="7" height="1" fill="#b07088"/>
-            <rect x="9" y="13" width="7" height="1" fill="#b07088"/>
-          </svg>
-          <span class="pixel-label">Articles</span>
-        </a>
-
-        <div class="about-decor decor-5">&#9675;</div>
-
-        <a href="https://open.spotify.com/playlist/5rMPMEcf0tIdjoW3LFcMuX?si=71ec3f908e9e4cbb"
-           class="about-decor decor-cassette pixel-link draggable"
-           target="_blank"
-           title="What I'm listening to">
-          <img src="casseteicon.jpg" alt="Cassette tape" class="cassette-img" />
-          <span class="pixel-label">Playlist</span>
-        </a>
-
-        <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-           class="about-decor decor-resume pixel-link draggable"
-           target="_blank"
-           title="View my resume">
-          <svg width="56" height="64" viewBox="0 0 14 16" style="image-rendering: pixelated;">
-            <rect x="1" y="0" width="12" height="16" fill="#f5ebe3"/>
-            <rect x="10" y="0" width="3" height="3" fill="#d4c4b8"/>
-            <rect x="11" y="0" width="2" height="2" fill="#c9879f"/>
-            <rect x="2" y="2" width="6" height="1" fill="#c9879f"/>
-            <rect x="2" y="4" width="9" height="1" fill="#b07088"/>
-            <rect x="2" y="6" width="7" height="1" fill="#d4c4b8"/>
-            <rect x="2" y="8" width="9" height="1" fill="#d4c4b8"/>
-            <rect x="2" y="10" width="5" height="1" fill="#d4c4b8"/>
-            <rect x="2" y="12" width="8" height="1" fill="#d4c4b8"/>
-            <rect x="2" y="14" width="4" height="1" fill="#d4c4b8"/>
-          </svg>
-          <span class="pixel-label">Resume</span>
-        </a>
-
-        <a href="art.html"
-           class="about-decor decor-articon pixel-link draggable"
-           title="Other things I do">
-          <img src="art/aditiicon.png" alt="Art & more" class="articon-img" />
-          <span class="pixel-label">Art</span>
-        </a>
 
         <div class="about-folder-container reveal">
           <div class="folder-tabs">
@@ -1095,6 +1031,95 @@
             </div>
           </div>
         </div>
+
+        <!-- Decorative floating elements (desktop: float around, mobile: icon row below card) -->
+        <div class="decor-wrapper">
+          <a href="#skills" class="about-decor decor-1 pixel-link draggable" title="View my skills">
+            <svg width="56" height="56" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+              <rect x="6" y="0" width="4" height="2" fill="#c9879f"/>
+              <rect x="6" y="14" width="4" height="2" fill="#c9879f"/>
+              <rect x="0" y="6" width="2" height="4" fill="#c9879f"/>
+              <rect x="14" y="6" width="2" height="4" fill="#c9879f"/>
+              <rect x="2" y="2" width="2" height="2" fill="#c9879f"/>
+              <rect x="12" y="2" width="2" height="2" fill="#c9879f"/>
+              <rect x="2" y="12" width="2" height="2" fill="#c9879f"/>
+              <rect x="12" y="12" width="2" height="2" fill="#c9879f"/>
+              <rect x="4" y="4" width="8" height="8" fill="#d4a3b5"/>
+              <rect x="6" y="6" width="4" height="4" fill="#f8f4f0"/>
+            </svg>
+            <span class="pixel-label">Skills</span>
+          </a>
+
+          <div class="about-decor decor-2">
+            <svg width="24" height="24" viewBox="0 0 8 8" style="image-rendering: pixelated;">
+              <rect x="3" y="0" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+              <rect x="3" y="6" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+              <rect x="0" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+              <rect x="6" y="3" width="2" height="2" fill="rgba(201,135,159,0.4)"/>
+              <rect x="3" y="3" width="2" height="2" fill="rgba(201,135,159,0.6)"/>
+            </svg>
+          </div>
+
+          <div class="about-decor decor-3">
+            <svg width="20" height="20" viewBox="0 0 6 6" style="image-rendering: pixelated;">
+              <rect x="1" y="1" width="4" height="4" fill="none" stroke="rgba(176,112,136,0.35)" stroke-width="1"/>
+            </svg>
+          </div>
+
+          <a href="index.html#articles" class="about-decor decor-story pixel-link draggable" title="Read my articles">
+            <svg width="52" height="52" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+              <rect x="1" y="4" width="6" height="10" fill="#d4a3b5"/>
+              <rect x="9" y="4" width="6" height="10" fill="#d4a3b5"/>
+              <rect x="7" y="3" width="2" height="12" fill="#c9879f"/>
+              <rect x="2" y="5" width="4" height="1" fill="#f8f4f0"/>
+              <rect x="2" y="7" width="4" height="1" fill="#f8f4f0"/>
+              <rect x="2" y="9" width="3" height="1" fill="#f8f4f0"/>
+              <rect x="10" y="5" width="4" height="1" fill="#f8f4f0"/>
+              <rect x="10" y="7" width="4" height="1" fill="#f8f4f0"/>
+              <rect x="11" y="9" width="3" height="1" fill="#f8f4f0"/>
+              <rect x="0" y="13" width="7" height="1" fill="#b07088"/>
+              <rect x="9" y="13" width="7" height="1" fill="#b07088"/>
+            </svg>
+            <span class="pixel-label">Articles</span>
+          </a>
+
+          <div class="about-decor decor-5">&#9675;</div>
+
+          <a href="https://open.spotify.com/playlist/5rMPMEcf0tIdjoW3LFcMuX?si=71ec3f908e9e4cbb"
+             class="about-decor decor-cassette pixel-link draggable"
+             target="_blank"
+             title="What I'm listening to">
+            <img src="casseteicon.jpg" alt="Cassette tape" class="cassette-img" />
+            <span class="pixel-label">Playlist</span>
+          </a>
+
+          <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
+             class="about-decor decor-resume pixel-link draggable"
+             target="_blank"
+             title="View my resume">
+            <svg width="56" height="64" viewBox="0 0 14 16" style="image-rendering: pixelated;">
+              <rect x="1" y="0" width="12" height="16" fill="#f5ebe3"/>
+              <rect x="10" y="0" width="3" height="3" fill="#d4c4b8"/>
+              <rect x="11" y="0" width="2" height="2" fill="#c9879f"/>
+              <rect x="2" y="2" width="6" height="1" fill="#c9879f"/>
+              <rect x="2" y="4" width="9" height="1" fill="#b07088"/>
+              <rect x="2" y="6" width="7" height="1" fill="#d4c4b8"/>
+              <rect x="2" y="8" width="9" height="1" fill="#d4c4b8"/>
+              <rect x="2" y="10" width="5" height="1" fill="#d4c4b8"/>
+              <rect x="2" y="12" width="8" height="1" fill="#d4c4b8"/>
+              <rect x="2" y="14" width="4" height="1" fill="#d4c4b8"/>
+            </svg>
+            <span class="pixel-label">Resume</span>
+          </a>
+
+          <a href="art.html"
+             class="about-decor decor-articon pixel-link draggable"
+             title="Other things I do">
+            <img src="art/aditiicon.png" alt="Art & more" class="articon-img" />
+            <span class="pixel-label">Art</span>
+          </a>
+        </div>
+
       </section>
 
       <!-- EXPERIENCE TIMELINE -->
@@ -1482,70 +1507,73 @@ if (scrollProgressBar) {
 }
 
 // =========================
-// DRAGGABLE DECORATIONS
+// DRAGGABLE DECORATIONS (desktop only)
 // =========================
-document.querySelectorAll('.draggable').forEach(el => {
-  let isDragging = false;
-  let hasMoved = false;
-  let startX, startY, origX, origY;
+const isMobile = window.matchMedia('(max-width: 700px)').matches;
+if (!isMobile) {
+  document.querySelectorAll('.draggable').forEach(el => {
+    let isDragging = false;
+    let hasMoved = false;
+    let startX, startY, origX, origY;
 
-  const onStart = (e) => {
-    const touch = e.touches ? e.touches[0] : e;
-    isDragging = true;
-    hasMoved = false;
+    const onStart = (e) => {
+      const touch = e.touches ? e.touches[0] : e;
+      isDragging = true;
+      hasMoved = false;
 
-    const rect = el.getBoundingClientRect();
-    const parentRect = el.offsetParent.getBoundingClientRect();
-    origX = rect.left - parentRect.left;
-    origY = rect.top - parentRect.top;
-    startX = touch.clientX;
-    startY = touch.clientY;
+      const rect = el.getBoundingClientRect();
+      const parentRect = el.offsetParent.getBoundingClientRect();
+      origX = rect.left - parentRect.left;
+      origY = rect.top - parentRect.top;
+      startX = touch.clientX;
+      startY = touch.clientY;
 
-    el.classList.add('dragging');
-    el.style.position = 'absolute';
-    el.style.left = origX + 'px';
-    el.style.top = origY + 'px';
-    el.style.right = 'auto';
-    el.style.bottom = 'auto';
+      el.classList.add('dragging');
+      el.style.position = 'absolute';
+      el.style.left = origX + 'px';
+      el.style.top = origY + 'px';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
 
-    e.preventDefault();
-  };
-
-  const onMove = (e) => {
-    if (!isDragging) return;
-    const touch = e.touches ? e.touches[0] : e;
-    const dx = touch.clientX - startX;
-    const dy = touch.clientY - startY;
-
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
-
-    el.style.left = (origX + dx) + 'px';
-    el.style.top = (origY + dy) + 'px';
-    e.preventDefault();
-  };
-
-  const onEnd = (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    el.classList.remove('dragging');
-
-    // If dragged, prevent the click/navigation
-    if (hasMoved) {
       e.preventDefault();
-      el.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-      }, { once: true, capture: true });
-    }
-  };
+    };
 
-  el.addEventListener('mousedown', onStart);
-  el.addEventListener('touchstart', onStart, { passive: false });
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('touchmove', onMove, { passive: false });
-  document.addEventListener('mouseup', onEnd);
-  document.addEventListener('touchend', onEnd);
-});
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const touch = e.touches ? e.touches[0] : e;
+      const dx = touch.clientX - startX;
+      const dy = touch.clientY - startY;
+
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+
+      el.style.left = (origX + dx) + 'px';
+      el.style.top = (origY + dy) + 'px';
+      e.preventDefault();
+    };
+
+    const onEnd = (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      el.classList.remove('dragging');
+
+      // If dragged, prevent the click/navigation
+      if (hasMoved) {
+        e.preventDefault();
+        el.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+        }, { once: true, capture: true });
+      }
+    };
+
+    el.addEventListener('mousedown', onStart);
+    el.addEventListener('touchstart', onStart, { passive: false });
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('mouseup', onEnd);
+    document.addEventListener('touchend', onEnd);
+  });
+}
 
 // Close DOMContentLoaded wrapper
 });

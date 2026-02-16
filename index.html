@@ -664,7 +664,7 @@
     }
 
 /* ============================================================
-   PORTFOLIO SECTION — TITLE + LAYOUT
+   PORTFOLIO SECTION.TITLE + LAYOUT
    ============================================================ */
 
 .portfolio-section {
@@ -718,7 +718,7 @@
   gap: 40px;
 }
 
-/* Mobile (the 2nd col was empty — so 1 col only) */
+/* Mobile (the 2nd col was empty.so 1 col only) */
 @media (max-width: 860px) {
   .two-col-portfolio {
     grid-template-columns: 1fr;
@@ -726,7 +726,7 @@
 }
 
 /* ============================================================
-   PROJECT CARDS — STRONGER, BIGGER, PREMIUM
+   PROJECT CARDS.STRONGER, BIGGER, PREMIUM
    ============================================================ */
 
 .portfolio-grid {
@@ -824,6 +824,15 @@
   margin-bottom: 10px;
 }
 
+.project-brand {
+  font-family: "Courier Prime", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #5a3a44;
+  margin-bottom: 4px;
+}
 .project-card h3 {
   font-family: "Playfair Display", serif;
   font-size: 26px;
@@ -875,7 +884,7 @@
 
 
 /* ============================================================
-   ARTICLES — SIMPLE GRID
+   ARTICLES.SIMPLE GRID
    ============================================================ */
 
 .articles-grid {
@@ -1023,7 +1032,7 @@ section[data-no-angle="true"]::after {
     overflow: hidden !important;
 }
 /* ================================
-   TOP NAV — SIMPLE ABOUT LINK
+   TOP NAV.SIMPLE ABOUT LINK
 ================================ */
 
 .top-nav {
@@ -1252,10 +1261,10 @@ section[data-no-angle="true"]::after {
           <img src="BhavyaRameshChimmiChimmi/chimmichimmi.jpg" alt="Indian jewelry painting" class="card-image" />
         </div>
         <div class="project-label">Cultural Branding / Creative Strategy</div>
-        <h3>Bhavya Ramesh</h3>
+        <div class="project-brand">Bhavya Ramesh</div>
+        <h3>Sparkle When You Speak</h3>
         <p>
-          What if jewelry didn't wait to be noticed? A pitch exploring
-          oral adornment — from traditional gold teeth to modern tooth gems — as identity, not decoration.
+          When we've associated jewelry and adornment with elegance and eloquency, I wanted to associate it with being unapologetically, unabashedly loud. With your actions, emotions and words.
         </p>
         <a href="BhavyaRameshChimmiChimmi/index.html" class="project-link">View pitch →</a>
       </article>
@@ -1266,10 +1275,10 @@ section[data-no-angle="true"]::after {
           <img src="paper/bradysbottle.jpg" alt="Brady's Accomplice bourbon by firelight" class="card-image" />
         </div>
         <div class="project-label">Brand Strategy / Luxury Positioning</div>
-        <h3>Brady's Distillery</h3>
+        <div class="project-brand">Brady's Distillery</div>
+        <h3>A Secret Worth Importing</h3>
         <p>
-          How does a small Virginia distillery feel like a discovery in London? A strategy
-          built around quiet luxury, personal curation, and the power of being hard to find.
+          Quiet luxury, but you discovered it. Hand crafted and served for your curated taste. Intrigued?
         </p>
         <a href="paper/index.html#brandstrategy" class="project-link">View pitch →</a>
       </article>
@@ -1280,10 +1289,10 @@ section[data-no-angle="true"]::after {
           <img src="mcd/animemcd.jpg" alt="Anime-style McDonald's tray" class="card-image" />
         </div>
         <div class="project-label">Creative Strategy / Emotional Positioning</div>
-        <h3>McDonald's</h3>
+        <div class="project-brand">McDonald's</div>
+        <h3>The Reward That's Always There</h3>
         <p>
-          Everyone talks about their McDonald's run the same way — "I deserved that."
-          I pulled at that thread and found a whole strategy underneath.
+          The comfort of being affirmed for the day's hard work. It's there for you, around you and with you, especially on a shitty day.
         </p>
         <a href="mcd/index.html" class="project-link">View pitch →</a>
       </article>
@@ -1294,10 +1303,9 @@ section[data-no-angle="true"]::after {
           <img src="Aiplaybook.png" alt="AI Sales Cycle Playbook screenshot" class="card-image" />
         </div>
         <div class="project-label">Campaign / Case Study</div>
-        <h3>AI Sales Cycle Framework</h3>
+        <h3>AI Sales Framework</h3>
         <p>
-          I mapped out how to use AI prompts at every stage of the sales cycle —
-          from research to outreach — so the process actually makes sense.
+          A mindmap I built to automate a personalised sales pitch for your product, with love and attention to what people tend to overlook.
         </p>
         <a href="https://aditiv-create.github.io/fyrii-guide/"
            target="_blank"
@@ -1310,10 +1318,10 @@ section[data-no-angle="true"]::after {
           <img src="bradyspaper.png" alt="International market research overview" class="card-image" />
         </div>
         <div class="project-label">Strategy / Research</div>
+        <div class="project-brand">Brady's Distillery</div>
         <h3>International Market Research</h3>
         <p>
-          Looked at consumer behavior across 10 countries to figure out
-          where a brand should expand next — narrowed it down to three markets.
+          Observing and jotting down the social etiquette for drinking whiskeys and spirits in 10 different countries. Market entry prep.
         </p>
         <a href="https://aditiv-create.github.io/aditiv-portfolio/paper/"
            target="_blank"
@@ -1325,8 +1333,7 @@ section[data-no-angle="true"]::after {
         <div class="project-label">Audio / Storytelling</div>
         <h3>Doomscrolling & Attention: Podcast</h3>
         <p>
-          Co-created a podcast about why we can't stop scrolling — what it does to our attention,
-          and how we deal with information overload.
+          Co-created a podcast about why we can't stop scrolling, what it does to our attention, and how we deal with information overload.
         </p>
         <a href="https://soundcloud.com/michaeln-707941706/doom-scrolling-and-poductivity"
            target="_blank"
@@ -1355,14 +1362,14 @@ section[data-no-angle="true"]::after {
         <article class="article-card" onclick="window.open('https://www.linkedin.com/posts/aditi-venkatk_being-born-in-the-2000s-feels-surreal-sometimes-activity-7428282770260393984-oIqW','_blank')">
           <div class="article-num">01</div>
           <div class="article-title">Being born in the 2000s feels surreal sometimes.</div>
-          <div class="article-sub">How empathy and resilience get passed down through generations of women — and what that means for the work I want to do.</div>
+          <div class="article-sub">How empathy and resilience get passed down through generations of women, and what that means for the work I want to do.</div>
           <span class="article-read">Read →</span>
         </article>
 
         <article class="article-card" onclick="window.open('https://www.linkedin.com/posts/aditi-venkatk_humans-are-my-biggest-learning-experience-activity-7386241896660168704-cku2','_blank')">
           <div class="article-num">02</div>
           <div class="article-title">Humans are my biggest learning experience.</div>
-          <div class="article-sub">The things people don't say teach you the most — the pauses, the choices, the contradictions.</div>
+          <div class="article-sub">The things people don't say teach you the most. The pauses, the choices, the contradictions.</div>
           <span class="article-read">Read →</span>
         </article>
 

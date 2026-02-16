@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aditi Venkat – Art</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Spectral:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Special+Elite&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --navy-deep: #050713;
+      --ink-light: #fdf9f3;
+      --accent: #d9c8c0;
+      --accent-soft: #e9d8d0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      font-family: "Courier Prime", "Courier New", monospace;
+      background: var(--navy-deep);
+      color: var(--ink-light);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Top Nav ── */
+    .top-nav {
+      position: fixed;
+      top: 24px;
+      right: 28px;
+      z-index: 40;
+      display: flex;
+      gap: 10px;
+    }
+    .top-nav-link {
+      font-family: "Courier Prime", "Courier New", monospace;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #e6ddd4;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: rgba(8, 9, 20, 0.8);
+      border: 1px solid rgba(232, 220, 204, 0.25);
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+    .top-nav-link:hover {
+      background: rgba(8, 9, 20, 0.95);
+      border-color: rgba(232, 220, 204, 0.5);
+      color: #f5ece0;
+    }
+
+    /* ── Intro ── */
+    .art-intro {
+      padding: 140px 40px 50px;
+      text-align: center;
+    }
+    .art-intro-img {
+      width: clamp(180px, 25vw, 280px);
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      margin-bottom: 28px;
+    }
+    .art-intro h1 {
+      font-family: "Special Elite", cursive;
+      font-size: clamp(16px, 2.5vw, 22px);
+      font-weight: 400;
+      color: #8a7e86;
+      letter-spacing: 0.12em;
+    }
+
+    /* ── Gallery Grid ── */
+    .gallery {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 30px 80px;
+      columns: 3;
+      column-gap: 18px;
+    }
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 18px;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+    }
+    .gallery-item:hover {
+      transform: scale(1.02);
+      filter: drop-shadow(0 12px 36px rgba(180, 100, 130, 0.25));
+    }
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(3, 3, 10, 0.92);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lightbox img {
+      max-width: 85vw;
+      max-height: 85vh;
+      border-radius: 10px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+      transform: scale(0.92);
+      transition: transform 0.35s ease;
+      object-fit: contain;
+    }
+    .lightbox.active img {
+      transform: scale(1);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 28px;
+      right: 32px;
+      font-size: 28px;
+      color: #8a7e86;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+    .lightbox-close:hover { color: #f5ece0; }
+
+    /* ── Footer ── */
+    .art-footer {
+      text-align: center;
+      padding: 20px 20px 40px;
+    }
+    .art-footer a {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #6a5a64;
+      border-bottom: 1px solid rgba(106, 90, 100, 0.3);
+      padding-bottom: 2px;
+      transition: all 0.3s ease;
+    }
+    .art-footer a:hover {
+      color: #b8a8b0;
+      border-bottom-color: rgba(184, 168, 176, 0.5);
+    }
+    .art-footer p {
+      margin-top: 20px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #4a4048;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .art-intro { padding: 110px 20px 30px; }
+      .gallery { columns: 2; padding: 30px 16px 60px; column-gap: 14px; }
+      .gallery-item { margin-bottom: 14px; }
+    }
+    @media (max-width: 480px) {
+      .top-nav { top: 16px; right: 16px; }
+      .top-nav-link { font-size: 10px; padding: 8px 14px; }
+      .gallery { columns: 2; max-width: 100%; padding: 20px 12px 50px; column-gap: 10px; }
+      .gallery-item { margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="top-nav" aria-label="Main navigation">
+    <a href="index.html" class="top-nav-link">Home</a>
+    <a href="about.html" class="top-nav-link">About</a>
+  </nav>
+
+  <!-- Intro -->
+  <section class="art-intro">
+    <img src="art/aditiicon.png" alt="Aditi" class="art-intro-img" />
+    <h1>other things i do</h1>
+  </section>
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="gallery-item"><img src="art/aditiartfinal.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditiinsf.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditifood.jpeg" alt="" /></div>
+    <div class="gallery-item"><img src="art/adititryingtobecoolgrad.jpeg" alt="" /></div>
+    <div class="gallery-item"><img src="art/onamart.jpeg" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditiinindian.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/diwali-celebs.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditiwsnake.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/moreaditiart.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditimadebiryani.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditidoingdumbart.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditisfavs.jpeg" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditiinartclass.png" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditiwajji.jpeg" alt="" /></div>
+    <div class="gallery-item"><img src="art/aditimorefood.jpeg" alt="" /></div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="" id="lightboxImg" />
+  </div>
+
+  <!-- Footer -->
+  <div class="art-footer">
+    <a href="index.html">back to portfolio</a>
+    <p>&copy; 2025 Aditi Venkat</p>
+  </div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  const closeLightbox = () => {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  lightbox.addEventListener('click', closeLightbox);
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+});
+  </script>
+</body>
+</html>

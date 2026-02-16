@@ -338,12 +338,36 @@
     .decor-story { bottom: 15%; right: 8%; animation: float 4.5s ease-in-out infinite 0.3s; }
     .decor-5 { bottom: 8%; right: 18%; font-size: 24px; color: rgba(176, 112, 136, 0.2); pointer-events: none; animation: float 5.5s ease-in-out infinite 0.8s; }
     .decor-resume { bottom: 18%; left: 6%; animation: float 4s ease-in-out infinite 0.6s; }
+    .decor-cassette { top: 8%; right: 6%; animation: float 3.8s ease-in-out infinite 0.4s; }
+
+    .cassette-img {
+      width: 100px;
+      height: auto;
+      border-radius: 6px;
+      filter: drop-shadow(0 4px 12px rgba(201, 135, 159, 0.3));
+      transition: filter 0.3s ease, transform 0.3s ease;
+      transform: rotate(90deg) rotate(-8deg);
+    }
+    .pixel-link:hover .cassette-img {
+      filter: drop-shadow(0 6px 16px rgba(201, 135, 159, 0.5));
+      transform: rotate(90deg) rotate(-8deg) scale(1.05);
+    }
+
+    /* Draggable elements */
+    .draggable { cursor: grab; user-select: none; -webkit-user-select: none; }
+    .draggable.dragging {
+      cursor: grabbing;
+      animation: none !important;
+      z-index: 50;
+      filter: drop-shadow(0 8px 24px rgba(180, 100, 130, 0.4));
+    }
 
     @media (max-width: 900px) {
       .about-decor:not(.pixel-link) { display: none; }
       .decor-1 { top: auto; bottom: -70px; left: 10%; }
       .decor-story { top: auto; bottom: -70px; right: 10%; }
       .decor-resume { top: auto; bottom: -70px; left: 50%; transform: translateX(-50%); }
+      .decor-cassette { top: auto; bottom: -70px; right: 30%; }
     }
     @media (max-width: 600px) { .pixel-link { display: none; } }
 
@@ -822,6 +846,8 @@
       top: 24px;
       right: 28px;
       z-index: 40;
+      display: flex;
+      gap: 10px;
     }
     .top-nav-link {
       font-family: "Courier Prime", "Courier New", monospace;
@@ -871,6 +897,7 @@
     <!-- TOP NAV -->
     <nav class="top-nav" aria-label="Main navigation">
       <a href="index.html" class="top-nav-link">Home</a>
+      <a href="art.html" class="top-nav-link">Art</a>
     </nav>
 
     <main>
@@ -886,7 +913,7 @@
       <!-- ABOUT -->
       <section id="about" class="section section-dark about-section" data-no-angle="true">
         <!-- Decorative floating elements with pixel art links -->
-        <a href="#skills" class="about-decor decor-1 pixel-link" title="View my skills">
+        <a href="#skills" class="about-decor decor-1 pixel-link draggable" title="View my skills">
           <svg width="56" height="56" viewBox="0 0 16 16" style="image-rendering: pixelated;">
             <rect x="6" y="0" width="4" height="2" fill="#c9879f"/>
             <rect x="6" y="14" width="4" height="2" fill="#c9879f"/>
@@ -918,7 +945,7 @@
           </svg>
         </div>
 
-        <a href="index.html#articles" class="about-decor decor-story pixel-link" title="Read my articles">
+        <a href="index.html#articles" class="about-decor decor-story pixel-link draggable" title="Read my articles">
           <svg width="52" height="52" viewBox="0 0 16 16" style="image-rendering: pixelated;">
             <rect x="1" y="4" width="6" height="10" fill="#d4a3b5"/>
             <rect x="9" y="4" width="6" height="10" fill="#d4a3b5"/>
@@ -937,8 +964,16 @@
 
         <div class="about-decor decor-5">&#9675;</div>
 
+        <a href="https://open.spotify.com/playlist/5rMPMEcf0tIdjoW3LFcMuX?si=71ec3f908e9e4cbb"
+           class="about-decor decor-cassette pixel-link draggable"
+           target="_blank"
+           title="What I'm listening to">
+          <img src="casseteicon.jpg" alt="Cassette tape" class="cassette-img" />
+          <span class="pixel-label">Playlist</span>
+        </a>
+
         <a href="https://drive.google.com/file/d/1cj_aV6p3btXeKwOyFKZIzLe0sasw1hgc/view?usp=sharing"
-           class="about-decor decor-resume pixel-link"
+           class="about-decor decor-resume pixel-link draggable"
            target="_blank"
            title="View my resume">
           <svg width="56" height="64" viewBox="0 0 14 16" style="image-rendering: pixelated;">
@@ -1404,6 +1439,72 @@ if (scrollProgressBar) {
     scrollProgressBar.style.width = progress + '%';
   }, { passive: true });
 }
+
+// =========================
+// DRAGGABLE DECORATIONS
+// =========================
+document.querySelectorAll('.draggable').forEach(el => {
+  let isDragging = false;
+  let hasMoved = false;
+  let startX, startY, origX, origY;
+
+  const onStart = (e) => {
+    const touch = e.touches ? e.touches[0] : e;
+    isDragging = true;
+    hasMoved = false;
+
+    const rect = el.getBoundingClientRect();
+    const parentRect = el.offsetParent.getBoundingClientRect();
+    origX = rect.left - parentRect.left;
+    origY = rect.top - parentRect.top;
+    startX = touch.clientX;
+    startY = touch.clientY;
+
+    el.classList.add('dragging');
+    el.style.position = 'absolute';
+    el.style.left = origX + 'px';
+    el.style.top = origY + 'px';
+    el.style.right = 'auto';
+    el.style.bottom = 'auto';
+
+    e.preventDefault();
+  };
+
+  const onMove = (e) => {
+    if (!isDragging) return;
+    const touch = e.touches ? e.touches[0] : e;
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+
+    el.style.left = (origX + dx) + 'px';
+    el.style.top = (origY + dy) + 'px';
+    e.preventDefault();
+  };
+
+  const onEnd = (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+    el.classList.remove('dragging');
+
+    // If dragged, prevent the click/navigation
+    if (hasMoved) {
+      e.preventDefault();
+      el.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+      }, { once: true, capture: true });
+    }
+  };
+
+  el.addEventListener('mousedown', onStart);
+  el.addEventListener('touchstart', onStart, { passive: false });
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('mouseup', onEnd);
+  document.addEventListener('touchend', onEnd);
+});
 
 // Close DOMContentLoaded wrapper
 });

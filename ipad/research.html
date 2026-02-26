@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tech Neck: Evidence Review – Aditi Venkat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:ital,wght@0,400;0,500;1,400&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --black-deep: #0a0a0a;
+      --black-soft: #141414;
+      --ink-light: #fdf9f3;
+      --silver: #c8d0d8;
+      --silver-soft: #dde3e8;
+      --muted: #8a8a8a;
+      --accent: #d9c8c0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Spectral", Georgia, serif;
+      background: var(--black-deep);
+      color: var(--accent);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.85;
+      font-size: 18px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    a {
+      color: var(--silver);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+
+    a:hover { border-bottom-color: var(--silver); }
+
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: linear-gradient(to bottom, var(--black-deep) 0%, transparent 100%);
+    }
+
+    .nav-back {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: none;
+    }
+
+    .nav-back::before { content: '←'; margin-right: 8px; }
+    .nav-back:hover { color: var(--silver); border: none; }
+
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 24px 100px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .article-header {
+      margin-bottom: 64px;
+      text-align: center;
+    }
+
+    .article-kicker {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 24px;
+    }
+
+    .article-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+    }
+
+    .article-subtitle {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 48px auto;
+      gap: 16px;
+    }
+
+    .divider-line {
+      width: 40px;
+      height: 1px;
+      background: var(--silver);
+      opacity: 0.2;
+    }
+
+    .divider-dot {
+      color: var(--silver);
+      font-size: 10px;
+      opacity: 0.3;
+    }
+
+    .content p { margin-bottom: 28px; }
+
+    .content h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--ink-light);
+      margin: 72px 0 28px;
+      line-height: 1.3;
+    }
+
+    .content h3 {
+      font-family: "Courier Prime", monospace;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin: 48px 0 20px;
+    }
+
+    .stat-callout {
+      background: rgba(200, 208, 216, 0.05);
+      border-left: 3px solid rgba(200, 208, 216, 0.3);
+      padding: 28px 32px;
+      margin: 40px 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .stat-callout .number {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 6vw, 52px);
+      color: var(--silver);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-callout .label {
+      font-family: "Courier Prime", monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .pull-quote {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(20px, 3vw, 26px);
+      line-height: 1.6;
+      color: var(--ink-light);
+      border-left: 2px solid rgba(200, 208, 216, 0.25);
+      padding-left: 28px;
+      margin: 48px 0;
+    }
+
+    .research-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 40px 0;
+      font-size: 15px;
+    }
+
+    .research-table th {
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--silver);
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(200, 208, 216, 0.15);
+      text-align: left;
+    }
+
+    .research-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(200, 208, 216, 0.07);
+      color: var(--accent);
+      vertical-align: top;
+      line-height: 1.6;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+    }
+
+    .research-table tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 600px) {
+      .research-table { display: none; }
+    }
+
+    .content ul {
+      list-style: none;
+      margin: 24px 0 28px;
+    }
+
+    .content ul li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 14px;
+      color: var(--accent);
+    }
+
+    .content ul li::before {
+      content: '-';
+      position: absolute;
+      left: 0;
+      color: var(--silver);
+      opacity: 0.4;
+    }
+
+    .methodology {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(200,208,216,0.08);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin: 48px 0;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .methodology strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .back-to-campaign {
+      text-align: center;
+      padding: 60px 0 20px;
+    }
+
+    .back-to-campaign a {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--silver);
+      border-bottom: 1px solid rgba(200,208,216,0.3);
+      padding-bottom: 3px;
+    }
+
+    .footer-credit {
+      text-align: center;
+      padding: 40px 0 60px;
+      font-family: "Courier Prime", monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(138,138,138,0.3);
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-back">Back to campaign</a>
+  </nav>
+
+  <article class="article">
+
+    <header class="article-header">
+      <div class="article-kicker">Research · 2025</div>
+      <h1 class="article-title">Why Your Neck Hurts (And What Your Screen Has to Do With It)</h1>
+      <p class="article-subtitle">The evidence behind the Straighten Up campaign pitch for Apple iPad.</p>
+      <div class="article-meta">
+        <span>Brand Strategy</span>
+        <span>·</span>
+        <span>Consumer Health</span>
+        <span>·</span>
+        <span>Aditi Venkat</span>
+      </div>
+    </header>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-dot">◆</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="content">
+
+      <p>Before I built this campaign, I wanted to know if the problem was real or just something people complained about online. Turns out it's very real. Here's what the research actually says.</p>
+
+      <h2>It's not a trend. It's been building for decades.</h2>
+
+      <p>The 2019 Global Burden of Disease report put 222 million people worldwide living with neck pain. 47 million new cases every year. Since 1990, that number has nearly doubled. Not slightly. By 98%.</p>
+
+      <div class="stat-callout">
+        <div class="number">222M</div>
+        <div class="label">people living with neck pain globally, nearly double since 1990</div>
+      </div>
+
+      <p>Neck pain now ranks among the top causes of adult disability globally, and the number keeps rising toward 2040. The regions hit hardest are high-income economies, which is exactly where Apple's core market is.</p>
+
+      <p>The demographic most affected? Women, mid-life, in sedentary work. Which, not coincidentally, is a significant part of who uses an iPad.</p>
+
+      <h2>Here's why the phone is specifically the problem.</h2>
+
+      <p>Your head weighs about 10 to 12 pounds in a neutral position. The moment it tips forward, that changes fast. Every inch forward adds another 10 to 12 pounds of load on your cervical spine. At 15 degrees you're carrying 27 pounds. At 45 degrees, which is where most people's heads sit when they scroll, you're carrying 49 pounds.</p>
+
+      <div class="stat-callout">
+        <div class="number">49 lbs</div>
+        <div class="label">of cervical load at 45 degrees, the average phone-scrolling angle</div>
+      </div>
+
+      <p>Hold that position for a few hours. Repeat every day. That's micro-injuries, muscle fatigue, and accelerated disc degeneration over time. The physical cost of a small screen isn't an exaggeration. It's just physics.</p>
+
+      <div class="pull-quote">
+        Every inch your head drops forward adds 10 to 12 lbs of load on your cervical spine. At 45 degrees, that's 49 lbs. Every session. Every day.
+      </div>
+
+      <h2>This is why it's an iPad campaign and not just generic wellness messaging.</h2>
+
+      <p>Research comparing device types found that 54% of heavy smartphone users reported neck pain. For computer users, that number was 22%. That's not a small gap. And it's not random.</p>
+
+      <div class="stat-callout">
+        <div class="number">54% vs 22%</div>
+        <div class="label">neck pain rates: smartphone users vs computer users</div>
+      </div>
+
+      <p>A phone is designed to be held in your hand. So the screen goes wherever your hand is, which is usually below eye level. You bring your face to it. Your head drops forward. Your neck takes the weight.</p>
+
+      <p>A bigger screen on a stand puts the screen where you need it, not where gravity pulls your hand. iPad is not a new fix. It's already the fix. This campaign just says so out loud.</p>
+
+      <h2>The moment is now.</h2>
+
+      <p>UK searches for "tech neck" nearly doubled in a single month. The term has left physio clinics and made it into everyday conversation. People aren't just experiencing this, they're naming it and looking for answers.</p>
+
+      <p>Health organisations got there before tech brands did. The National Spine Health Foundation ran a "Look Up" campaign in 2023. Australia dedicated its entire 2025 Spinal Health Week to tech neck. These are institutions responding to a problem that has moved from clinical to cultural.</p>
+
+      <p>People are also spending money on it. The posture-correction device market was $1.24 billion in 2024, heading to $2 billion by 2030. Smart braces, posture trackers, laptop stands, wearables. The demand is real. Apple hasn't shown up yet.</p>
+
+      <h3>Why Apple specifically</h3>
+
+      <p>Apple's strongest brand moves have always named the thing everyone else was avoiding. The iPod named the awkwardness of carrying CDs. The first iMac named the intimidation of the beige box. Find the tension nobody's claiming. Say it. Let the product answer.</p>
+
+      <p>Every other tech brand is running the same aspirational campaign with perfect lighting and perfect posture. The brand that admits the problem and shows the product as the answer owns a space nobody else is standing in.</p>
+
+      <h2>Who's most affected.</h2>
+
+      <p>Neck pain peaks around ages 45 to 49 and starts climbing fast in young adulthood. Women report higher rates of both pain and disability than men. Office workers sitting 6 or more hours a day have an 88% higher chance of neck pain. And globally, 11 to 13 million teenagers and young adults reported neck pain in 2019 alone. This is not a mid-life problem. It's a screen problem, and screens start young.</p>
+
+      <h2>What actually works, and where iPad lands.</h2>
+
+      <p>The research on fixes points the same direction every time. Getting the screen to eye level is the single most direct and accessible intervention. One controlled trial found an adjustable laptop stand significantly improved posture scores and reduced discomfort. Physios name it first. It's also the cheapest and easiest change to make. Or you could just get a bigger screen.</p>
+
+      <table class="research-table">
+        <thead>
+          <tr>
+            <th>What people try</th>
+            <th>Does it work</th>
+            <th>How accessible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Screen elevation (stand or arm)</td>
+            <td>Yes, consistently. First thing physios recommend.</td>
+            <td>Very. Low cost and immediate.</td>
+          </tr>
+          <tr>
+            <td>Ergonomic chair or standing desk</td>
+            <td>Moderate, works better combined with other changes</td>
+            <td>Moderate. $300 to $1,500+.</td>
+          </tr>
+          <tr>
+            <td>Posture-tracking wearable</td>
+            <td>Short term yes, but most people stop using them</td>
+            <td>Moderate. $50 to $100.</td>
+          </tr>
+          <tr>
+            <td>Physical therapy</td>
+            <td>Strong evidence. Standard of care for chronic pain.</td>
+            <td>Low. Cost and access are barriers.</td>
+          </tr>
+          <tr>
+            <td>Switch from phone to iPad</td>
+            <td>Removes the primary cause entirely</td>
+            <td>High. Product is already in the market.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>No fix is more direct than just removing the small screen. Change the device, change the angle. That's the product truth this campaign is built on.</p>
+
+      <h2>One thing this research doesn't say.</h2>
+
+      <p>Everything above is about tech neck as a preventable habit in otherwise healthy people. It is not about spinal conditions, scoliosis, kyphosis, chronic pain, or anything structural. The campaign makes no claim about treating or correcting those things and it shouldn't.</p>
+
+      <p>Also worth saying: device-specific data comparing phones to iPads directly is limited. Most studies measure neck pain broadly. The 54% vs 22% figure is directional, not a definitive controlled comparison. This pitch is built on where the evidence points, not beyond it.</p>
+
+      <div class="methodology">
+        <strong>Sources used:</strong> 2019 Global Burden of Disease data, published biomechanics research on cervical load, comparative device-use surveys, Google Trends analysis, National Spine Health Foundation (US), Australian Chiropractors Association. Reddit community data used for qualitative signal only, not as statistics. Market figures are from industry reports and should be treated as estimates.
+      </div>
+
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span class="divider-dot">◆</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="back-to-campaign">
+      <a href="index.html">Back to the campaign pitch</a>
+    </div>
+
+    <div class="footer-credit">Aditi Venkat · 2025</div>
+
+  </article>
+
+</body>
+</html>

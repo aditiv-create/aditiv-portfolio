@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figuring Us Out — Wise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #0A0A0A;
+    --forest-green: #163300;
+    --white: #FFFFFF;
+    --off-white: #F7F4EF;
+    --warm-cream: #EDE9E0;
+    --wise-green: #9FE870;
+    --wise-green-deep: #163300;
+    --muted: #8A8680;
+    --border: #E0DDD7;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 48px;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    transition: color 0.4s ease;
+  }
+  .nav-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    transition: color 0.4s ease;
+  }
+
+  /* SECTION BASE */
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* REVEAL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+  .reveal-delay-4 { transition-delay: 0.5s; }
+  .reveal-delay-5 { transition-delay: 0.65s; }
+
+  /* ——— SECTION 1: HERO ——— */
+  #hero {
+    background: var(--white);
+    padding: 0 48px;
+    min-height: 100vh;
+    justify-content: flex-end;
+    padding-bottom: 80px;
+  }
+  .hero-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(72px, 10vw, 148px);
+    line-height: 0.89;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    max-width: 900px;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+  .hero-headline em {
+    font-style: italic;
+    font-weight: 300;
+  }
+  .hero-headline .line-green {
+    color: var(--wise-green-deep);
+  }
+  .hero-sub {
+    margin-top: 48px;
+    display: flex;
+    align-items: flex-end;
+    gap: 64px;
+  }
+  .hero-sub p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 360px;
+  }
+  .hero-wise-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border: 1px solid var(--border);
+    border-radius: 40px;
+    white-space: nowrap;
+  }
+  .wise-dot {
+    width: 10px; height: 10px;
+    background: var(--wise-green);
+    border-radius: 50%;
+  }
+  .hero-wise-badge span {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+  .hero-scroll-line {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .scroll-arrow {
+    width: 1px;
+    height: 48px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-arrow::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--black);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { top: -100%; }
+    100% { top: 100%; }
+  }
+
+  /* PROGRESS BAR */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--wise-green);
+    z-index: 200;
+    transition: width 0.06s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ENHANCED REVEALS */
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(28px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* ARTIFACT IMAGES */
+  .artifact-reveal {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transform: scale(0.95) rotate(var(--rot, 0deg));
+    transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .artifact-reveal.visible {
+    opacity: 0.85;
+    transform: scale(1) rotate(var(--rot, 0deg));
+  }
+  .artifact-ghost {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .artifact-ghost.visible {
+    opacity: 0.12;
+    transform: scale(1);
+  }
+  .artifact-soft.visible { opacity: 0.5; }
+
+  /* ——— SECTION 2: WORLD SETUP ——— */
+  #world {
+    background: var(--off-white);
+    padding: 120px 48px;
+  }
+  .world-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .stat-block {
+    border-top: 1px solid var(--border);
+    padding-top: 32px;
+  }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(80px, 12vw, 160px);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: var(--black);
+  }
+  .stat-label {
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 340px;
+    opacity: 0.8;
+  }
+  .support-copy {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 480px;
+    margin-top: 16px;
+    border-left: 1px solid var(--border);
+    padding-left: 16px;
+  }
+  .world-text-col {
+    padding-bottom: 20px;
+  }
+  .world-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .world-statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--black);
+  }
+  .world-statement em { font-style: italic; }
+
+  /* ——— SECTION 3: THE MIRROR ——— */
+  #mirror {
+    background: var(--white);
+    padding: 80px 48px;
+  }
+  /* MIRROR HERO — full-width title block, no masonry */
+  .mirror-hero {
+    margin-bottom: 56px;
+  }
+  .mirror-masonry {
+    flex: none;
+    width: 100%;
+    column-count: 2;
+    column-gap: 6px;
+  }
+  .mirror-pin {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    break-inside: avoid;
+    border: 6px solid #fff;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+    filter: saturate(0.75) contrast(1.05) brightness(1.02);
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mirror-pin.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .mirror-pin:nth-child(odd).visible  { transform: scale(1) rotate(-0.8deg); }
+  .mirror-pin:nth-child(even).visible { transform: scale(1) rotate(0.6deg); }
+  .mirror-title-block {
+    max-width: 800px;
+  }
+  .mirror-supporting-stat {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .mirror-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 160px;
+    font-weight: 300;
+    line-height: 0.85;
+    color: var(--wise-green-deep);
+    letter-spacing: -0.04em;
+    flex-shrink: 0;
+  }
+  .mirror-stat-copy {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    padding-top: 12px;
+  }
+  .mirror-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .mirror-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7.5vw, 108px);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    color: var(--black);
+  }
+  .mirror-title em { font-style: italic; }
+  .mirror-grid {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--border);
+  }
+  .mirror-col-header {
+    padding: 24px 0;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .mirror-col-header.then { color: var(--muted); }
+  .mirror-col-header.now { color: var(--black); }
+  .mirror-divider-header {
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--border);
+    font-size: 20px;
+  }
+  .mirror-row {
+    display: contents;
+  }
+  .mirror-item {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mirror-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .mirror-item-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .mirror-divider-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    color: var(--wise-green);
+    font-size: 18px;
+  }
+  .mirror-item.then .mirror-item-name { font-style: italic; }
+
+  /* ——— SECTION 4: INSIGHT STATEMENT ——— */
+  #insight {
+    background: var(--forest-green);
+    padding: 160px 48px;
+    min-height: 80vh;
+  }
+  .insight-inner {
+    max-width: 900px;
+  }
+  .insight-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--wise-green);
+    margin-bottom: 48px;
+  }
+  .insight-statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.18;
+    color: var(--white);
+    letter-spacing: -0.015em;
+    margin-bottom: 48px;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+  .insight-statement em {
+    font-style: italic;
+    color: var(--wise-green);
+  }
+  .insight-footnote {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    max-width: 520px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 32px;
+  }
+
+  /* ——— SECTION 5: THE IDEA ——— */
+  #idea {
+    background: var(--white);
+    padding: 120px 48px;
+    min-height: 100vh;
+    justify-content: center;
+  }
+  .idea-inner {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .idea-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .idea-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 10vw, 136px);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 48px;
+  }
+  .idea-headline em {
+    font-style: italic;
+    color: var(--wise-green-deep);
+  }
+  .idea-description {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ——— SECTION 6: TOUCHPOINT 1 ——— */
+  #tp1 {
+    background: var(--off-white);
+    padding: 120px 48px;
+  }
+  .tp-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .tp-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(120px, 18vw, 240px);
+    font-weight: 300;
+    line-height: 0.8;
+    color: var(--border);
+    letter-spacing: -0.05em;
+    margin-bottom: -20px;
+  }
+  .tp-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+  .tp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--black);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .tp-name em { font-style: italic; }
+  .tp-body {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 32px;
+    max-width: 440px;
+  }
+  .tp-detail {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--black);
+    border-left: 2px solid var(--wise-green);
+    padding-left: 20px;
+    max-width: 400px;
+  }
+  .tp-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .tp-visual .hashtag-banner {
+    grid-column: 1 / -1;
+    margin-top: 4px;
+  }
+  .comment-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    max-width: 360px;
+  }
+  .comment-card.parent { margin-left: 0; }
+  .comment-card.kid { margin-left: 40px; }
+  .comment-handle {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+  .comment-handle .gen-tag {
+    font-weight: 400;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0;
+  }
+  .comment-text {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--black);
+  }
+  .comment-text em {
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+  }
+  .comment-hearts {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .hashtag-banner {
+    background: var(--forest-green);
+    border-radius: 12px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .hashtag-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--wise-green);
+    letter-spacing: -0.01em;
+  }
+  .hashtag-count {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ——— SECTION 7: TOUCHPOINT 2 ——— */
+  #tp2 {
+    background: var(--white);
+    padding: 120px 48px;
+  }
+  .app-mockup {
+    width: 280px;
+    border-radius: 32px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+    background: var(--white);
+    flex-shrink: 0;
+  }
+  .app-header {
+    background: var(--forest-green);
+    padding: 28px 24px 24px;
+  }
+  .app-header-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+  .app-header-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .app-header-title em { font-style: italic; color: var(--wise-green); }
+  .app-body {
+    padding: 24px;
+  }
+  .app-prompt {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .app-input-fake {
+    background: var(--off-white);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--black);
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+  }
+  .app-cta {
+    background: var(--wise-green);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+  }
+  .app-memory-card {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .memory-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .memory-text {
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  .memory-text strong {
+    font-weight: 500;
+    color: var(--black);
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .tp2-right {
+    padding-top: 40px;
+  }
+
+  /* MEMORY CARD STACK */
+  .memory-stack {
+    position: relative;
+    width: 280px;
+    height: 560px;
+    flex-shrink: 0;
+    margin: 0 auto;
+  }
+  .memory-stack .app-mockup {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .card-back {
+    transform: rotate(8deg) translate(18px, 10px);
+    opacity: 0.45;
+    z-index: 1;
+  }
+  .card-mid {
+    transform: rotate(-5deg) translate(-14px, 4px);
+    opacity: 0.65;
+    z-index: 2;
+  }
+  .card-front {
+    transform: none;
+    z-index: 3;
+  }
+
+  /* ——— SECTION 8: TOUCHPOINT 3 / OOH ——— */
+  #tp3 {
+    background: var(--warm-cream);
+    padding: 120px 48px;
+    overflow: hidden;
+  }
+  .ooh-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .woolworths-poster {
+    background: var(--forest-green);
+    border-radius: 12px;
+    padding: 48px;
+    aspect-ratio: 3/4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 340px;
+    position: relative;
+    overflow: hidden;
+  }
+  .poster-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  }
+  .poster-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .poster-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .poster-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .poster-headline em { font-style: italic; color: var(--wise-green); }
+  .poster-sub {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+  .poster-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .poster-wise-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--wise-green);
+    letter-spacing: -0.02em;
+  }
+  .poster-address {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .ooh-copy {
+    padding-bottom: 0;
+  }
+  .ooh-stat {
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .ooh-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(56px, 8vw, 100px);
+    font-weight: 300;
+    line-height: 0.85;
+    color: var(--black);
+    letter-spacing: -0.03em;
+  }
+  .ooh-stat-label {
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 320px;
+  }
+  .photo-print {
+    flex-shrink: 0;
+    transition: transform 0.4s ease;
+  }
+  .photo-print-1 { transform: rotate(-3deg); filter: drop-shadow(0 8px 24px rgba(0,0,0,0.22)); }
+  .photo-print-2 { transform: rotate(2.5deg); margin-top: 20px; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18)); }
+  .photo-print:hover { transform: rotate(0deg) translate(2px, -4px); }
+
+  /* ——— SECTION 9: CONVERSION MECHANIC ——— */
+  #mechanic {
+    background: var(--white);
+    padding: 120px 48px;
+  }
+  .mechanic-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .mechanic-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .mechanic-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    text-align: center;
+    padding: 0 32px;
+    position: relative;
+  }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--border);
+    font-size: 20px;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-icon {
+    display: block;
+    margin: 0 auto 16px;
+  }
+  .flow-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .flow-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black);
+    line-height: 1.3;
+    max-width: 140px;
+  }
+  .mechanic-bottom {
+    padding-top: 64px;
+    border-top: 1px solid var(--border);
+  }
+  .mechanic-bottom p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3.5vw, 40px);
+    font-weight: 300;
+    line-height: 1.3;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+  .mechanic-bottom p em { font-style: italic; }
+  .mechanic-bottom .note {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ——— SECTION 10: CLOSING ——— */
+  #closing {
+    background: var(--off-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 120px 48px;
+  }
+  .closing-inner {
+    max-width: 1000px;
+  }
+  .closing-pre {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+  .closing-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 8vw, 120px);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--black);
+    margin-bottom: 64px;
+  }
+  .closing-headline em {
+    font-style: italic;
+  }
+  .closing-headline .green {
+    color: var(--wise-green-deep);
+  }
+  .closing-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+  }
+  .closing-footer-left p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 380px;
+  }
+  .closing-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: var(--black);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .closing-logo span { color: var(--wise-green-deep); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .artifact-reveal { display: none; }
+    section { padding: 80px 24px; }
+    nav { padding: 20px 24px; }
+    .world-layout,
+    .tp-layout,
+    .ooh-layout { grid-template-columns: 1fr; gap: 48px; }
+    .tp-number { font-size: 80px; }
+    .hero-sub { flex-direction: column; gap: 32px; }
+    .closing-footer { flex-direction: column; gap: 32px; align-items: flex-start; }
+    .mechanic-flow { gap: 24px; }
+    .flow-step { padding: 0 16px; }
+    .mirror-grid { grid-template-columns: 1fr 32px 1fr; }
+    .mirror-hero { margin-bottom: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">First Card</div>
+  <div class="nav-tag">Wise × D&amp;AD New Blood 2026</div>
+</nav>
+
+<!-- ——— 01. HERO ——— -->
+<section id="hero">
+  <div class="hero-eyebrow reveal">01 — The Campaign</div>
+  <h1 class="hero-headline">
+    <span class="reveal reveal-delay-1">Their first adventure</span><br>
+    <span class="reveal reveal-delay-2"><em>starts where</em></span><br>
+    <span class="reveal reveal-delay-3 line-green">yours did.</span>
+  </h1>
+  <div class="hero-sub reveal reveal-delay-4">
+    <p>For the first trip. The real one.</p>
+    <div class="hero-wise-badge">
+      <div class="wise-dot"></div>
+      <span>Wise Young Explorer · UK</span>
+    </div>
+  </div>
+  <div class="hero-scroll-line">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ——— 02. WORLD ——— -->
+<section id="world">
+  <div class="world-layout">
+    <div class="world-text-col">
+      <div class="world-label reveal">02 — The World</div>
+      <p class="world-statement reveal reveal-delay-1">
+        Every parent has a first-trip story. Most teenagers are about to get theirs — with the wrong card.
+      </p>
+    </div>
+    <div>
+      <div class="stat-block reveal reveal-delay-2">
+        <div class="stat-number">52%</div>
+        <p class="stat-label">of Gen Z travellers aged 16–24 are caught off-guard by unexpected fees and currency charges when they travel abroad. (HSBC UK Travel Survey, 2024.)</p>
+      </div>
+      <div class="stat-block reveal reveal-delay-3" style="margin-top: 48px;">
+        <div class="stat-number">£13</div>
+        <p class="stat-label">saved per €500 trip when a teen uses Wise Young Explorer instead of a standard Barclays or Lloyds debit card. That's 85% less in foreign transaction fees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 03. WHY WISE ——— -->
+<section id="product">
+  <div class="world-layout">
+    <div class="world-text-col">
+      <div class="world-label reveal">03 — Why Wise</div>
+      <p class="world-statement reveal reveal-delay-1">
+        GoHenry: up to £119.88 a year. Barclays abroad: 2.99% every purchase. Wise Young Explorer: £7. Once.
+      </p>
+    </div>
+    <div>
+      <div class="stat-block reveal reveal-delay-2">
+        <div class="stat-number">85%</div>
+        <p class="support-copy">less in foreign transaction fees compared to a standard UK high street bank debit card on a €500 holiday. Saving approximately £13 per trip. (Wise, 2025.)</p>
+      </div>
+      <div class="stat-block reveal reveal-delay-3" style="margin-top: 48px;">
+        <div class="stat-number">£7</div>
+        <p class="support-copy">one-off card fee. No monthly subscription. No annual charge. The same mid-market exchange rate the banks use for themselves, with a 0.43% conversion fee. Available in 40+ currencies across 160 countries.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 04. THE PARALLEL ——— -->
+<section id="mirror">
+
+  <div class="mirror-hero">
+    <div class="mirror-title-block">
+      <div class="mirror-label reveal">04 — The Parallel</div>
+      <h2 class="mirror-title reveal reveal-delay-1">
+        Your first trip<br>
+        was the hard<br>
+        <em>version.</em>
+      </h2>
+      <p class="support-copy reveal reveal-delay-2">Only 24% of UK young people receive meaningful financial education at home. The rest figure it out alone — usually in a foreign country, with the wrong card. (Money and Pensions Service, 2022.)</p>
+    </div>
+  </div>
+
+  <div class="mirror-grid reveal reveal-delay-2">
+    <div class="mirror-col-header then">Then (Your First Trip)</div>
+    <div class="mirror-divider-header"></div>
+    <div class="mirror-col-header now">Now (Their First Trip)</div>
+
+    <div class="mirror-item then">
+      <div class="mirror-item-name">The Bureau de Change</div>
+      <div class="mirror-item-desc">You queued for twenty minutes, got a terrible rate, and spent the first night of your trip converting everything back in your head.</div>
+    </div>
+    <div class="mirror-divider-cell">⇌</div>
+    <div class="mirror-item">
+      <div class="mirror-item-name">The Wise Card</div>
+      <div class="mirror-item-desc">Same mid-market rate the banks use. No queue. No markup. The conversion already done by the time they land.</div>
+    </div>
+
+    <div class="mirror-item then">
+      <div class="mirror-item-name">The Emergency Tenner</div>
+      <div class="mirror-item-desc">Folded into a sock. Kept for the flight home. The one your parent made you promise not to touch.</div>
+    </div>
+    <div class="mirror-divider-cell">⇌</div>
+    <div class="mirror-item">
+      <div class="mirror-item-name">Real-time parent controls</div>
+      <div class="mirror-item-desc">Spending limits, instant notifications, the ability to top up from anywhere. Safety net, not surveillance.</div>
+    </div>
+
+    <div class="mirror-item then">
+      <div class="mirror-item-name">The Payphone Panic</div>
+      <div class="mirror-item-desc">Running out of money abroad with no way to tell anyone. The specific anxiety of eighteen with no backup.</div>
+    </div>
+    <div class="mirror-divider-cell">⇌</div>
+    <div class="mirror-item">
+      <div class="mirror-item-name">Instant top-ups</div>
+      <div class="mirror-item-desc">Parent adds funds in seconds from the same account. The panic is optional now.</div>
+    </div>
+
+    <div class="mirror-item then">
+      <div class="mirror-item-name">The Thomas Cook Folder</div>
+      <div class="mirror-item-desc">Traveller's cheques. Receipts in a plastic wallet. Everything documented because nothing was certain.</div>
+    </div>
+    <div class="mirror-divider-cell">⇌</div>
+    <div class="mirror-item">
+      <div class="mirror-item-name">The Young Explorer Card</div>
+      <div class="mirror-item-desc">£7. No subscription. 40+ currencies. Used in 160 countries. Accepted everywhere Visa is.</div>
+    </div>
+
+    <div class="mirror-item then">
+      <div class="mirror-item-name">The Phone Box Reverse Charge</div>
+      <div class="mirror-item-desc">Calling home to say you were fine. They answered before you even finished the sentence.</div>
+    </div>
+    <div class="mirror-divider-cell">⇌</div>
+    <div class="mirror-item">
+      <div class="mirror-item-name">The Parent Dashboard</div>
+      <div class="mirror-item-desc">They can see where the card was used, when, and for how much. Same reassurance. Better technology.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 04. INSIGHT ——— -->
+<section id="insight">
+  <!-- Ghost artifact: very large, very faint — atmospheric presence on dark bg -->
+  <img src="imgs/IMG_3689.JPG" alt="" class="artifact-ghost reveal-delay-3" style="top: -10%; right: -80px; width: 580px; height: auto; mix-blend-mode: normal;" />
+  <div class="insight-inner">
+    <div class="insight-label reveal">05 — The Insight</div>
+    <p class="insight-statement reveal reveal-delay-1">
+      The first real money lesson most teenagers get is discovering, alone abroad, that their card has been charging them all week. <em>That's not education. That's a tax on not knowing.</em>
+    </p>
+    <p class="insight-footnote reveal reveal-delay-2">
+      Only 24% receive meaningful financial education at home. (MaPS, 2022.) The gap between what parents know and what teenagers experience — that's where this campaign lives.
+    </p>
+  </div>
+</section>
+
+<!-- ——— 05. THE IDEA ——— -->
+<section id="idea">
+  <!-- Artifact: left bleed -->
+  <img src="imgs/IMG_3693.JPG" alt="" class="artifact-reveal reveal-delay-3" style="--rot: -12deg; top: 15%; left: -50px; width: 300px; height: auto;" />
+  <!-- Lynx Africa: right bleed — peeks from edge, clear of centered headline -->
+  <img src="imgs/IMG_3691.JPG" alt="" class="artifact-reveal reveal-delay-3" style="--rot: 6deg; top: 22%; right: -60px; width: 280px; height: auto;" />
+  <!-- Artifact: bottom-right -->
+  <img src="imgs/IMG_3690.JPG" alt="" class="artifact-reveal reveal-delay-4" style="--rot: 9deg; bottom: 5%; right: -30px; width: 240px; height: auto;" />
+  <div class="idea-inner">
+    <div class="idea-label reveal">06 — The Big Idea</div>
+    <h2 class="idea-headline reveal reveal-delay-1">
+      First<br>
+      <em>Card.</em>
+    </h2>
+    <p class="idea-description reveal reveal-delay-2">
+      One product. The moment parents most want to say yes. The trip that makes it real.
+    </p>
+  </div>
+</section>
+
+<!-- ——— 06. TOUCHPOINT 1: FILM / UGC ——— -->
+<section id="tp1">
+  <div class="tp-layout">
+    <div>
+      <div class="tp-number reveal">01</div>
+      <div class="tp-label reveal reveal-delay-1">07 — Touchpoint — Film + UGC</div>
+      <h3 class="tp-name reveal reveal-delay-2"><em>#FirstCardMoment</em></h3>
+      <p class="tp-body reveal reveal-delay-3">
+        Parents describe their first time managing money abroad. Bureau de change queues. Payphone calls home. The emergency cash folded into a sock. The UGC campaign — seeded on Instagram, Threads, and Facebook — invites parents to add their own. Parent to parent. No teenagers creating content for a product they can't hold.
+      </p>
+    </div>
+    <div class="tp-visual">
+      <!-- Row 1 -->
+      <div class="comment-card parent reveal reveal-delay-1">
+        <div class="comment-handle">@carolined_1987 <span class="gen-tag"> · Gen X parent</span></div>
+        <p class="comment-text">My first trip alone I had £200 in traveller's cheques and spent three days converting receipts in my head. My daughter leaves for Barcelona in April with a Wise card and I genuinely cannot explain how different that feels. <em>She's so much more prepared than I was.</em></p>
+        <div class="comment-hearts">♥ 34.1k · #FirstCardMoment</div>
+      </div>
+      <div class="comment-card parent reveal reveal-delay-1">
+        <div class="comment-handle">@paulbarker_travels <span class="gen-tag"> · replying</span></div>
+        <p class="comment-text">Same. I queued at the airport bureau de change for twenty minutes in 1994 and got absolutely robbed on the rate. I set up Young Explorer for my son last week. Eight minutes. Seven pounds. Done. <em>I don't know whether to laugh or cry.</em></p>
+        <div class="comment-hearts">♥ 29.6k · @carolined_1987</div>
+      </div>
+      <!-- Row 2 -->
+      <div class="comment-card parent reveal reveal-delay-2">
+        <div class="comment-handle">@miriam.holt <span class="gen-tag"> · Millennial parent</span></div>
+        <p class="comment-text">I lost my emergency cash on a school trip to France and had to call my mum reverse charge from a payphone to confess. She still brings it up. My kid has spending limits and instant notifications. The panic is completely optional now.</p>
+        <div class="comment-hearts">♥ 51.2k · #FirstCardMoment</div>
+      </div>
+      <div class="comment-card parent reveal reveal-delay-2">
+        <div class="comment-handle">@tomfairweather <span class="gen-tag"> · replying</span></div>
+        <p class="comment-text">The payphone story is so specific I felt it in my chest. I did exactly this in Rome, 1999. There is something genuinely wild about the fact that my daughter will never have to do that. <em>The world got smaller in the best way.</em></p>
+        <div class="comment-hearts">♥ 18.4k · @miriam.holt</div>
+      </div>
+      <!-- Row 3 -->
+      <div class="comment-card parent reveal reveal-delay-3">
+        <div class="comment-handle">@priyac.uk <span class="gen-tag"> · Gen X parent</span></div>
+        <p class="comment-text">I set the spending limit at £200 for the week. She messaged to say she'd found a market she wanted to browse and could she have £20 more. I added it before she finished typing. <em>That's the whole product, right there.</em></p>
+        <div class="comment-hearts">♥ 67.3k · #FirstCardMoment</div>
+      </div>
+      <div class="comment-card parent reveal reveal-delay-3">
+        <div class="comment-handle">@davidlloyd_dad <span class="gen-tag"> · replying</span></div>
+        <p class="comment-text">This is exactly it. It's not that you don't trust them. It's that you remember being them. You know what the worst case looks like. And now there's actually a tool that prevents it.</p>
+        <div class="comment-hearts">♥ 41.7k · @priyac.uk</div>
+      </div>
+      <!-- Hashtag spans full width -->
+      <div class="hashtag-banner reveal reveal-delay-4">
+        <div>
+          <div class="hashtag-text">#FirstCardMoment</div>
+          <div class="hashtag-count">Seeded on Instagram · Threads · Facebook</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 07. TOUCHPOINT 2: IN-APP ——— -->
+<section id="tp2">
+  <div class="tp-layout">
+    <div style="display: flex; justify-content: center; align-items: flex-start; padding-top: 20px;">
+      <div class="memory-stack reveal-scale">
+
+        <!-- Card back: Priya -->
+        <div class="app-mockup card-back">
+          <div class="app-header">
+            <div class="app-header-label">Wise · Young Explorer Activated</div>
+            <div class="app-header-title">
+              Priya's card is live.<br>
+              <em>She's ready to go.</em>
+            </div>
+          </div>
+          <div class="app-body">
+            <p class="app-prompt">What do you wish you'd known about money on your first trip abroad?</p>
+            <div class="app-input-fake">"I wish someone had told me that airport exchange rates are basically a scam. I lost about £40 on my first trip and had no idea."</div>
+            <div class="app-cta">Save to My Travel Memories →</div>
+          </div>
+        </div>
+
+        <!-- Card mid: Tom -->
+        <div class="app-mockup card-mid">
+          <div class="app-header">
+            <div class="app-header-label">Wise · Young Explorer Activated</div>
+            <div class="app-header-title">
+              Tom's card is set up.<br>
+              <em>Italy in three weeks.</em>
+            </div>
+          </div>
+          <div class="app-body">
+            <p class="app-prompt">What do you wish you'd known about money the first time you travelled alone?</p>
+            <div class="app-input-fake">"That you can call home collect. That traveller's cheques are a nightmare. That the emergency fund is only useful if you remember where you put it."</div>
+            <div class="app-cta">Save to My Travel Memories →</div>
+          </div>
+        </div>
+
+        <!-- Card front: Maya -->
+        <div class="app-mockup card-front">
+          <div class="app-header">
+            <div class="app-header-label">Wise · Young Explorer Activated</div>
+            <div class="app-header-title">
+              Maya's card is ready.<br>
+              <em>Barcelona next month.</em>
+            </div>
+          </div>
+          <div class="app-body">
+            <p class="app-prompt">What do you wish you'd known about money on your first trip without your parents?</p>
+            <div class="app-input-fake">"That the ATM rate and the card rate are different things. That the bureau de change in the airport is the worst deal in the building. That the emergency cash your parents give you will only feel like enough until the second day. I figured it out. I just wish I hadn't had to figure it out alone, in Paris, on a school trip."</div>
+            <div class="app-cta">Save to My Travel Memories →</div>
+            <div class="app-memory-card">
+              <div class="memory-icon">📼</div>
+              <div class="memory-text">
+                <strong>Saved to Travel Memories</strong>
+                Stored privately. Shareable at 18 when your explorer sets up their own Wise account. One tap. Their choice.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="tp2-right">
+      <div class="tp-number reveal" style="color: var(--border);">02</div>
+      <div class="tp-label reveal reveal-delay-1">08 — Touchpoint — In-App Enhancement (Proposed)</div>
+      <h3 class="tp-name reveal reveal-delay-2">The First Trip<br><em>Memory Card</em></h3>
+      <p class="tp-body reveal reveal-delay-3">
+        When a parent activates a Young Explorer card, Wise asks one question: what do you wish you'd known about money on your first trip? The answer is saved privately. At 18, when the teen opens their own Wise account, they can choose to receive it. One tap. Not a lesson. A letter.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 08. TOUCHPOINT 3: OOH ——— -->
+<section id="tp3">
+  <div class="ooh-layout">
+    <div class="ooh-copy">
+      <div class="tp-number reveal" style="color: rgba(0,0,0,0.08);">03</div>
+      <div class="tp-label reveal reveal-delay-1">09 — Touchpoint — OOH</div>
+      <h3 class="tp-name reveal reveal-delay-2">10 sites.<br><em>One first.</em></h3>
+      <p class="tp-body reveal reveal-delay-3">
+        Woolworths closed in 2008. Ten of its 807 sites sit at UK travel gateways — airports, ferry terminals, the cities where teenagers leave home for the first time. These aren't nostalgia sites. They're the places where the question of how to pay for the world first becomes real.
+      </p>
+      <p class="support-copy reveal reveal-delay-4">
+        Store #1, Liverpool. Store #806, Holyhead — still bearing its original sign, first stop off the Dublin ferry. Store #47, Dover. The largest Woolworths in Europe, four miles from Heathrow. The same places. A better product.
+      </p>
+      <div class="ooh-stat reveal reveal-delay-5">
+        <div class="ooh-stat-num">10</div>
+        <p class="ooh-stat-label">confirmed former Woolworths sites — each one at a UK travel gateway or university transition point. The same places. A better product. The same feeling of figuring it out, with less of the cost.</p>
+      </div>
+    </div>
+    <div class="reveal-scale reveal-delay-2" style="display: flex; flex-direction: column; gap: 12px;">
+      <div class="woolworths-poster">
+        <div class="poster-noise"></div>
+        <div class="poster-tag">OOH CAMPAIGN · UK</div>
+        <div class="poster-body">
+          <div class="poster-headline">
+            This is where<br>
+            you first figured out<br>
+            <em>what your money cost.</em>
+          </div>
+          <p class="poster-sub">Bureau de change. Traveller's cheques. Airport markup.<br>Your money. Their problem. Now there's Wise.</p>
+        </div>
+        <div class="poster-footer">
+          <div class="poster-wise-logo">wise.</div>
+          <div class="poster-address">Former Woolworths site.<br>Est. 1909 · Closed 2008.</div>
+        </div>
+      </div>
+      <!-- Documentary photos: actual Woolworths sites, presented as photo prints -->
+      <div style="display: flex; gap: 12px; align-items: flex-start; margin-top: 8px;">
+        <div class="photo-print photo-print-1">
+          <img src="imgs/IMG_3694.JPG" alt="Woolworths exterior, 1970s" style="width: 210px; height: 158px; object-fit: cover; display: block; border: 7px solid #fff; border-bottom-width: 28px;" />
+          <p style="font-family: 'DM Sans', sans-serif; font-size: 9px; color: #888; text-align: center; margin-top: -22px; letter-spacing: 0.04em;">High Street, 1974</p>
+        </div>
+        <div class="photo-print photo-print-2">
+          <img src="imgs/IMG_3692.JPG" alt="Woolworths storefront, B&W" style="width: 178px; height: 134px; object-fit: cover; display: block; border: 7px solid #fff; border-bottom-width: 28px; filter: grayscale(0.4);" />
+          <p style="font-family: 'DM Sans', sans-serif; font-size: 9px; color: #888; text-align: center; margin-top: -22px; letter-spacing: 0.04em;">Oxford St, c.1980</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 10. MECHANIC ——— -->
+<section id="mechanic">
+  <div class="mechanic-inner">
+    <div class="mechanic-label reveal">10 — The Conversion Mechanic</div>
+    <div class="mechanic-flow reveal reveal-delay-1">
+      <div class="flow-step">
+        <svg class="flow-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--wise-green)" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+          <polygon points="11,8 24,16 11,24"/>
+        </svg>
+        <div class="flow-label">Awareness</div>
+        <div class="flow-text">Film + UGC unlocks parental recognition</div>
+      </div>
+      <div class="flow-step">
+        <svg class="flow-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--wise-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="16" y1="5" x2="16" y2="21"/>
+          <polyline points="10,15 16,21 22,15"/>
+          <line x1="7" y1="27" x2="25" y2="27"/>
+        </svg>
+        <div class="flow-label">Activation</div>
+        <div class="flow-text">Parent activates Young Explorer card. £7. Eight minutes.</div>
+      </div>
+      <div class="flow-step">
+        <svg class="flow-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--wise-green)" stroke-width="1.5" stroke-linecap="round">
+          <line x1="16" y1="5" x2="16" y2="27"/>
+          <line x1="5" y1="16" x2="27" y2="16"/>
+          <line x1="8.5" y1="8.5" x2="23.5" y2="23.5"/>
+          <line x1="23.5" y1="8.5" x2="8.5" y2="23.5"/>
+        </svg>
+        <div class="flow-label">Retention</div>
+        <div class="flow-text">Real-time controls build confidence. Travel memories accumulate.</div>
+      </div>
+      <div class="flow-step">
+        <svg class="flow-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="var(--wise-green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 23 9 A 9 9 0 1 1 9 23"/>
+          <polyline points="19,6 23,9 20,13"/>
+        </svg>
+        <div class="flow-label">Conversion at 18</div>
+        <div class="flow-text">Teen receives Travel Memory. One tap to open their own Wise account.</div>
+      </div>
+    </div>
+    <div class="mechanic-bottom reveal reveal-delay-2">
+      <p>Wise doesn't win by being the cheapest. It wins by being <em>the one parents set up for their kids.</em></p>
+      <p class="support-copy">39% of UK adults still bank with the provider their parent chose for them. (Wise, 2026.)</p>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 11. MEDIA STRATEGY ——— -->
+<section id="media" style="background: var(--off-white);">
+  <div class="tp-layout">
+    <div>
+      <div class="tp-label reveal">11 — Reaching Parents</div>
+      <h3 class="tp-name reveal reveal-delay-1">Where parents<br><em>actually are.</em></h3>
+      <p class="tp-body reveal reveal-delay-2">The campaign targets parents of UK 15–17 year olds. The media plan follows where they actually are.</p>
+    </div>
+    <div class="tp-visual">
+      <div class="comment-card reveal reveal-delay-1">
+        <div class="comment-handle">Facebook / Meta</div>
+        <p class="comment-text">93% reach among UK adults. Average 43 minutes daily. The dominant platform for 35–55 year olds and the primary channel for parent-to-parent content. #FirstCardMoment campaign seeded here first.</p>
+      </div>
+      <div class="comment-card reveal reveal-delay-1">
+        <div class="comment-handle">Mumsnet</div>
+        <p class="comment-text">8 million monthly active UK users. 89% female. 35–54 age group = 39% of all users (~3.1 million people). 96% trust product recommendations. 1 in 2 UK households with children under 19. The highest-trust parenting channel in the UK.</p>
+      </div>
+      <div class="comment-card reveal reveal-delay-2">
+        <div class="comment-handle">Instagram / Threads</div>
+        <p class="comment-text">63% reach among UK women. Reels now account for 35–50% of time on platform. Threads amplifies parent community conversation. Parent Reels targeting: interest-overlaid against 'family travel,' 'teen finance,' 'parenting 15–17 year olds.'</p>
+      </div>
+      <div class="comment-card reveal reveal-delay-2">
+        <div class="comment-handle">Travel placement</div>
+        <p class="comment-text">Contextual advertising on Skyscanner, Booking.com, and TUI when parents search European destinations — the moment of maximum receptivity. A parent planning a trip for their teenager is exactly where this campaign belongs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ——— 12. CLOSING ——— -->
+<section id="closing">
+  <!-- Artifact: large, very faint — dissolving into the closing -->
+  <img src="imgs/IMG_3697.JPG" alt="" class="artifact-reveal artifact-soft reveal-delay-3" style="--rot: 6deg; bottom: 40px; right: -40px; width: 360px; height: auto;" />
+  <div class="closing-inner">
+    <div class="closing-pre reveal">wise. First card. Real rates. Every country.</div>
+    <h2 class="closing-headline reveal reveal-delay-1">
+      <em>Their</em> first<br>
+      adventure.<br>
+      <span class="green">Yours to give.</span>
+    </h2>
+    <div class="closing-footer reveal reveal-delay-2">
+      <div class="closing-footer-left">
+        <p>Built in response to the Wise Young Explorer brief set by Wise for D&amp;AD New Blood Awards 2026. All campaign statistics sourced from: Money and Pensions Service (2022), HSBC UK Travel Survey (2024), ABTA Holiday Habits (2024), Ofcom Adults Media Use Report (2025), Mumsnet Media Kit (2025), and Wise product documentation.</p>
+      </div>
+      <div class="closing-logo">wise<span>.</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Scroll reveal — all animation classes
+  const reveals = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right, .artifact-reveal, .artifact-ghost, .mirror-pin, .cluster-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Progress bar
+  const progressBar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+  }, { passive: true });
+
+  // Nav blend on dark sections
+  const darkSections = document.querySelectorAll('#insight, #closing');
+  const nav = document.querySelector('nav');
+  const navLogo = nav.querySelector('.nav-logo');
+  const navTag = nav.querySelector('.nav-tag');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLogo.style.color = '#FFFFFF';
+        navTag.style.color = 'rgba(255,255,255,0.4)';
+      } else {
+        navLogo.style.color = '';
+        navTag.style.color = '';
+      }
+    });
+  }, { threshold: 0.5 });
+
+  darkSections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>

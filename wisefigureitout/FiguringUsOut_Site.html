@@ -1119,11 +1119,21 @@
     .woolworths-poster { max-width: 100%; width: 100%; padding: 32px 24px; }
     .photo-print-1, .photo-print-2 { transform: none; margin-top: 0; }
     .tp-body, .tp-detail, .support-copy { max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; }
+    .ooh-copy { width: 100%; max-width: 100%; overflow: hidden; }
+    #tp3 .tp-body,
+    #tp3 .tp-name,
+    #tp3 .tp-label,
+    #tp3 .tp-number,
+    #tp3 .ooh-stat-label { max-width: 100%; width: 100%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal; }
+    #tp3 .support-copy { max-width: 100%; word-wrap: break-word; overflow-wrap: break-word; white-space: normal; }
 
     /* Mechanic */
     .mechanic-flow { flex-direction: column; align-items: center; gap: 32px; margin-bottom: 48px; }
-    .flow-step { padding: 0; width: 100%; max-width: 280px; }
+    .flow-step { padding: 0 24px; width: 100%; max-width: 280px; text-align: center; display: flex; flex-direction: column; align-items: center; }
     .flow-step::after { content: none; display: none; }
+    .flow-text { text-align: center; max-width: 240px; margin: 0 auto; }
+    .flow-label { text-align: center; }
+    .mechanic-inner { padding: 0 16px; }
 
     /* Closing */
     .closing-headline { font-size: clamp(44px, 11vw, 80px); }

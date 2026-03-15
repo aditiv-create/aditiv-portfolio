@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Figuring Us Out — Wise</title>
+<title>First Card — Wise × D&AD New Blood 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -41,7 +41,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 24px 48px;
-    mix-blend-mode: multiply;
   }
   .nav-logo {
     font-family: 'Syne', sans-serif;
@@ -977,7 +976,7 @@
     padding-top: 64px;
     border-top: 1px solid var(--border);
   }
-  .mechanic-bottom p {
+  .mechanic-bottom p:not(.support-copy) {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(24px, 3.5vw, 40px);
     font-weight: 300;
@@ -985,7 +984,13 @@
     color: var(--black);
     margin-bottom: 24px;
   }
-  .mechanic-bottom p em { font-style: italic; }
+  .mechanic-bottom p:not(.support-copy) em { font-style: italic; }
+  .mechanic-bottom .support-copy {
+    margin: 0 auto;
+    text-align: center;
+    border-left: none;
+    padding-left: 0;
+  }
   .mechanic-bottom .note {
     font-size: 14px;
     font-weight: 300;
@@ -1400,7 +1405,7 @@
       </p>
       <div class="ooh-stat reveal reveal-delay-5">
         <div class="ooh-stat-num">10</div>
-        <p class="ooh-stat-label">confirmed former Woolworths sites — each one at a UK travel gateway or university transition point. The same places. A better product. The same feeling of figuring it out, with less of the cost.</p>
+        <p class="ooh-stat-label">confirmed former Woolworths sites — each one at a UK travel gateway or university transition point.</p>
       </div>
     </div>
     <div class="reveal-scale reveal-delay-2" style="display: flex; flex-direction: column; gap: 12px;">
@@ -1552,7 +1557,7 @@
   }, { passive: true });
 
   // Nav blend on dark sections
-  const darkSections = document.querySelectorAll('#insight, #closing');
+  const darkSections = document.querySelectorAll('#insight');
   const nav = document.querySelector('nav');
   const navLogo = nav.querySelector('.nav-logo');
   const navTag = nav.querySelector('.nav-tag');

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>வார திட்டம்</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Tamil:wght@400;700;900&family=Noto+Serif+Malayalam:wght@400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --g:  #6B1A1A;
+  --gm: #8B2828;
+  --gl: #A84545;
+  --gf: #C49090;
+  --cr: #F5EFE6;
+  --cm: #EBE1CE;
+  --cd: #CCBDAA;
+  --stamp: #8B1A1A;
+}
+
+html, body { height: 100%; overflow: hidden; background: var(--cm); font-family: 'Crimson Pro', Georgia, serif; }
+
+/* ── LOCK ── */
+#lock-screen {
+  position: fixed; inset: 0; background: var(--cm);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem;
+  z-index: 999;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(107,26,26,0.06) 28px, rgba(107,26,26,0.06) 29px),
+    repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(107,26,26,0.04) 28px, rgba(107,26,26,0.04) 29px);
+}
+#lock-screen.hidden { display: none; }
+
+.lock-seal {
+  width: 68px; height: 68px; border: 3px solid var(--g); border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transform: rotate(-8deg); opacity: 0.75; margin-bottom: 0.3rem;
+}
+.lock-seal span { font-family: 'Noto Serif Tamil', serif; font-size: 18px; font-weight: 900; color: var(--g); line-height: 1.2; }
+.lock-seal small { font-size: 7px; letter-spacing: 0.1em; color: var(--g); text-transform: uppercase; font-family: 'Crimson Pro'; }
+
+.lock-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; color: var(--g); letter-spacing: 0.15em; }
+.lock-sub { font-family: 'IM Fell English', serif; font-size: 12px; letter-spacing: 0.22em; color: var(--gm); text-transform: uppercase; }
+
+.lock-input-wrap { display: flex; border: 1.5px solid var(--g); border-radius: 2px; overflow: hidden; background: var(--cr); }
+#pwd-input { border: none; outline: none; padding: 9px 15px; font-family: 'Crimson Pro'; font-size: 15px; background: transparent; color: var(--g); letter-spacing: 0.1em; width: 175px; }
+#pwd-btn { border: none; border-left: 1.5px solid var(--g); padding: 9px 15px; background: var(--g); color: var(--cr); font-family: 'Crimson Pro'; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.15s; }
+#pwd-btn:hover { background: #4a1010; }
+#lock-error { font-size: 11px; color: var(--gl); font-family: 'Crimson Pro'; letter-spacing: 0.1em; opacity: 0; transition: opacity 0.2s; }
+#lock-error.show { opacity: 1; }
+
+/* ── APP ── */
+#app { position: fixed; inset: 0; display: flex; }
+#app.hidden { display: none; }
+
+/* ── CALENDAR SHELL ── */
+.cal {
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column;
+  background: var(--cr);
+  position: relative; overflow: hidden;
+}
+
+/* ── TOP BAND ── */
+.top-band {
+  background: var(--g);
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; padding: 8px 18px;
+  border-bottom: 1.5px solid #4a1010; flex-shrink: 0;
+}
+.tb-year { font-family: 'Playfair Display'; font-size: 22px; font-weight: 900; color: var(--cr); }
+.tb-center { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.tb-en { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.25em; color: var(--cr); text-transform: uppercase; line-height: 1.1; }
+.tb-cn { font-family: 'Noto Serif Tamil', serif; font-size: 11px; color: rgba(245,239,230,0.45); letter-spacing: 0.1em; }
+.tb-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+.tb-sub { font-family: 'IM Fell English', serif; font-size: 11px; letter-spacing: 0.15em; color: rgba(245,239,230,0.65); text-transform: uppercase; }
+
+.panchangam-band {
+  background: #4a1010; text-align: center;
+  font-family: 'Noto Serif Tamil', serif; font-size: 10px; letter-spacing: 0.12em;
+  color: rgba(245,239,230,0.7); padding: 4px 12px; flex-shrink: 0;
+}
+
+/* ── MID ── */
+.mid {
+  display: grid; grid-template-columns: 52px 1fr 52px;
+  border-bottom: 1.5px solid var(--g); flex-shrink: 0;
+}
+.vert-col {
+  padding: 12px 6px; display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid rgba(107,26,26,0.25);
+}
+.vert-col.right { border-right: none; border-left: 1px solid rgba(107,26,26,0.25); }
+.vert-text {
+  font-family: 'Noto Serif Tamil', serif; font-size: 9px; color: var(--gm);
+  text-align: center; line-height: 2.2; letter-spacing: 0.05em;
+  white-space: pre-line;
+}
+.date-center {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 12px 10px 10px; text-align: center;
+}
+.date-num {
+  font-family: 'Playfair Display'; font-size: clamp(72px, 13vw, 108px); font-weight: 900;
+  color: var(--g); line-height: 0.85; letter-spacing: -4px;
+}
+.date-rule { width: 75%; height: 1px; background: linear-gradient(90deg, transparent, var(--gm), transparent); margin: 8px 0; }
+.date-day-en { font-family: 'IM Fell English', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gm); text-transform: uppercase; }
+.date-day-ta { font-family: 'Noto Serif Tamil', serif; font-size: 18px; font-weight: 700; color: var(--g); margin-top: 3px; }
+.today-mark { font-size: 8px; font-family: 'Noto Serif Tamil', serif; background: var(--g); color: var(--cr); padding: 2px 10px; letter-spacing: 0.08em; margin-top: 5px; }
+.prog-wrap { width: 85%; margin-top: 8px; }
+.prog-label { font-size: 9px; color: var(--gl); font-family: 'Crimson Pro'; letter-spacing: 0.08em; margin-bottom: 3px; text-align: left; }
+.prog-track { height: 2.5px; background: var(--cm); }
+.prog-fill { height: 100%; background: var(--g); transition: width 0.4s; width: 0%; }
+
+/* ── BOTTOM ── */
+.bottom {
+  flex: 1; overflow-y: auto; overflow-x: hidden;
+  padding: 8px 12px 12px;
+  display: flex; flex-direction: column; gap: 6px; min-height: 0;
+}
+.bottom::-webkit-scrollbar { width: 3px; }
+.bottom::-webkit-scrollbar-track { background: var(--cr); }
+.bottom::-webkit-scrollbar-thumb { background: var(--cd); }
+
+/* section: header label + grid below */
+.sec-block { display: flex; flex-direction: column; gap: 3px; }
+.cat-hdr {
+  background: var(--g); color: var(--cr);
+  font-family: 'Crimson Pro', serif; font-size: 10px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.cat-hdr-ta { font-family: 'Noto Serif Tamil', serif; font-size: 8px; opacity: 0.45; font-weight: 400; letter-spacing: 0.05em; text-transform: none; }
+
+.box-grid { display: grid; gap: 4px; }
+.box-grid.cols-1 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.box-grid.cols-2 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.box-grid.cols-3 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.tbox {
+  border: 1px solid rgba(107,26,26,0.28); padding: 6px 8px;
+  font-family: 'Crimson Pro'; font-size: 11px; line-height: 1.45; color: var(--gm);
+  cursor: pointer; position: relative; overflow: hidden;
+  transition: background 0.12s, border-color 0.12s;
+  min-height: 52px; display: flex; flex-direction: column; justify-content: space-between; gap: 3px;
+}
+.tbox:hover { background: rgba(107,26,26,0.05); border-color: var(--gm); }
+.tbox.done { background: rgba(107,26,26,0.04); }
+.tbox.done .tbox-txt { color: var(--gf); text-decoration: line-through; text-decoration-color: var(--gl); }
+.tbox-txt { flex: 1; }
+.tbox-tag { font-size: 7.5px; padding: 1px 5px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'Crimson Pro'; border: 0.5px solid; align-self: flex-start; }
+.tag-body   { color: #2d6011; border-color: #2d6011; }
+.tag-career { color: #7a4f0a; border-color: #7a4f0a; }
+.tag-work   { color: #185FA5; border-color: #185FA5; }
+.tag-net    { color: #6b2048; border-color: #6b2048; }
+
+/* STAMP */
+.stamp {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%) rotate(-22deg) scale(0.3);
+  opacity: 0; pointer-events: none;
+  transition: transform 0.22s cubic-bezier(.22,.68,0,1.15), opacity 0.15s;
+  width: 42px; height: 42px; border: 2.5px solid var(--stamp); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.stamp::before { content: 'முடி'; font-family: 'Noto Serif Tamil'; font-size: 11px; font-weight: 900; color: var(--stamp); }
+.tbox.done .stamp { transform: translate(-50%,-50%) rotate(-22deg) scale(1); opacity: 0.52; }
+
+/* ── NAV ── */
+.nav-bar { background: var(--g); display: flex; align-items: center; padding: 8px 16px; gap: 8px; flex-shrink: 0; border-top: 1.5px solid #4a1010; }
+.nav-btn { font-family: 'Crimson Pro'; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(245,239,230,0.3); background: transparent; color: rgba(245,239,230,0.75); padding: 6px 14px; cursor: pointer; transition: all 0.15s; }
+.nav-btn:hover { background: rgba(245,239,230,0.12); color: var(--cr); }
+.nav-btn:disabled { opacity: 0.22; cursor: default; }
+.nav-btn.tear { border-color: rgba(245,239,230,0.5); color: var(--cr); }
+.nav-spacer { flex: 1; }
+.nav-ind { font-family: 'IM Fell English', serif; font-size: 12px; color: rgba(245,239,230,0.6); letter-spacing: 0.08em; }
+
+.foot-band { background: #4a1010; text-align: center; padding: 4px 0; font-family: 'Noto Serif Tamil', serif; font-size: 13px; color: rgba(245,239,230,0.45); letter-spacing: 0.3em; flex-shrink: 0; }
+
+/* ── PAGE SLIDE ── */
+.page-viewer { flex: 1; overflow: hidden; position: relative; min-height: 0; }
+.day-page { position: absolute; inset: 0; display: flex; flex-direction: column; transform: translateY(100%); opacity: 0; transition: transform 0.42s cubic-bezier(.22,.68,0,1.2), opacity 0.3s ease; }
+.day-page.active { transform: translateY(0); opacity: 1; z-index: 2; }
+.day-page.prev   { transform: translateY(-105%); opacity: 0; z-index: 1; }
+.day-page.tearing { animation: tear 0.5s cubic-bezier(.4,0,.6,1) forwards; }
+@keyframes tear { 0% { transform: translateY(0) rotate(0); opacity: 1; } 40% { transform: translateY(-14px) rotate(-0.7deg); opacity: 0.9; } 100% { transform: translateY(-120%) rotate(1.5deg); opacity: 0; } }
+
+/* ── DESKTOP: side-by-side ── */
+@media (min-width: 601px) {
+  .day-page { flex-direction: row; transform: translateX(100%); }
+  .day-page.active { transform: translateX(0); }
+  .day-page.prev   { transform: translateX(-105%); }
+  @keyframes tear { 0% { transform: translateX(0) rotate(0); opacity: 1; } 100% { transform: translateX(-120%) rotate(-1deg); opacity: 0; } }
+
+  .mid {
+    display: flex !important;
+    flex-direction: column;
+    width: 300px;
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1.5px solid rgba(107,26,26,0.28);
+    height: 100%;
+    align-items: stretch;
+    justify-content: space-between;
+    background: var(--cr);
+    overflow: hidden;
+  }
+
+  .vert-col { display: none; }
+
+  .date-center {
+    flex: 1;
+    padding: 40px 28px 24px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .date-rule { width: 100%; }
+  .prog-wrap { width: 100%; }
+
+  .date-num { font-size: clamp(90px, 11vw, 140px); letter-spacing: -6px; }
+
+  /* Tamil auspicious text at bottom of left panel */
+  .left-footer {
+    padding: 16px 28px;
+    border-top: 1px solid rgba(107,26,26,0.15);
+    font-family: 'Noto Serif Tamil', serif;
+    font-size: 10px; color: var(--gf);
+    letter-spacing: 0.12em; line-height: 2;
+  }
+
+  .bottom {
+    flex: 1; height: 100%;
+    padding: 12px 20px 12px;
+  }
+
+  .cat-hdr { font-size: 12px; padding: 5px 12px; }
+  .cat-hdr-en { font-size: 10px; }
+
+  .tbox { font-size: 14px; min-height: 68px; padding: 10px 12px; }
+  .tbox-tag { font-size: 9px; padding: 2px 7px; }
+
+  .box-grid.cols-1 { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
+  .box-grid.cols-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .box-grid.cols-3 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+}
+
+/* ── ENERGY LEVEL ── */
+.energy-block {
+  display: flex; align-items: center; gap: 12px;
+  padding: 7px 10px 9px;
+  border-bottom: 1px solid rgba(107,26,26,0.12);
+  margin-bottom: 2px; flex-shrink: 0;
+}
+.energy-label {
+  font-family: 'Crimson Pro', serif; font-size: 9px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gl);
+  display: flex; align-items: center; gap: 5px; flex-shrink: 0;
+}
+.energy-ta { font-family: 'Noto Serif Tamil', serif; font-size: 8px; opacity: 0.5; text-transform: none; letter-spacing: 0.04em; }
+.energy-dots { display: flex; gap: 6px; }
+.energy-dot {
+  width: 13px; height: 13px;
+  border: 1.5px solid rgba(107,26,26,0.3);
+  cursor: pointer; background: transparent;
+  transition: background 0.12s, border-color 0.12s;
+  flex-shrink: 0;
+}
+.energy-dot.sel { background: var(--g); border-color: var(--g); }
+.energy-dot:hover { border-color: var(--gm); }
+
+/* ── HABIT STREAK ── */
+.habit-block {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid rgba(107,26,26,0.12);
+}
+.habit-label {
+  font-family: 'Crimson Pro', serif; font-size: 8px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gl);
+  display: flex; align-items: center; gap: 5px; margin-bottom: 7px;
+}
+.habit-ta { font-family: 'Noto Serif Tamil', serif; font-size: 7.5px; opacity: 0.5; text-transform: none; }
+.habit-circles { display: flex; gap: 5px; flex-wrap: wrap; }
+.habit-circle {
+  width: 20px; height: 20px;
+  border: 1.5px solid rgba(107,26,26,0.3); border-radius: 50%;
+  cursor: pointer; background: transparent;
+  transition: background 0.12s, border-color 0.12s;
+  flex-shrink: 0; position: relative;
+}
+.habit-circle:hover { border-color: var(--gm); }
+.habit-circle.filled { background: var(--g); border-color: var(--g); }
+.habit-circle .day-init {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Crimson Pro'; font-size: 7px; font-weight: 600;
+  color: var(--g); text-transform: uppercase; letter-spacing: 0;
+}
+.habit-circle.filled .day-init { color: var(--cr); }
+
+/* ── DAILY NOTES ── */
+.notes-block { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+.notes-textarea {
+  width: 100%; min-height: 80px;
+  background: var(--cr); border: 1px solid rgba(107,26,26,0.15); border-top: none;
+  padding: 10px 12px;
+  font-family: 'Crimson Pro', serif; font-size: 13px; line-height: 1.65; color: var(--gm);
+  resize: vertical; outline: none;
+  transition: border-color 0.18s, background 0.18s;
+}
+.notes-textarea:focus { border-color: rgba(107,26,26,0.5); background: #faf6ee; }
+.notes-textarea::placeholder { color: var(--gf); font-style: italic; }
+
+/* ── WIN OF THE DAY ── */
+.win-block { margin-top: 2px; }
+.win-hdr {
+  padding: 10px 10px 4px;
+  border-top: 1px solid rgba(107,26,26,0.1);
+  font-family: 'Crimson Pro', serif; font-size: 9px;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--gl);
+  display: flex; align-items: center; gap: 6px;
+}
+.win-ta { font-family: 'Noto Serif Tamil', serif; font-size: 8px; opacity: 0.5; text-transform: none; }
+.win-input {
+  width: 100%; background: transparent;
+  border: none; border-bottom: 1px solid rgba(107,26,26,0.18);
+  padding: 5px 10px 10px;
+  font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic;
+  color: var(--gm); outline: none;
+  transition: border-color 0.18s;
+}
+.win-input:focus { border-bottom-color: var(--g); }
+.win-input::placeholder { color: var(--gf); }
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .date-num { font-size: 22vw; }
+  .left-footer { display: none; }
+  .tbox { font-size: 12px; min-height: 54px; }
+  .box-grid.cols-1, .box-grid.cols-2, .box-grid.cols-3 { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOCK -->
+<div id="lock-screen">
+  <div class="lock-seal"><span>A</span><small>private</small></div>
+  <div class="lock-title">Weekly Plan</div>
+  <div class="lock-sub" style="font-family:'Noto Serif Tamil',serif;font-size:10px;opacity:0.5;letter-spacing:0.1em;">வார திட்டம்</div>
+  <div class="lock-input-wrap">
+    <input id="pwd-input" type="password" placeholder="கடவுச்சொல்" autocomplete="off" />
+    <button id="pwd-btn">enter</button>
+  </div>
+  <div id="lock-error">தவறானது — மீண்டும் முயற்சிக்கவும்</div>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+  <div class="cal">
+    <div class="top-band">
+      <div class="tb-year" id="tb-year">2026</div>
+      <div class="tb-center">
+        <div class="tb-en" id="tb-en">APRIL</div>
+        <div class="tb-cn" id="tb-cn">சித்திரை</div>
+      </div>
+      <div class="tb-right">
+        <div class="tb-sub" id="tb-sub">Week of the 18th</div>
+      </div>
+    </div>
+    <div class="panchangam-band" id="panchangam-band">சித்திரை · வாழ்க வளமுடன்</div>
+    <div class="page-viewer" id="page-viewer"></div>
+    <div class="nav-bar">
+      <button class="nav-btn" id="prev-btn" disabled>← prev</button>
+      <button class="nav-btn tear" id="tear-btn">tear ✂</button>
+      <div class="nav-spacer"></div>
+      <div class="nav-ind" id="nav-ind">day 1 of 7</div>
+      <button class="nav-btn" id="next-btn">next →</button>
+    </div>
+    <div class="foot-band">வாழ்க வளமுடன்</div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════
+   ★ SWAP THIS BLOCK EVERY SATURDAY ★
+   ═══════════════════════════════ */
+const WEEK_DATA = {
+  password: "aditi2026",
+  bannerEn: "APRIL", bannerCn: "சித்திரை",
+  bannerSub: "Week of the 18th",
+  year: "2026",
+  panchangam: "சௌமிய வருஷம் · சித்திரை மாதம் · நல்ல நேரம் · வாழ்க வளமுடன்",
+  days: [
+    {
+      date: 18, dayEn: "Saturday", dayTa: "சனி", isToday: true,
+      hours: "2 hrs focus",
+      leftText: "சனி\nவாரம்\nமூன்று",
+      rightText: "நல்ல\nநேரம்\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "Morning walk or 20 min strength — just start, no bar", tag: "body" }
+        ]},
+        { label: "தொழில்", labelEn: "career", tasks: [
+          { text: "Send Lavkesh email with resume attached (nagarro.com address)", tag: "career" },
+          { text: "Complete Brandcenter virtual tour form (brandcenter.vcu.edu/apply/visit)", tag: "career" }
+        ]},
+        { label: "நிர்வாக", labelEn: "admin", tasks: [
+          { text: "Confirm Monday call with Alex Lemley is still happening (Zoom link)", tag: "work" },
+          { text: "Check USCIS case status at my.uscis.gov", tag: "work" }
+        ]}
+      ]
+    },
+    {
+      date: 19, dayEn: "Sunday", dayTa: "ஞாயிறு",
+      hours: "2.5 hrs focus",
+      leftText: "ஞாயிறு\nவாரம்\nஒன்று",
+      rightText: "படைப்பு\nநேரம்\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "20–30 min strength or yoga — no phone first 20 mins of waking", tag: "body" }
+        ]},
+        { label: "படைப்பு", labelEn: "portfolio", tasks: [
+          { text: "Tighten one portfolio case study — McDonald's or Brady's narrative", tag: "career" },
+          { text: "Draft outline for LinkedIn article: what Fyrii AI framework taught me about brand messaging", tag: "career" }
+        ]},
+        { label: "ஆராய்ச்சி", labelEn: "research", tasks: [
+          { text: "Look up Alex Lemley (NetApp) on LinkedIn before Monday call", tag: "net" },
+          { text: "Re-read the NetApp Brand Strategy internship JD — mark 3 specific things to bring up", tag: "work" }
+        ]}
+      ]
+    },
+    {
+      date: 20, dayEn: "Monday", dayTa: "திங்கள்",
+      hours: "3 hrs focus",
+      leftText: "திங்கள்\nவாரம்\nமூன்று",
+      rightText: "முக்கிய\nநேரம்\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "Morning movement — 25 min, build habit not perfection", tag: "body" }
+        ]},
+        { label: "முக்கிய", labelEn: "priority", tasks: [
+          { text: "Alex Lemley call — brand strategy, demand, operations (Zoom, time TBC)", tag: "work" },
+          { text: "Send thank you to Alex same day — reference one specific thing from call", tag: "work" }
+        ]},
+        { label: "விண்ணப்ப", labelEn: "applications", tasks: [
+          { text: "3 applications with human touchpoints — agency or brand marketing at tech", tag: "career" },
+          { text: "2 LinkedIn connection requests — brand or creative strategy people you actually respect", tag: "net" }
+        ]},
+        { label: "தொடர்பு", labelEn: "outreach", tasks: [
+          { text: "Message Allwyn (Tech Bay Leaf) — confirm Wednesday call", tag: "net" }
+        ]}
+      ]
+    },
+    {
+      date: 21, dayEn: "Tuesday", dayTa: "செவ்வாய்",
+      hours: "3.5 hrs focus",
+      leftText: "செவ்வாய்\nவாரம்\nமூன்று",
+      rightText: "கடினம்\nமுயற்சி\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "25–30 min strength — track it, even just writing it down counts", tag: "body" }
+        ]},
+        { label: "விண்ணப்ப", labelEn: "applications", tasks: [
+          { text: "3 more applications — use H-1B employer data hub to filter sponsors", tag: "career" },
+          { text: "Publish LinkedIn article draft (the Fyrii AI framework one)", tag: "career" }
+        ]},
+        { label: "வேலை", labelEn: "work", tasks: [
+          { text: "Complete NetApp HireVue prescreen if not done — due within 2–3 business days of Apr 15", tag: "work" }
+        ]},
+        { label: "நெட்வொர்க்", labelEn: "network", tasks: [
+          { text: "Register with one specialist marketing recruiter — 24 Seven Talent or Vitamin T", tag: "net" }
+        ]}
+      ]
+    },
+    {
+      date: 22, dayEn: "Wednesday", dayTa: "புதன்",
+      hours: "4 hrs focus",
+      leftText: "புதன்\nவாரம்\nமூன்று",
+      rightText: "அழைப்பு\nநேரம்\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "30 min movement — strength or walk, your choice", tag: "body" }
+        ]},
+        { label: "அழைப்பு", labelEn: "calls", tasks: [
+          { text: "Allwyn (Tech Bay Leaf) call — brand strategy + client servicing discussion", tag: "net" },
+          { text: "Send follow up to Allwyn after call same day", tag: "net" }
+        ]},
+        { label: "விசா", labelEn: "O-1A", tasks: [
+          { text: "Write up Fyrii AI framework as a 2-page structured document — publish on portfolio site", tag: "career" },
+          { text: "Apply to judge AAF ADDY Awards regional round (aaf.org)", tag: "career" }
+        ]},
+        { label: "விண்ணப்ப", labelEn: "applications", tasks: [
+          { text: "3 applications — final push to hit 9 for the week", tag: "career" }
+        ]}
+      ]
+    },
+    {
+      date: 23, dayEn: "Thursday", dayTa: "வியாழன்",
+      hours: "4.5 hrs focus",
+      leftText: "வியாழன்\nவாரம்\nமூன்று",
+      rightText: "படைப்பு\nசோதனை\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "30 min strength + 10 min walk — two movements in one day (first attempt)", tag: "body" }
+        ]},
+        { label: "தொழில்", labelEn: "career", tasks: [
+          { text: "Audit your tracker — which applications have gone cold? Flag them", tag: "career" },
+          { text: "Check if W+K Strategy Residency has sent any update", tag: "career" },
+          { text: "Check if Brandcenter decisions have started (they said May)", tag: "career" }
+        ]},
+        { label: "படைப்பு", labelEn: "portfolio", tasks: [
+          { text: "Add D&AD 'Missing Data' case study write-up to portfolio site — include White Pencil angle", tag: "career" }
+        ]},
+        { label: "நெட்வொர்க்", labelEn: "network", tasks: [
+          { text: "One speculative outreach — head of strategy at a dream agency, brief and specific", tag: "net" }
+        ]}
+      ]
+    },
+    {
+      date: 24, dayEn: "Friday", dayTa: "வெள்ளி",
+      hours: "5 hrs focus",
+      leftText: "வெள்ளி\nவாரம்\nமூன்று",
+      rightText: "மதிப்பீடு\nமுடிவு\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "30 min strength (morning) — aim to repeat later if energy allows", tag: "body" }
+        ]},
+        { label: "மதிப்பீடு", labelEn: "week review", tasks: [
+          { text: "Count: how many applications sent this week? Target was 9", tag: "career" },
+          { text: "Count: LinkedIn connections sent, response rate", tag: "net" },
+          { text: "Count: O-1A actions completed this week (article, white paper, judging app)", tag: "career" }
+        ]},
+        { label: "வெளியீடு", labelEn: "publish", tasks: [
+          { text: "Post one piece of LinkedIn content — observation, case study angle, or AI in strategy take", tag: "career" },
+          { text: "Check USCIS case status again", tag: "work" }
+        ]},
+        { label: "காத்திரு", labelEn: "wait", tasks: [
+          { text: "If still no formal offer paperwork from Scott by Friday — let it sit. Do not ping.", tag: "work" }
+        ]}
+      ]
+    }
+  ]
+};
+/* ════════════════════════════════ END SWAP BLOCK */
+
+const WEEK_KEY = `${WEEK_DATA.year}-${WEEK_DATA.days[0].date}`;
+
+let currentIdx = 0;
+let tornPages = new Set();
+const taskState = {};
+
+/* ── ENERGY BLOCK ── */
+function buildEnergyBlock(di) {
+  const block = document.createElement('div');
+  block.className = 'energy-block';
+  const saved = parseInt(localStorage.getItem(`energy-${WEEK_KEY}-${di}`)) || 0;
+  block.innerHTML = `
+    <div class="energy-label">energy <span class="energy-ta">· சக்தி</span></div>
+    <div class="energy-dots">
+      ${[1,2,3,4,5].map(i => `<div class="energy-dot${i <= saved ? ' sel' : ''}" data-v="${i}"></div>`).join('')}
+    </div>`;
+  block.querySelectorAll('.energy-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const v = parseInt(dot.dataset.v);
+      const cur = parseInt(localStorage.getItem(`energy-${WEEK_KEY}-${di}`)) || 0;
+      const next = cur === v ? 0 : v;
+      localStorage.setItem(`energy-${WEEK_KEY}-${di}`, next);
+      block.querySelectorAll('.energy-dot').forEach((d, i) => d.classList.toggle('sel', i < next));
+    });
+  });
+  return block;
+}
+
+/* ── HABIT BLOCK (left sidebar) ── */
+function buildHabitBlock() {
+  const block = document.createElement('div');
+  block.className = 'habit-block';
+  const initials = ['S','S','M','T','W','T','F'];
+  const circles = initials.map((init, i) => {
+    const filled = localStorage.getItem(`habit-${WEEK_KEY}-${i}`) === '1';
+    return `<div class="habit-circle${filled ? ' filled' : ''}" data-hi="${i}" title="${WEEK_DATA.days[i]?.dayEn||''}">
+      <span class="day-init">${init}</span></div>`;
+  }).join('');
+  block.innerHTML = `
+    <div class="habit-label">movement <span class="habit-ta">· நடை</span></div>
+    <div class="habit-circles">${circles}</div>`;
+  block.querySelectorAll('.habit-circle').forEach(c => {
+    c.addEventListener('click', () => {
+      const filled = c.classList.toggle('filled');
+      localStorage.setItem(`habit-${WEEK_KEY}-${c.dataset.hi}`, filled ? '1' : '0');
+    });
+  });
+  return block;
+}
+
+/* ── NOTES BLOCK ── */
+function buildNotesBlock(di) {
+  const block = document.createElement('div');
+  block.className = 'notes-block sec-block';
+  const hdr = document.createElement('div');
+  hdr.className = 'cat-hdr';
+  hdr.innerHTML = `notes <span class="cat-hdr-ta">குறிப்புகள்</span>`;
+  const ta = document.createElement('textarea');
+  ta.className = 'notes-textarea';
+  ta.placeholder = 'thoughts, observations, anything...';
+  ta.value = localStorage.getItem(`notes-${WEEK_KEY}-${di}`) || '';
+  ta.addEventListener('input', () => localStorage.setItem(`notes-${WEEK_KEY}-${di}`, ta.value));
+  block.appendChild(hdr);
+  block.appendChild(ta);
+  return block;
+}
+
+/* ── WIN BLOCK ── */
+function buildWinBlock(di) {
+  const block = document.createElement('div');
+  block.className = 'win-block';
+  const hdr = document.createElement('div');
+  hdr.className = 'win-hdr';
+  hdr.innerHTML = `today's win <span class="win-ta">· இன்றைய வெற்றி</span>`;
+  const inp = document.createElement('input');
+  inp.type = 'text';
+  inp.className = 'win-input';
+  inp.placeholder = 'one thing that went well...';
+  inp.value = localStorage.getItem(`win-${WEEK_KEY}-${di}`) || '';
+  inp.addEventListener('input', () => localStorage.setItem(`win-${WEEK_KEY}-${di}`, inp.value));
+  block.appendChild(hdr);
+  block.appendChild(inp);
+  return block;
+}
+
+const lockEl = document.getElementById('lock-screen');
+const appEl  = document.getElementById('app');
+const pwdIn  = document.getElementById('pwd-input');
+const pwdBtn = document.getElementById('pwd-btn');
+const errEl  = document.getElementById('lock-error');
+
+function unlock() {
+  if (pwdIn.value === WEEK_DATA.password) {
+    lockEl.classList.add('hidden');
+    appEl.classList.remove('hidden');
+    buildCalendar();
+  } else {
+    errEl.classList.add('show');
+    pwdIn.value = '';
+    setTimeout(() => errEl.classList.remove('show'), 2000);
+  }
+}
+pwdBtn.addEventListener('click', unlock);
+pwdIn.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+
+function buildCalendar() {
+  document.getElementById('tb-en').textContent          = WEEK_DATA.bannerEn;
+  document.getElementById('tb-cn').textContent          = WEEK_DATA.bannerCn;
+  document.getElementById('tb-sub').textContent         = WEEK_DATA.bannerSub;
+  document.getElementById('tb-year').textContent        = WEEK_DATA.year;
+  document.getElementById('panchangam-band').textContent = WEEK_DATA.panchangam;
+  buildPages();
+  showPage(0);
+}
+
+function buildPages() {
+  const viewer = document.getElementById('page-viewer');
+  WEEK_DATA.days.forEach((day, di) => {
+    const page = document.createElement('div');
+    page.className = 'day-page';
+    page.id = `page-${di}`;
+
+    /* MID */
+    const mid = document.createElement('div');
+    mid.className = 'mid';
+
+    const lc = document.createElement('div');
+    lc.className = 'vert-col';
+    const lt = document.createElement('div');
+    lt.className = 'vert-text';
+    lt.textContent = day.leftText;
+    lc.appendChild(lt);
+
+    const dc = document.createElement('div');
+    dc.className = 'date-center';
+    const total = day.sections.reduce((a,s)=>a+s.tasks.length,0);
+    dc.innerHTML = `
+      <div class="date-num">${day.date}</div>
+      <div class="date-rule"></div>
+      <div class="date-day-en">${day.dayEn} <span style="font-family:'Noto Serif Tamil',serif;font-size:0.7em;opacity:0.4;letter-spacing:0.05em;">${day.dayTa}</span></div>
+      ${day.isToday ? '<div class="today-mark">today</div>' : ''}
+      <div class="prog-wrap">
+        <div class="prog-label" id="cnt-${di}">0 / ${total} complete</div>
+        <div class="prog-track"><div class="prog-fill" id="prog-${di}"></div></div>
+      </div>
+    `;
+
+    const rc = document.createElement('div');
+    rc.className = 'vert-col right';
+    const rt = document.createElement('div');
+    rt.className = 'vert-text';
+    rt.textContent = day.rightText;
+    rc.appendChild(rt);
+
+    const lf = document.createElement('div');
+    lf.className = 'left-footer';
+    lf.textContent = day.leftText.replace(/\n/g, ' · ') + '\n' + day.rightText.replace(/\n/g, ' · ');
+    lf.style.whiteSpace = 'pre-line';
+
+    dc.appendChild(buildHabitBlock());
+
+    mid.appendChild(lc);
+    mid.appendChild(dc);
+    mid.appendChild(rc);
+    mid.appendChild(lf);
+    page.appendChild(mid);
+
+    /* BOTTOM */
+    const bottom = document.createElement('div');
+    bottom.className = 'bottom';
+
+    bottom.appendChild(buildEnergyBlock(di));
+
+    let globalTi = 0;
+    day.sections.forEach(sec => {
+      const block = document.createElement('div');
+      block.className = 'sec-block';
+
+      const hdr = document.createElement('div');
+      hdr.className = 'cat-hdr';
+      hdr.innerHTML = `${sec.labelEn} <span class="cat-hdr-ta">${sec.label}</span>`;
+
+      const colClass = sec.tasks.length === 1 ? 'cols-1' : sec.tasks.length === 2 ? 'cols-2' : 'cols-3';
+      const grid = document.createElement('div');
+      grid.className = `box-grid ${colClass}`;
+
+      sec.tasks.forEach(task => {
+        const ti = globalTi++;
+        const box = document.createElement('div');
+        box.className = 'tbox';
+        box.innerHTML = `
+          <div class="tbox-txt">${task.text}</div>
+          <span class="tbox-tag tag-${task.tag}">${task.tag}</span>
+          <div class="stamp"></div>
+        `;
+        box.addEventListener('click', () => toggleTask(di, ti, box));
+        grid.appendChild(box);
+      });
+
+      block.appendChild(hdr);
+      block.appendChild(grid);
+      bottom.appendChild(block);
+    });
+
+    bottom.appendChild(buildNotesBlock(di));
+    bottom.appendChild(buildWinBlock(di));
+
+    page.appendChild(bottom);
+    viewer.appendChild(page);
+  });
+}
+
+function toggleTask(di, ti, box) {
+  const key = `${di}-${ti}`;
+  taskState[key] = !taskState[key];
+  box.classList.toggle('done', taskState[key]);
+  updateProgress(di);
+}
+
+function updateProgress(di) {
+  const day = WEEK_DATA.days[di];
+  const total = day.sections.reduce((a,s)=>a+s.tasks.length,0);
+  let done = 0, ti = 0;
+  day.sections.forEach(s => s.tasks.forEach(() => { if (taskState[`${di}-${ti++}`]) done++; }));
+  const pct = total ? Math.round((done/total)*100) : 0;
+  const fill = document.getElementById(`prog-${di}`);
+  const cnt  = document.getElementById(`cnt-${di}`);
+  if (fill) fill.style.width = pct + '%';
+  if (cnt)  cnt.textContent  = `${done} / ${total} complete`;
+}
+
+function showPage(idx) {
+  WEEK_DATA.days.forEach((_, i) => {
+    const p = document.getElementById(`page-${i}`);
+    if (!p) return;
+    p.classList.remove('active','prev');
+    if (i === idx) p.classList.add('active');
+    else if (i < idx) p.classList.add('prev');
+  });
+  currentIdx = idx;
+  updateNav();
+}
+
+function updateNav() {
+  const total = WEEK_DATA.days.length;
+  document.getElementById('prev-btn').disabled = currentIdx === 0;
+  document.getElementById('next-btn').disabled = currentIdx === total - 1;
+  document.getElementById('nav-ind').textContent = `day ${currentIdx+1} of ${total}`;
+}
+
+document.getElementById('prev-btn').addEventListener('click', () => { if (currentIdx > 0) showPage(currentIdx-1); });
+document.getElementById('next-btn').addEventListener('click', () => { if (currentIdx < WEEK_DATA.days.length-1) showPage(currentIdx+1); });
+
+document.getElementById('tear-btn').addEventListener('click', () => {
+  const page = document.getElementById(`page-${currentIdx}`);
+  if (!page) return;
+  page.classList.add('tearing');
+  setTimeout(() => {
+    tornPages.add(currentIdx);
+    if (currentIdx < WEEK_DATA.days.length-1) showPage(currentIdx+1);
+    else showPage(currentIdx);
+    page.classList.remove('tearing','active');
+    page.classList.add('prev');
+  }, 480);
+});
+
+document.addEventListener('keydown', e => {
+  if (lockEl.classList.contains('hidden')) {
+    if (e.key === 'ArrowRight' && currentIdx < WEEK_DATA.days.length-1) showPage(currentIdx+1);
+    if (e.key === 'ArrowLeft'  && currentIdx > 0) showPage(currentIdx-1);
+  }
+});
+</script>
+</body>
+</html>

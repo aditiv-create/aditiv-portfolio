@@ -369,7 +369,7 @@ html, body { height: 100%; overflow: hidden; background: var(--cm); font-family:
         <div class="tb-cn" id="tb-cn">சித்திரை</div>
       </div>
       <div class="tb-right">
-        <div class="tb-sub" id="tb-sub">Week of the 18th</div>
+        <div class="tb-sub" id="tb-sub">Week of the 25th</div>
       </div>
     </div>
     <div class="panchangam-band" id="panchangam-band">சித்திரை · வாழ்க வளமுடன்</div>
@@ -392,155 +392,133 @@ html, body { height: 100%; overflow: hidden; background: var(--cm); font-family:
 const WEEK_DATA = {
   password: "aditi2026",
   bannerEn: "APRIL", bannerCn: "சித்திரை",
-  bannerSub: "Week of the 18th",
+  bannerSub: "Week of the 25th",
   year: "2026",
-  panchangam: "சௌமிய வருஷம் · சித்திரை மாதம் · நல்ல நேரம் · வாழ்க வளமுடன்",
+  panchangam: "சித்திரை · வாழ்க வளமுடன்",
   days: [
     {
-      date: 18, dayEn: "Saturday", dayTa: "சனி", isToday: true,
+      date: 25, dayEn: "Friday", dayTa: "வெள்ளி", isToday: true,
       hours: "2 hrs focus",
-      leftText: "சனி\nவாரம்\nமூன்று",
+      leftText: "வெள்ளி\nவாரம்\nஐந்து",
       rightText: "நல்ல\nநேரம்\nசுபம்",
       sections: [
         { label: "உடல்", labelEn: "body", tasks: [
-          { text: "Morning walk or 20 min strength — just start, no bar", tag: "body" }
+          { text: "20 min movement — start the weekend streak", tag: "body" }
         ]},
-        { label: "தொழில்", labelEn: "career", tasks: [
-          { text: "Send Lavkesh email with resume attached (nagarro.com address)", tag: "career" },
-          { text: "Complete Brandcenter virtual tour form (brandcenter.vcu.edu/apply/visit)", tag: "career" }
+        { label: "அனுப்பு", labelEn: "send", tasks: [
+          { text: "Isha Gupta LinkedIn DM if not done yet", tag: "net" },
+          { text: "Reply to Mayur: \"That's so kind of you, thank you. I'll reach out to Isha.\"", tag: "net" }
         ]},
-        { label: "நிர்வாக", labelEn: "admin", tasks: [
-          { text: "Confirm Monday call with Alex Lemley is still happening (Zoom link)", tag: "work" },
-          { text: "Check USCIS case status at my.uscis.gov", tag: "work" }
+        { label: "தயாரிப்பு", labelEn: "prep", tasks: [
+          { text: "Look up Jenna Reed on LinkedIn tonight — she's in the room on Sunday, know her background before the call", tag: "net" }
         ]}
       ]
     },
     {
-      date: 19, dayEn: "Sunday", dayTa: "ஞாயிறு",
-      hours: "2.5 hrs focus",
-      leftText: "ஞாயிறு\nவாரம்\nஒன்று",
-      rightText: "படைப்பு\nநேரம்\nசுபம்",
-      sections: [
-        { label: "உடல்", labelEn: "body", tasks: [
-          { text: "20–30 min strength or yoga — no phone first 20 mins of waking", tag: "body" }
-        ]},
-        { label: "படைப்பு", labelEn: "portfolio", tasks: [
-          { text: "Tighten one portfolio case study — McDonald's or Brady's narrative", tag: "career" },
-          { text: "Draft outline for LinkedIn article: what Fyrii AI framework taught me about brand messaging", tag: "career" }
-        ]},
-        { label: "ஆராய்ச்சி", labelEn: "research", tasks: [
-          { text: "Look up Alex Lemley (NetApp) on LinkedIn before Monday call", tag: "net" },
-          { text: "Re-read the NetApp Brand Strategy internship JD — mark 3 specific things to bring up", tag: "work" }
-        ]}
-      ]
-    },
-    {
-      date: 20, dayEn: "Monday", dayTa: "திங்கள்",
+      date: 26, dayEn: "Saturday", dayTa: "சனி",
       hours: "3 hrs focus",
-      leftText: "திங்கள்\nவாரம்\nமூன்று",
-      rightText: "முக்கிய\nநேரம்\nசுபம்",
+      leftText: "சனி\nவாரம்\nஆறு",
+      rightText: "தயாரிப்பு\nநேரம்\nசுபம்",
       sections: [
         { label: "உடல்", labelEn: "body", tasks: [
-          { text: "Morning movement — 25 min, build habit not perfection", tag: "body" }
+          { text: "25 min strength", tag: "body" }
         ]},
-        { label: "முக்கிய", labelEn: "priority", tasks: [
-          { text: "Alex Lemley call — brand strategy, demand, operations (Zoom, time TBC)", tag: "work" },
-          { text: "Send thank you to Alex same day — reference one specific thing from call", tag: "work" }
+        { label: "நேர்காணல்", labelEn: "interview prep", tasks: [
+          { text: "STAR stories out loud — not in your head. Furry Frogs trust-not-price, Fyrii framework, why NetApp specifically. Time yourself: 90 seconds per answer", tag: "work" },
+          { text: "Re-read the JD one more time — mark the three things you're bringing up: brand-demand integration, governance question, synthesising into exec-ready recommendations", tag: "work" },
+          { text: "Zoom setup tested by end of day — light in front of you, clean background, portfolio tab open", tag: "work" }
+        ]}
+      ]
+    },
+    {
+      date: 27, dayEn: "Sunday", dayTa: "ஞாயிறு",
+      hours: "Interview Day",
+      leftText: "ஞாயிறு\nநேர்காணல்\nவெற்றி",
+      rightText: "தைரியம்\nதெளிவு\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "Short walk in the morning — something light", tag: "body" }
+        ]},
+        { label: "நேர்காணல்", labelEn: "interview", tasks: [
+          { text: "10:45am — on Zoom, camera on, phone on silent", tag: "work" },
+          { text: "11:00am — interview with Alex and Jenna. You're prepared.", tag: "work" },
+          { text: "Same day after: thank you email to both Alex and Jenna, one email addressed to both, referencing one specific thing from the conversation. Don't wait until Monday.", tag: "work" }
+        ]}
+      ]
+    },
+    {
+      date: 28, dayEn: "Monday", dayTa: "திங்கள்",
+      hours: "3 hrs focus",
+      leftText: "திங்கள்\nவாரம்\nஒன்று",
+      rightText: "விண்ணப்ப\nநேரம்\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "25 min strength", tag: "body" }
         ]},
         { label: "விண்ணப்ப", labelEn: "applications", tasks: [
-          { text: "3 applications with human touchpoints — agency or brand marketing at tech", tag: "career" },
-          { text: "2 LinkedIn connection requests — brand or creative strategy people you actually respect", tag: "net" }
+          { text: "3 applications with human touchpoints — agency or brand marketing at tech, H-1B sponsor filter on", tag: "career" },
+          { text: "Check inbox — Brandcenter decision could come any day this week. If it does, come back to me immediately.", tag: "career" }
         ]},
         { label: "தொடர்பு", labelEn: "outreach", tasks: [
-          { text: "Message Allwyn (Tech Bay Leaf) — confirm Wednesday call", tag: "net" }
+          { text: "Ping Abhi Narang if no response yet — brief WhatsApp to his family contact saying you sent the email and wanted to make sure it arrived", tag: "net" }
         ]}
       ]
     },
     {
-      date: 21, dayEn: "Tuesday", dayTa: "செவ்வாய்",
+      date: 29, dayEn: "Tuesday", dayTa: "செவ்வாய்",
       hours: "3.5 hrs focus",
-      leftText: "செவ்வாய்\nவாரம்\nமூன்று",
+      leftText: "செவ்வாய்\nவாரம்\nஇரண்டு",
+      rightText: "படைப்பு\nவெளியீடு\nசுபம்",
+      sections: [
+        { label: "உடல்", labelEn: "body", tasks: [
+          { text: "30 min strength", tag: "body" }
+        ]},
+        { label: "விண்ணப்ப", labelEn: "applications", tasks: [
+          { text: "3 more applications — target 6 total by end of Tuesday", tag: "career" }
+        ]},
+        { label: "விசா", labelEn: "O-1A", tasks: [
+          { text: "Publish the Fyrii framework as a 2-page document on your portfolio site. This has been on the list for three weeks. Do it.", tag: "career" }
+        ]},
+        { label: "LinkedIn", labelEn: "linkedin", tasks: [
+          { text: "Post one piece of content — a thought on the NetApp interview experience, something you noticed about B2B brand strategy, anything real", tag: "career" }
+        ]}
+      ]
+    },
+    {
+      date: 30, dayEn: "Wednesday", dayTa: "புதன்",
+      hours: "4 hrs focus",
+      leftText: "புதன்\nவாரம்\nமூன்று",
       rightText: "கடினம்\nமுயற்சி\nசுபம்",
       sections: [
         { label: "உடல்", labelEn: "body", tasks: [
-          { text: "25–30 min strength — track it, even just writing it down counts", tag: "body" }
+          { text: "30 min movement — try two movements if energy allows", tag: "body" }
         ]},
         { label: "விண்ணப்ப", labelEn: "applications", tasks: [
-          { text: "3 more applications — use H-1B employer data hub to filter sponsors", tag: "career" },
-          { text: "Publish LinkedIn article draft (the Fyrii AI framework one)", tag: "career" }
+          { text: "3 more applications — hit 9 for the week", tag: "career" }
         ]},
-        { label: "வேலை", labelEn: "work", tasks: [
-          { text: "Complete NetApp HireVue prescreen if not done — due within 2–3 business days of Apr 15", tag: "work" }
-        ]},
-        { label: "நெட்வொர்க்", labelEn: "network", tasks: [
-          { text: "Register with one specialist marketing recruiter — 24 Seven Talent or Vitamin T", tag: "net" }
-        ]}
-      ]
-    },
-    {
-      date: 22, dayEn: "Wednesday", dayTa: "புதன்",
-      hours: "4 hrs focus",
-      leftText: "புதன்\nவாரம்\nமூன்று",
-      rightText: "அழைப்பு\nநேரம்\nசுபம்",
-      sections: [
-        { label: "உடல்", labelEn: "body", tasks: [
-          { text: "30 min movement — strength or walk, your choice", tag: "body" }
-        ]},
-        { label: "அழைப்பு", labelEn: "calls", tasks: [
-          { text: "Allwyn (Tech Bay Leaf) call — brand strategy + client servicing discussion", tag: "net" },
-          { text: "Send follow up to Allwyn after call same day", tag: "net" }
+        { label: "பின்தொடர்", labelEn: "follow-up", tasks: [
+          { text: "NetApp: if nothing from Ashley Royall by Wednesday afternoon, one brief note — \"Just wanted to follow up on next steps following my interview on Sunday.\"", tag: "work" }
         ]},
         { label: "விசா", labelEn: "O-1A", tasks: [
-          { text: "Write up Fyrii AI framework as a 2-page structured document — publish on portfolio site", tag: "career" },
-          { text: "Apply to judge AAF ADDY Awards regional round (aaf.org)", tag: "career" }
-        ]},
-        { label: "விண்ணப்ப", labelEn: "applications", tasks: [
-          { text: "3 applications — final push to hit 9 for the week", tag: "career" }
+          { text: "AAF ADDY judging application at aaf.org — apply to judge the regional round. This is your O-1A action for the week and it keeps getting skipped.", tag: "career" }
         ]}
       ]
     },
     {
-      date: 23, dayEn: "Thursday", dayTa: "வியாழன்",
-      hours: "4.5 hrs focus",
-      leftText: "வியாழன்\nவாரம்\nமூன்று",
-      rightText: "படைப்பு\nசோதனை\nசுபம்",
+      date: 1, dayEn: "Thursday", dayTa: "வியாழன்",
+      hours: "Brandcenter Day",
+      leftText: "மே ஒன்று\nவியாழன்\nமுக்கிய",
+      rightText: "தைரியம்\nதெளிவு\nசுபம்",
       sections: [
         { label: "உடல்", labelEn: "body", tasks: [
-          { text: "30 min strength + 10 min walk — two movements in one day (first attempt)", tag: "body" }
+          { text: "30 min strength", tag: "body" }
         ]},
-        { label: "தொழில்", labelEn: "career", tasks: [
-          { text: "Audit your tracker — which applications have gone cold? Flag them", tag: "career" },
-          { text: "Check if W+K Strategy Residency has sent any update", tag: "career" },
-          { text: "Check if Brandcenter decisions have started (they said May)", tag: "career" }
+        { label: "Brandcenter", labelEn: "brandcenter", tasks: [
+          { text: "If a decision comes today or before — you'll know. If nothing, send a brief note to Emma asking if there's any update on timing.", tag: "career" },
+          { text: "If accepted: celebrate, then figure out scholarship logistics. If waitlisted or rejected: the India path and FA2027 are still real options, and the NetApp internship is still the immediate priority.", tag: "career" }
         ]},
-        { label: "படைப்பு", labelEn: "portfolio", tasks: [
-          { text: "Add D&AD 'Missing Data' case study write-up to portfolio site — include White Pencil angle", tag: "career" }
-        ]},
-        { label: "நெட்வொர்க்", labelEn: "network", tasks: [
-          { text: "One speculative outreach — head of strategy at a dream agency, brief and specific", tag: "net" }
-        ]}
-      ]
-    },
-    {
-      date: 24, dayEn: "Friday", dayTa: "வெள்ளி",
-      hours: "5 hrs focus",
-      leftText: "வெள்ளி\nவாரம்\nமூன்று",
-      rightText: "மதிப்பீடு\nமுடிவு\nசுபம்",
-      sections: [
-        { label: "உடல்", labelEn: "body", tasks: [
-          { text: "30 min strength (morning) — aim to repeat later if energy allows", tag: "body" }
-        ]},
-        { label: "மதிப்பீடு", labelEn: "week review", tasks: [
-          { text: "Count: how many applications sent this week? Target was 9", tag: "career" },
-          { text: "Count: LinkedIn connections sent, response rate", tag: "net" },
-          { text: "Count: O-1A actions completed this week (article, white paper, judging app)", tag: "career" }
-        ]},
-        { label: "வெளியீடு", labelEn: "publish", tasks: [
-          { text: "Post one piece of LinkedIn content — observation, case study angle, or AI in strategy take", tag: "career" },
-          { text: "Check USCIS case status again", tag: "work" }
-        ]},
-        { label: "காத்திரு", labelEn: "wait", tasks: [
-          { text: "If still no formal offer paperwork from Scott by Friday — let it sit. Do not ping.", tag: "work" }
+        { label: "நிர்வாக", labelEn: "admin", tasks: [
+          { text: "Check USCIS case status at my.uscis.gov", tag: "work" }
         ]}
       ]
     }

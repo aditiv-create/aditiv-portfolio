@@ -4,1312 +4,497 @@
   <meta charset="UTF-8" />
   <title>The Reward That's Always There – McDonald's Strategy Pitch by Aditi Venkat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spectral:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
-
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --black-deep: #0a0a0a;
-      --black-soft: #141414;
-      --black-card: #1a1a1a;
-      --ink-light: #fdf9f3;
-      --paper: #fbf8f4;
-      --paper-warm: #f3e6dd;
-      --gold: #d4a017;
-      --gold-soft: #e8b84b;
-      --red: #c1272d;
-      --red-soft: #d4474d;
-      --muted: #8a8a8a;
-      --accent: #d9c8c0;
-      --accent-soft: #e9d8d0;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --transition: 300ms ease-out;
+      --mahogany:      #0F0200;
+      --mahogany-soft: #1A0504;
+      --mahogany-card: #240A06;
+      --cream:         #F5EDD8;
+      --cream-mid:     #E8D4B0;
+      --cream-deep:    #D9C49A;
+      --red:           #B5201A;
+      --red-bright:    #DA291C;
+      --gold:          #C9A020;
+      --ink:           #1C0A04;
+      --ink-mid:       #4A2A18;
+      --ink-muted:     #7A5844;
+      --ink-light:     #F5EDD8; /* alias so inline vars still work */
+      --muted:         #8a7060;
+      --transition:    280ms ease-out;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
     body {
-      font-family: "Inter", -apple-system, sans-serif;
-      background: var(--black-deep);
-      color: var(--ink-light);
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.7;
+      line-height: 1.78;
       overflow-x: hidden;
     }
 
-    /* Subtle grain texture */
+    /* aged paper texture */
     body::before {
       content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 0;
+      position: fixed; inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(160,120,60,0.045) 31px, rgba(160,120,60,0.045) 32px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.06;
+      pointer-events: none; z-index: 0;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .container       { max-width: 900px;  margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    .container-wide  { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* ── PROGRESS ── */
+    .mcd-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 4px;
+      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+      z-index: 200; transition: width 0.1s linear;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
+    /* ── BACK LINK ── */
+    .back-link {
+      position: fixed; top: 28px; left: 28px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cream); background: var(--mahogany);
+      padding: 8px 14px; border: 1px solid rgba(201,160,32,0.45);
+      transition: var(--transition); z-index: 100;
     }
+    .back-link::before { content: '← '; }
+    .back-link:hover   { color: var(--gold); border-color: var(--gold); }
 
-    .container-wide {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* ===== HERO ===== */
+    /* ── HERO ── */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      min-height: 100vh; background: var(--mahogany);
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
       padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
     }
+    /* top + bottom red stripes like vintage menu board */
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 8px; background: var(--red); z-index: 2; }
+    .hero::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 8px; background: var(--red); z-index: 2; }
 
     .hero-bg {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
+      position: absolute; inset: 0;
       background: url('animemcd.jpg') center center / cover no-repeat;
-      opacity: 0.45;
-      filter: saturate(0.7);
-      z-index: 0;
+      opacity: 0.10; filter: saturate(0.3) sepia(0.4); z-index: 0;
     }
-
     .hero-bg::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(
-        to bottom,
-        rgba(10, 10, 10, 0.4) 0%,
-        rgba(10, 10, 10, 0.2) 40%,
-        rgba(10, 10, 10, 0.6) 80%,
-        var(--black-deep) 100%
-      );
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(15,2,0,.78) 0%, rgba(15,2,0,.28) 45%, rgba(15,2,0,.85) 100%);
     }
 
-    .hero > *:not(.hero-bg) {
-      position: relative;
-      z-index: 1;
+    /* ornate double border inside hero */
+    .hero-inner-border {
+      position: absolute; inset: 20px;
+      border: 1px solid rgba(201,160,32,0.18);
+      pointer-events: none; z-index: 1;
     }
+    .hero-inner-border::before {
+      content: ''; position: absolute; inset: 5px;
+      border: 1px solid rgba(201,160,32,0.08);
+    }
+
+    .hero > *:not(.hero-bg):not(.hero-inner-border) { position: relative; z-index: 2; }
 
     .hero-kicker {
-      font-family: "Courier Prime", monospace;
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 24px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 11px; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px;
       animation: fadeInUp 0.8s ease-out 0.1s backwards;
     }
-
     .hero-title {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(48px, 10vw, 120px);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 0.95;
-      margin-bottom: 24px;
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-size: clamp(54px, 11vw, 128px);
+      font-weight: 700; letter-spacing: -0.01em; line-height: 0.9;
+      color: var(--cream);
       animation: fadeInUp 0.8s ease-out 0.2s backwards;
     }
+    .hero-title span { display: block; }
 
-    .hero-title span {
-      display: block;
+    /* red rule with diamond — like menu board horizontal band */
+    .hero-rule {
+      display: flex; align-items: center; gap: 16px;
+      margin: 28px auto; width: 100%; max-width: 560px;
+      animation: fadeInUp 0.8s ease-out 0.25s backwards;
     }
+    .hero-rule-line    { flex: 1; height: 2px; background: var(--red); }
+    .hero-rule-diamond { width: 8px; height: 8px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
     .hero-tagline {
-      font-family: "Playfair Display", serif;
-      font-style: italic;
-      font-size: clamp(20px, 3.5vw, 30px);
-      color: var(--accent);
-      margin-bottom: 60px;
+      font-style: italic; font-size: clamp(18px, 2.8vw, 26px);
+      color: var(--cream-mid); margin-bottom: 52px;
       animation: fadeInUp 0.8s ease-out 0.3s backwards;
     }
-
     .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;
       animation: fadeInUp 0.8s ease-out 0.4s backwards;
     }
-
-    .meta-item {
-      text-align: center;
-    }
-
+    .meta-item { text-align: center; }
     .meta-label {
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(201,160,32,0.6); margin-bottom: 6px;
     }
-
-    .meta-value {
-      font-size: 15px;
-      color: var(--ink-light);
-    }
+    .meta-value { font-size: 14px; color: var(--cream); font-style: italic; }
 
     .scroll-indicator {
       margin-top: 48px;
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      animation: bounce 2s infinite;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(201,160,32,0.45); animation: bounce 2s infinite;
     }
+    .scroll-indicator::after { content: '\2193'; display: block; margin-top: 8px; font-size: 13px; }
 
-    .scroll-indicator::after {
-      content: '\2193';
-      display: block;
-      margin-top: 8px;
-      font-size: 14px;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ===== TAGS ===== */
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
+    /* ── TAGS ── */
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
     .tag {
-      font-family: "Courier Prime", monospace;
-      font-size: 12px;
-      letter-spacing: 0.05em;
-      padding: 8px 16px;
-      border: 1px solid var(--gold);
-      color: var(--gold);
-      border-radius: 100px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.1em;
+      padding: 7px 14px; border: 1px solid rgba(201,160,32,0.3);
+      color: var(--gold); background: rgba(201,160,32,0.05);
     }
 
-    /* ===== PROJECT OVERVIEW GRID ===== */
-    .overview-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: rgba(212, 160, 23, 0.15);
-      border: 1px solid rgba(212, 160, 23, 0.15);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin-top: 48px;
-    }
+    /* ── SECTIONS ── */
+    section { padding: 100px 0; position: relative; }
 
-    .overview-item {
-      background: var(--black-soft);
-      padding: 32px 24px;
-    }
-
-    .overview-item .ov-label {
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 12px;
-    }
-
-    .overview-item .ov-value {
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--ink-light);
-    }
-
-    @media (max-width: 768px) {
-      .overview-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .overview-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ===== SECTIONS ===== */
-    section {
-      padding: 100px 0;
-      position: relative;
-    }
-
-    .section-dark {
-      background: var(--black-deep);
+    .section-dark { background: var(--mahogany-soft); color: var(--cream); }
+    .section-dark::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--red) 25%, var(--gold) 50%, var(--red) 75%, transparent);
+      opacity: 0.55;
     }
 
     .section-card {
-      background: var(--black-soft);
-      border-radius: var(--radius-lg);
-      margin: 0 24px;
-      padding: 80px 0;
+      background: var(--mahogany-card); margin: 0 24px; padding: 80px 0;
+      border-top: 3px solid var(--red); border-bottom: 3px solid var(--red);
     }
 
     .section-warm {
-      background: var(--paper);
-      color: var(--black-deep);
+      background: var(--cream); color: var(--ink);
+      border-top: 4px solid var(--red); border-bottom: 4px solid var(--red);
+    }
+    .section-warm::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,130,60,0.055) 39px, rgba(180,130,60,0.055) 40px);
+      pointer-events: none; z-index: 0;
     }
 
+    /* ── SECTION KICKER ── */
     .section-kicker {
-      font-family: "Courier Prime", monospace;
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 12px;
     }
+    .section-kicker::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .section-warm .section-kicker       { color: var(--red); }
+    .section-warm .section-kicker::before { background: var(--red); }
 
-    .section-warm .section-kicker {
-      color: #8b7355;
-    }
-
+    /* ── SECTION TITLE ── */
     .section-title {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(32px, 5vw, 48px);
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 40px;
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-size: clamp(30px, 5vw, 52px); font-weight: 700;
+      line-height: 1.12; margin-bottom: 40px;
     }
+    .section-dark .section-title,
+    .section-card .section-title { color: var(--cream); }
+    .section-warm .section-title { color: var(--ink); }
+    .section-title em   { font-style: italic; color: var(--gold); }
+    .section-title .red { color: var(--red-bright); }
+    .section-warm .section-title em   { color: var(--red); }
+    .section-warm .section-title .red { color: var(--red); }
 
-    .section-title em {
-      font-style: italic;
-      color: var(--gold);
+    /* ── OVERVIEW GRID — vintage menu board ── */
+    .overview-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 48px;
+      border: 2px solid rgba(201,160,32,0.55);
+      position: relative;
     }
-
-    .section-title .red {
-      color: var(--red);
+    .overview-grid::before {
+      content: ''; position: absolute; inset: 5px;
+      border: 1px solid rgba(201,160,32,0.18);
+      pointer-events: none; z-index: 1;
     }
-
-    .section-warm .section-title em {
-      color: #8b7355;
+    .overview-item {
+      background: var(--mahogany); padding: 32px 20px;
+      border-right: 1px solid rgba(201,160,32,0.22);
+      position: relative;
     }
-
-    .section-warm .section-title .red {
-      color: var(--red);
+    .overview-item:last-child { border-right: none; }
+    .overview-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+    .overview-item .ov-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
     }
+    .overview-item .ov-value { font-size: 14px; line-height: 1.7; color: var(--cream-mid); font-style: italic; }
 
-    /* ===== CONTENT BLOCKS ===== */
-    .content-block {
-      margin-bottom: 60px;
-    }
+    /* ── PROSE ── */
+    .prose { font-size: 17px; line-height: 1.9; }
+    .section-dark .prose,
+    .section-card .prose { color: var(--cream-mid); }
+    .section-warm .prose { color: var(--ink-mid); }
+    .prose p { margin-bottom: 22px; }
+    .prose p:last-child { margin-bottom: 0; }
 
-    .content-block:last-child {
-      margin-bottom: 0;
-    }
+    .prose-poetic { font-style: italic; font-size: 21px; line-height: 2; }
+    .section-dark .prose-poetic,
+    .section-card .prose-poetic { color: var(--cream); }
+    .prose-poetic p { margin-bottom: 8px; }
 
-    .prose {
-      font-size: 17px;
-      line-height: 1.85;
-      color: var(--accent);
-    }
-
-    .section-warm .prose {
-      color: #4a4a4a;
-    }
-
-    .prose p {
-      margin-bottom: 24px;
-    }
-
-    .prose p:last-child {
-      margin-bottom: 0;
-    }
-
-    .prose-poetic {
-      font-family: "Playfair Display", serif;
-      font-size: 20px;
-      line-height: 2;
-      color: var(--ink-light);
-    }
-
-    .prose-poetic p {
-      margin-bottom: 8px;
-    }
-
-    .highlight-text {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(24px, 4vw, 36px);
-      font-style: italic;
-      line-height: 1.5;
-      color: var(--ink-light);
-      border-left: 3px solid var(--gold);
-      padding-left: 32px;
-      margin: 48px 0;
-    }
-
-    .section-warm .highlight-text {
-      color: var(--black-deep);
-      border-left-color: var(--red);
-    }
-
-    /* ===== ESSENCE BLOCK ===== */
+    /* ── ESSENCE BLOCK — currency/coupon ornate ── */
     .essence-block {
-      background: linear-gradient(135deg, rgba(212, 160, 23, 0.08) 0%, rgba(212, 160, 23, 0.02) 100%);
-      border: 1px solid rgba(212, 160, 23, 0.2);
-      border-radius: 16px;
-      padding: 48px 40px;
-      margin: 48px 0;
-      text-align: center;
+      position: relative; padding: 52px 44px; margin: 52px 0;
+      text-align: center; background: var(--mahogany);
+      border: 2px solid var(--gold); overflow: hidden;
     }
-
+    .essence-block::before {
+      content: ''; position: absolute; inset: 7px;
+      border: 1px solid rgba(201,160,32,0.25); pointer-events: none; z-index: 1;
+    }
+    /* guilloché diagonal wave */
+    .essence-block::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        135deg,
+        transparent 0px, transparent 7px,
+        rgba(201,160,32,0.032) 7px, rgba(201,160,32,0.032) 8px
+      );
+      pointer-events: none; z-index: 0;
+    }
     .essence-block p {
-      font-family: "Playfair Display", serif;
-      font-size: 20px;
-      line-height: 1.8;
-      color: var(--ink-light);
-      margin-bottom: 16px;
+      font-size: 19px; line-height: 1.8; color: var(--cream);
+      margin-bottom: 14px; position: relative; z-index: 2;
     }
+    .essence-block p:last-child { margin-bottom: 0; }
+    .essence-lead       { font-size: 30px !important; font-style: italic; color: var(--gold) !important; margin-bottom: 20px !important; }
+    .essence-conclusion { font-size: 26px !important; color: var(--red-bright) !important; margin-top: 20px !important; padding-top: 20px; border-top: 1px solid rgba(201,160,32,0.2); }
 
-    .essence-block p:last-child {
-      margin-bottom: 0;
-    }
-
-    .essence-lead {
-      font-size: 32px !important;
-      font-style: italic;
-      color: var(--gold) !important;
-      margin-bottom: 24px !important;
-    }
-
-    .essence-conclusion {
-      font-size: 28px !important;
-      font-weight: 500;
-      color: var(--red) !important;
-      margin-top: 24px !important;
-      padding-top: 24px;
-      border-top: 1px solid rgba(212, 160, 23, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      .essence-block {
-        padding: 32px 24px;
-      }
-      .essence-lead {
-        font-size: 24px !important;
-      }
-      .essence-conclusion {
-        font-size: 22px !important;
-      }
-    }
-
-    /* ===== STATS STRIP ===== */
+    /* ── STATS STRIP — coin medallions ── */
     .stats-strip {
-      display: flex;
-      justify-content: center;
-      gap: 48px;
-      flex-wrap: wrap;
-      padding: 48px 24px;
-      margin: 48px 0;
-      border-top: 1px solid rgba(212, 160, 23, 0.15);
-      border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+      display: flex; justify-content: center;
+      gap: 48px; flex-wrap: wrap; padding: 52px 24px; margin: 52px 0;
+      border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+      position: relative;
     }
-
-    .stat {
-      text-align: center;
-    }
-
+    .stats-strip::before { content: ''; position: absolute; top: 5px; left: 0; right: 0; border-top: 1px solid rgba(201,160,32,0.2); }
+    .stats-strip::after  { content: ''; position: absolute; bottom: 5px; left: 0; right: 0; border-bottom: 1px solid rgba(201,160,32,0.2); }
+    .stat { text-align: center; }
     .stat-number {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 400;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 8px;
+      font-size: clamp(22px, 3.5vw, 34px); font-weight: 700; color: var(--gold);
+      width: 118px; height: 118px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px;
+      background: var(--mahogany); border: 2px solid var(--gold);
+      box-shadow: 0 0 0 5px var(--mahogany-soft), 0 0 0 7px rgba(201,160,32,0.2);
     }
-
     .stat-label {
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-family: 'Courier Prime', monospace;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cream-mid); max-width: 120px; line-height: 1.5;
     }
 
-    @media (max-width: 600px) {
-      .stats-strip {
-        gap: 32px;
-      }
-    }
+    /* ── BULLET LIST ── */
+    .bullet-list { list-style: none; margin-top: 22px; }
+    .bullet-list li { position: relative; padding-left: 28px; margin-bottom: 14px; font-size: 16px; line-height: 1.7; }
+    .section-dark .bullet-list li,
+    .section-card .bullet-list li { color: var(--cream-mid); }
+    .section-warm .bullet-list li { color: var(--ink-mid); }
+    .bullet-list li::before { content: '◆'; position: absolute; left: 0; color: var(--gold); font-size: 8px; top: 7px; }
+    .section-warm .bullet-list li::before { color: var(--red); }
 
-    /* ===== BULLET LIST ===== */
-    .bullet-list {
-      list-style: none;
-      margin-top: 24px;
-    }
+    /* ── DIVIDER ── */
+    .divider { display: flex; align-items: center; justify-content: center; margin: 60px auto; gap: 12px; }
+    .divider-line { width: 80px; height: 1px; background: var(--gold); opacity: 0.35; }
+    .divider-dot  { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
 
-    .bullet-list li {
-      position: relative;
-      padding-left: 24px;
-      margin-bottom: 16px;
-      font-size: 16px;
-      color: var(--accent);
-    }
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
 
-    .bullet-list li::before {
-      content: '\2726';
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-      font-size: 10px;
-      top: 6px;
-    }
+    /* ── CONTENT + DETAIL BLOCKS ── */
+    .content-block { margin-bottom: 60px; }
+    .content-block:last-child { margin-bottom: 0; }
+    .detail-block { margin-bottom: 32px; }
+    .detail-block h3 { font-size: 22px; font-weight: 700; margin-bottom: 14px; }
+    .section-dark .detail-block h3,
+    .section-card .detail-block h3 { color: var(--cream); }
+    .section-warm .detail-block h3 { color: var(--ink); }
+    .detail-block p { font-size: 15px; line-height: 1.8; }
+    .section-dark .detail-block p,
+    .section-card .detail-block p { color: var(--cream-mid); }
+    .section-warm .detail-block p { color: var(--ink-mid); }
 
-    .section-warm .bullet-list li {
-      color: #4a4a4a;
-    }
-
-    .section-warm .bullet-list li::before {
-      color: var(--red);
-    }
-
-    /* ===== DIVIDER ===== */
-    .divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 60px auto;
-      gap: 20px;
-    }
-
-    .divider-line {
-      width: 60px;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.3;
-    }
-
-    .divider-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      opacity: 0.4;
-    }
-
-    /* ===== TWO COLUMN LAYOUT ===== */
-    .two-col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: start;
-    }
-
-    @media (max-width: 768px) {
-      .two-col {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
-
-    /* ===== CREATIVE WORLD CARD GRID ===== */
-    .creative-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
+    /* ── CREATIVE GRID ── */
+    .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto; padding: 0 24px; }
     .creative-card {
-      background: rgba(212, 160, 23, 0.04);
-      border: 1px solid rgba(212, 160, 23, 0.1);
-      border-radius: 16px;
-      padding: 36px 28px;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
+      background: var(--mahogany); border: 1px solid rgba(201,160,32,0.22);
+      padding: 36px 28px; transition: all 0.4s ease; position: relative;
     }
+    .creative-card::before { content: ''; position: absolute; top: 4px; left: 4px; right: 4px; bottom: 4px; border: 1px solid rgba(201,160,32,0.07); pointer-events: none; }
+    .creative-card:hover { border-color: rgba(201,160,32,0.5); transform: translateY(-4px); }
+    .creative-card h3 { font-size: 18px; color: var(--cream); margin-bottom: 12px; font-weight: 700; }
+    .creative-card p  { font-size: 14px; color: var(--cream-mid); line-height: 1.7; }
+    .creative-card .card-number { font-size: 2.2rem; color: rgba(201,160,32,0.07); position: absolute; top: 10px; right: 18px; line-height: 1; }
+    .creative-card .card-accent { color: var(--gold); font-style: italic; margin-top: 12px; }
 
-    .creative-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
+    /* ── FILM SEQUENCE ── */
+    .film-sequence { margin: 48px 0; }
+    .film-scene { padding: 20px 0; border-bottom: 1px solid rgba(201,160,32,0.1); font-size: 18px; font-style: italic; color: var(--cream); line-height: 1.6; }
+    .film-scene:last-child { border-bottom: none; }
+    .film-direction { font-family: 'Courier Prime', monospace; font-size: 11px; font-style: normal; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,160,32,0.5); margin-top: 8px; }
+    .film-final { margin-top: 48px; text-align: center; }
+    .film-final p { font-size: clamp(20px, 3.5vw, 30px); font-style: italic; color: var(--cream); line-height: 1.5; margin-bottom: 12px; }
+    .film-final .arches { font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 24px; }
 
-    .creative-card:hover {
-      background: rgba(212, 160, 23, 0.08);
-      border-color: rgba(212, 160, 23, 0.2);
-      transform: translateY(-4px);
-    }
+    /* ── ISNT LIST ── */
+    .isnt-list { list-style: none; margin: 32px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .isnt-list li { font-size: 16px; font-style: italic; color: var(--cream-mid); padding-left: 24px; position: relative; }
+    .isnt-list li::before { content: '✕'; position: absolute; left: 0; color: rgba(181,32,26,0.6); font-size: 11px; top: 3px; font-style: normal; }
 
-    .creative-card:hover::before {
-      opacity: 1;
-    }
+    /* ── SOCIAL PROMPT ── */
+    .social-prompt { background: var(--mahogany); border: 2px solid rgba(201,160,32,0.25); padding: 40px; margin: 48px 0; position: relative; }
+    .social-prompt::before { content: ''; position: absolute; inset: 6px; border: 1px solid rgba(201,160,32,0.1); pointer-events: none; }
+    .social-prompt .prompt-label { font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .social-prompt .prompt-question { font-size: clamp(22px, 4vw, 34px); font-style: italic; color: var(--cream); margin-bottom: 32px; }
+    .social-responses { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+    .social-response { font-family: 'Courier Prime', monospace; font-size: 13px; padding: 9px 16px; background: rgba(201,160,32,0.06); border: 1px solid rgba(201,160,32,0.2); color: var(--cream-mid); }
+    .social-reply { font-size: 20px; font-style: italic; color: var(--gold); margin-top: 16px; }
 
-    .creative-card h3 {
-      font-family: "Playfair Display", serif;
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--ink-light);
-      margin-bottom: 12px;
-    }
+    /* ── OUTCOME POINTS ── */
+    .outcome-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin: 48px 0; }
+    .outcome-point { text-align: center; padding: 24px; }
+    .outcome-point span { font-size: 20px; font-style: italic; }
+    .section-dark .outcome-point span,
+    .section-card .outcome-point span { color: var(--cream); }
 
-    .creative-card p {
-      font-size: 15px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    /* ── LOGIC CHAIN ── */
+    .logic-chain { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .logic-chain::before { content: ''; position: absolute; left: 23px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold), rgba(201,160,32,0.1)); }
+    .logic-step { display: grid; grid-template-columns: 48px 1fr; gap: 0 24px; padding: 24px 0; }
+    .logic-number { grid-row: 1 / 3; font-size: 17px; font-weight: 700; color: var(--gold); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 50%; background: var(--mahogany-soft); position: relative; z-index: 1; }
+    .logic-label  { font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; align-self: end; }
+    .logic-text   { font-size: 15px; line-height: 1.75; color: var(--cream-mid); grid-column: 2; }
 
-    .creative-card .card-number {
-      font-family: "Playfair Display", serif;
-      font-size: 2.5rem;
-      color: rgba(212, 160, 23, 0.08);
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      line-height: 1;
-    }
+    /* ── SPLIT ── */
+    section:has(.split-section) { padding: 0; }
+    .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: 1100px; margin: 0 auto; align-items: center; padding: 64px 40px; }
+    .split-section.reverse .split-img     { order: 2; }
+    .split-section.reverse .split-content { order: 1; }
+    .split-img { position: relative; overflow: hidden; border: 2px solid rgba(201,160,32,0.2); }
+    .split-img img { width: 100%; max-height: 480px; object-fit: cover; display: block; filter: brightness(0.85) saturate(1.1) sepia(0.08); }
+    .split-content { padding: 16px 8px; }
 
-    .creative-card .card-accent {
-      color: var(--gold);
-      font-style: italic;
-      margin-top: 12px;
-      font-family: "Playfair Display", serif;
-    }
+    /* ── ATMOSPHERE IMG ── */
+    .mcd-img-atmosphere { position: relative; width: 100%; max-width: 900px; margin: 0 auto; padding: 24px 40px; }
+    .mcd-img-atmosphere img { width: 100%; display: block; border: 2px solid rgba(201,160,32,0.15); filter: brightness(0.65) saturate(1.15) sepia(0.08); }
+    .mcd-img-atmosphere .atmosphere-text { position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%); z-index: 4; font-size: clamp(20px, 3vw, 28px); font-style: italic; color: var(--cream); text-align: center; width: 80%; max-width: 500px; text-shadow: 0 2px 20px rgba(0,0,0,0.9); }
 
-    @media (max-width: 768px) {
-      .creative-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 0 20px;
-      }
-
-      .creative-card {
-        padding: 28px 22px;
-      }
-    }
-
-    /* ===== FILM SEQUENCE ===== */
-    .film-sequence {
-      margin: 48px 0;
-    }
-
-    .film-scene {
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(212, 160, 23, 0.08);
-      font-family: "Playfair Display", serif;
-      font-size: 18px;
-      font-style: italic;
-      color: var(--ink-light);
-      line-height: 1.6;
-    }
-
-    .film-scene:last-child {
-      border-bottom: none;
-    }
-
-    .film-direction {
-      font-family: "Courier Prime", monospace;
-      font-size: 12px;
-      font-style: normal;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 8px;
-    }
-
-    .film-final {
-      margin-top: 48px;
-      text-align: center;
-    }
-
-    .film-final p {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(22px, 4vw, 32px);
-      font-style: italic;
-      color: var(--ink-light);
-      line-height: 1.5;
-      margin-bottom: 12px;
-    }
-
-    .film-final .arches {
-      font-size: 14px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 24px;
-      font-family: "Courier Prime", monospace;
-    }
-
-    /* ===== WHAT THIS ISN'T LIST ===== */
-    .isnt-list {
-      list-style: none;
-      margin: 32px 0;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .isnt-list li {
-      font-family: "Playfair Display", serif;
-      font-size: 17px;
-      font-style: italic;
-      color: var(--accent);
-      padding-left: 24px;
-      position: relative;
-    }
-
-    .isnt-list li::before {
-      content: '\2715';
-      position: absolute;
-      left: 0;
-      color: rgba(193, 39, 45, 0.5);
-      font-size: 12px;
-      top: 4px;
-      font-style: normal;
-    }
-
-    @media (max-width: 600px) {
-      .isnt-list {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ===== SOCIAL PROMPT BLOCK ===== */
-    .social-prompt {
-      background: rgba(212, 160, 23, 0.06);
-      border: 1px solid rgba(212, 160, 23, 0.15);
-      border-radius: 16px;
-      padding: 40px;
-      margin: 48px 0;
-    }
-
-    .social-prompt .prompt-label {
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 16px;
-    }
-
-    .social-prompt .prompt-question {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(24px, 4vw, 36px);
-      font-style: italic;
-      color: var(--ink-light);
-      margin-bottom: 32px;
-    }
-
-    .social-responses {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .social-response {
-      font-family: "Courier Prime", monospace;
-      font-size: 14px;
-      padding: 10px 18px;
-      border-radius: 100px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--accent);
-    }
-
-    .social-reply {
-      font-family: "Playfair Display", serif;
-      font-size: 20px;
-      font-style: italic;
-      color: var(--gold);
-      margin-top: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .social-prompt {
-        padding: 28px 20px;
-      }
-    }
-
-    /* ===== TWO-COL DETAIL BLOCKS ===== */
-    .detail-block {
-      margin-bottom: 32px;
-    }
-
-    .detail-block h3 {
-      font-family: "Playfair Display", serif;
-      font-size: 22px;
-      font-weight: 400;
-      margin-bottom: 16px;
-      color: var(--ink-light);
-    }
-
-    .detail-block p {
-      font-size: 15px;
-      color: var(--accent);
-      line-height: 1.8;
-    }
-
-    .section-warm .detail-block h3 {
-      color: var(--black-deep);
-    }
-
-    .section-warm .detail-block p {
-      color: #4a4a4a;
-    }
-
-    /* ===== OUTCOME POINTS ===== */
-    .outcome-points {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-      margin: 48px 0;
-    }
-
-    .outcome-point {
-      text-align: center;
-      padding: 24px;
-    }
-
-    .outcome-point span {
-      font-family: "Playfair Display", serif;
-      font-size: 22px;
-      font-style: italic;
-      color: var(--ink-light);
-    }
-
-    @media (max-width: 768px) {
-      .outcome-points {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      padding: 80px 24px;
-      text-align: center;
-      border-top: 1px solid rgba(212, 160, 23, 0.1);
-    }
-
-    .footer-title {
-      font-family: "Playfair Display", serif;
-      font-size: 24px;
-      font-style: italic;
-      color: var(--ink-light);
-      margin-bottom: 32px;
-    }
-
-    .footer-link {
-      font-family: "Courier Prime", monospace;
-      font-size: 13px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid var(--gold);
-      padding-bottom: 4px;
-      transition: var(--transition);
-    }
-
-    .footer-link:hover {
-      color: var(--ink-light);
-      border-color: var(--ink-light);
-    }
-
-    .footer-credit {
-      margin-top: 48px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .footer-credit a {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-
-    /* ===== BACK LINK ===== */
-    .back-link {
-      position: fixed;
-      top: 32px;
-      left: 32px;
-      font-family: "Courier Prime", monospace;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transition: var(--transition);
-      z-index: 100;
-    }
-
-    .back-link:hover {
-      color: var(--gold);
-    }
-
-    .back-link::before {
-      content: '\2190';
-      margin-right: 8px;
-    }
-
-    /* ===== SCROLL PROGRESS ===== */
-    .mcd-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
-      z-index: 200;
-      transition: width 0.1s linear;
-    }
-
-    /* ===== GRADIENT MESH BREAK ===== */
-    .gradient-break {
-      height: 180px;
-      position: relative;
-      overflow: hidden;
-    }
-
+    /* ── GRADIENT BREAK — vertical rule pattern ── */
+    .gradient-break { height: 72px; position: relative; overflow: hidden; background: var(--mahogany); }
     .gradient-break::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 50%, rgba(212, 160, 23, 0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 50%, rgba(193, 39, 45, 0.04) 0%, transparent 50%);
-      animation: meshShift 12s ease-in-out infinite alternate;
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(90deg, rgba(181,32,26,0.07) 0px, rgba(181,32,26,0.07) 1px, transparent 1px, transparent 44px);
     }
 
-    @keyframes meshShift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(3%, -2%) scale(1.1); }
-    }
+    /* ── FOOTER ── */
+    footer { padding: 80px 24px; text-align: center; background: var(--mahogany); border-top: 4px solid var(--red); position: relative; }
+    footer::before { content: ''; position: absolute; top: 10px; left: 24px; right: 24px; border-top: 1px solid rgba(201,160,32,0.18); }
+    .footer-title  { font-size: 24px; font-style: italic; color: var(--cream); margin-bottom: 32px; }
+    .footer-link   { font-family: 'Courier Prime', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 4px; transition: var(--transition); }
+    .footer-link:hover { color: var(--cream-mid); border-color: var(--cream-mid); }
+    .footer-credit { margin-top: 40px; font-size: 13px; color: var(--ink-muted); }
+    .footer-credit a { color: var(--cream-mid); text-decoration: underline; }
 
-    /* ===== ANIMATIONS ===== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    /* ── ANIMATIONS ── */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounce   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.92);
-      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal-scale.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal-left.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal-right.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
+    .reveal        { opacity: 0; transform: translateY(40px);   transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-scale  { opacity: 0; transform: scale(0.93);        transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    .reveal-left   { opacity: 0; transform: translateX(-40px);  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left.visible  { opacity: 1; transform: translateX(0); }
+    .reveal-right  { opacity: 0; transform: translateX(40px);   transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
     .reveal-delay-1 { transition-delay: 0.15s; }
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
     .reveal-delay-4 { transition-delay: 0.6s; }
 
-    /* ===== LOGIC CHAIN ===== */
-    .logic-chain {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      position: relative;
-    }
-
-    .logic-chain::before {
-      content: '';
-      position: absolute;
-      left: 23px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--gold), rgba(212, 160, 23, 0.1));
-    }
-
-    .logic-step {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 0 24px;
-      padding: 24px 0;
-      position: relative;
-    }
-
-    .logic-number {
-      grid-row: 1 / 3;
-      font-family: "Playfair Display", serif;
-      font-size: 20px;
-      color: var(--gold);
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(212, 160, 23, 0.3);
-      border-radius: 50%;
-      background: var(--black-deep);
-      position: relative;
-      z-index: 1;
-    }
-
-    .logic-label {
-      font-family: "Courier Prime", monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-      align-self: end;
-    }
-
-    .logic-text {
-      font-size: 16px;
-      line-height: 1.7;
-      color: var(--ink-light);
-      opacity: 0.85;
-      grid-column: 2;
-    }
-
-    /* ===== RESPONSIVE ===== */
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      section {
-        padding: 60px 0;
-      }
-
-      .section-card {
-        margin: 0 16px;
-        padding: 48px 0;
-      }
-
-      .hero {
-        padding: 100px 24px 60px;
-      }
-
-      .hero-meta {
-        gap: 24px;
-      }
-
-      .container {
-        padding: 0 20px;
-      }
-
-      .back-link {
-        top: 20px;
-        left: 20px;
-      }
-
-      .gradient-break {
-        height: 100px;
-      }
+      section { padding: 60px 0; }
+      .section-card { margin: 0 16px; padding: 48px 0; }
+      .hero { padding: 100px 24px 60px; }
+      .hero-meta { gap: 24px; }
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .creative-grid { grid-template-columns: 1fr; gap: 16px; padding: 0 20px; }
+      .isnt-list { grid-template-columns: 1fr; }
+      .outcome-points { grid-template-columns: 1fr; gap: 16px; }
+      .overview-grid { grid-template-columns: 1fr 1fr; }
+      .stats-strip { gap: 32px; }
+      .split-section { grid-template-columns: 1fr; gap: 24px; padding: 40px 20px; }
+      .split-section.reverse .split-img     { order: 0; }
+      .split-section.reverse .split-content { order: 0; }
+      .back-link { top: 20px; left: 20px; }
+      .essence-block  { padding: 32px 22px; }
+      .social-prompt  { padding: 28px 20px; }
     }
-
-    /* ===== SPLIT LAYOUT — image beside text (Emma Kerencheva style) ===== */
-    /* Sections containing split layouts need less padding since split handles it */
-    section:has(.split-section) {
-      padding: 0;
+    @media (max-width: 480px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .stat-number   { width: 96px; height: 96px; font-size: 20px; }
     }
-
-    /* ===== SPLIT LAYOUT — image beside text ===== */
-    .split-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      max-width: 1100px;
-      margin: 0 auto;
-      align-items: center;
-      padding: 64px 40px;
-    }
-
-    .split-section.reverse .split-img {
-      order: 2;
-    }
-
-    .split-section.reverse .split-content {
-      order: 1;
-    }
-
-    .split-img {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow:
-        0 8px 40px rgba(0, 0, 0, 0.5),
-        0 0 60px rgba(212, 160, 23, 0.06);
-    }
-
-    .split-img img {
-      width: 100%;
-      max-height: 480px;
-      object-fit: cover;
-      display: block;
-      border-radius: 14px;
-      filter: brightness(0.9) saturate(1.1) contrast(1.05);
-    }
-
-    /* Subtle grain overlay */
-    .split-img::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      opacity: 0.04;
-      z-index: 2;
-      pointer-events: none;
-      border-radius: 14px;
-    }
-
-    /* Softer treatment on light backgrounds */
-    .section-warm .split-img {
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.15),
-        0 0 48px rgba(193, 39, 45, 0.06);
-    }
-
-    .section-warm .split-img img {
-      filter: brightness(1) saturate(1.05) contrast(1.02);
-    }
-
-    .split-content {
-      padding: 16px 8px;
-    }
-
-    /* ===== FULL-BLEED ATMOSPHERIC IMAGE ===== */
-    .mcd-img-atmosphere {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 40px;
-    }
-
-    .mcd-img-atmosphere img {
-      width: 100%;
-      display: block;
-      border-radius: 14px;
-      filter: brightness(0.65) saturate(1.15) contrast(1.1);
-      box-shadow:
-        0 12px 48px rgba(0, 0, 0, 0.6),
-        0 0 80px rgba(212, 160, 23, 0.05);
-    }
-
-    .mcd-img-atmosphere .atmosphere-text {
-      position: absolute;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-      font-family: "Playfair Display", serif;
-      font-size: clamp(20px, 3vw, 28px);
-      font-style: italic;
-      color: var(--ink-light);
-      text-align: center;
-      width: 80%;
-      max-width: 500px;
-      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-    }
-
-    @media (max-width: 768px) {
-      .split-section {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 40px 20px;
-      }
-
-      .split-section.reverse .split-img {
-        order: 0;
-      }
-
-      .split-section.reverse .split-content {
-        order: 0;
-      }
-
-      .split-img img {
-        max-height: 360px;
-      }
-
-      .split-content {
-        padding: 8px 4px;
-      }
-
-      .mcd-img-atmosphere {
-        padding: 16px 20px;
-      }
-    }
-
-    /* ===== PRINT ===== */
     @media print {
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      body {
-        background: #fff !important;
-        color: #000 !important;
-        font-size: 11pt;
-        line-height: 1.5;
-      }
-
-      .back-link,
-      .scroll-indicator,
-      .mcd-progress,
-      .gradient-break {
-        display: none !important;
-      }
-
-      .reveal, .reveal-scale, .reveal-left, .reveal-right {
-        opacity: 1 !important;
-        transform: none !important;
-      }
-
-      .hero {
-        background: #fff !important;
-        padding: 40px 0 !important;
-        min-height: auto !important;
-      }
-
-      .hero-title {
-        color: #000 !important;
-        font-size: 36pt !important;
-      }
-
-      section {
-        padding: 30px 0 !important;
-      }
-
-      .section-card {
-        background: #fff !important;
-        margin: 0 !important;
-        page-break-inside: avoid;
-      }
-
-      .section-title {
-        color: #000 !important;
-      }
-
-      p, li {
-        color: #333 !important;
-      }
-
-      .container {
-        max-width: 100% !important;
-        padding: 0 20px !important;
-      }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      body { background: #fff !important; color: #000 !important; }
+      .back-link, .scroll-indicator, .mcd-progress, .gradient-break { display: none !important; }
+      .reveal, .reveal-scale, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 <body>
 
   <div class="mcd-progress" id="mcdProgress"></div>
-
   <a href="../index.html" class="back-link">Back to Portfolio</a>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="hero-inner-border"></div>
     <div class="hero-kicker reveal reveal-delay-1">Creative Brand Strategy Pitch</div>
     <h1 class="hero-title">
       <span>The Reward</span>
       <span>That's Always</span>
       <span>There.</span>
     </h1>
+    <div class="hero-rule">
+      <div class="hero-rule-line"></div>
+      <div class="hero-rule-diamond"></div>
+      <div class="hero-rule-line"></div>
+    </div>
     <p class="hero-tagline">A McDonald's Brand Strategy Pitch</p>
 
-    <p class="reveal" style="font-size: 16px; max-width: 560px; color: var(--muted); line-height: 1.7; margin: 0 auto 48px; animation: fadeInUp 0.8s ease-out 0.35s backwards;">
+    <p class="reveal" style="font-size: 16px; max-width: 560px; color: rgba(232,212,176,0.7); line-height: 1.75; margin: 0 auto 48px; font-style: italic; animation: fadeInUp 0.8s ease-out 0.35s backwards;">
       I started noticing how people talk about their McDonald's runs, and it's never about the food. It's about the day they just survived. That thread turned into this.
     </p>
 
     <div class="hero-meta">
-      <div class="meta-item">
-        <div class="meta-label">Brand</div>
-        <div class="meta-value">McDonald's</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Role</div>
-        <div class="meta-value">Brand Strategist</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Discipline</div>
-        <div class="meta-value">Creative Strategy</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Type</div>
-        <div class="meta-value">Speculative Pitch</div>
-      </div>
+      <div class="meta-item"><div class="meta-label">Brand</div><div class="meta-value">McDonald's</div></div>
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Brand Strategist</div></div>
+      <div class="meta-item"><div class="meta-label">Discipline</div><div class="meta-value">Creative Strategy</div></div>
+      <div class="meta-item"><div class="meta-label">Type</div><div class="meta-value">Speculative Pitch</div></div>
     </div>
 
     <div class="tags" style="margin-top: 32px; justify-content: center;">
@@ -1353,34 +538,21 @@
 
       <div class="two-col" style="margin-top: 40px;">
         <div class="detail-block reveal-left">
-          <div class="prose">
-            <p>We see the success, but the effort behind it stays invisible.</p>
-          </div>
+          <div class="prose"><p>We see the success, but the effort behind it stays invisible.</p></div>
         </div>
         <div class="detail-block reveal-right">
-          <div class="prose">
-            <p>Social media amplifies milestones, but most days are just about getting through it.</p>
-          </div>
+          <div class="prose"><p>Social media amplifies milestones, but most days are just about getting through it.</p></div>
         </div>
       </div>
 
       <div class="divider">
-        <span class="divider-line"></span>
-        <span class="divider-dot"></span>
-        <span class="divider-line"></span>
+        <span class="divider-line"></span><span class="divider-dot"></span><span class="divider-line"></span>
       </div>
 
-      <div class="prose reveal">
-        <p>Fast food keeps competing on price, value, and menu innovation.</p>
-      </div>
-
-      <div class="highlight-text reveal-scale">
-        Nobody owns endurance.
-      </div>
+      <div class="prose reveal"><p>Fast food keeps competing on price, value, and menu innovation. Nobody owns endurance.</p></div>
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- THE REALITY -->
@@ -1390,22 +562,10 @@
       <h2 class="section-title reveal">McDonald's is not <em>niche.</em></h2>
 
       <div class="stats-strip reveal-scale">
-        <div class="stat">
-          <div class="stat-number">87%</div>
-          <div class="stat-label">US households visited</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">54x</div>
-          <div class="stat-label">avg visits per year</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">No. 1</div>
-          <div class="stat-label">across all adult QSR bands</div>
-        </div>
-        <div class="stat">
-          <div class="stat-number">66%</div>
-          <div class="stat-label">of Americans visited</div>
-        </div>
+        <div class="stat"><div class="stat-number">87%</div><div class="stat-label">US households visited</div></div>
+        <div class="stat"><div class="stat-number">54x</div><div class="stat-label">avg visits per year</div></div>
+        <div class="stat"><div class="stat-number">No.1</div><div class="stat-label">across all adult QSR bands</div></div>
+        <div class="stat"><div class="stat-number">66%</div><div class="stat-label">of Americans visited</div></div>
       </div>
 
       <div class="prose reveal">
@@ -1433,17 +593,10 @@
         </ul>
       </div>
 
-      <div class="prose reveal">
-        <p>But nobody's talking about how people actually feel at the end of the day.</p>
-      </div>
-
-      <div class="highlight-text reveal-scale">
-        That's the white space.
-      </div>
+      <div class="prose reveal"><p>But nobody's talking about how people actually feel at the end of the day. That's the white space.</p></div>
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- THE HUMAN INSIGHT -->
@@ -1468,10 +621,9 @@
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
-  <!-- THE TENSION — image beside text -->
+  <!-- THE TENSION -->
   <section class="section-dark">
     <div class="split-section">
       <div class="split-img reveal-left">
@@ -1480,14 +632,8 @@
       <div class="split-content">
         <div class="section-kicker reveal-left">The Tension</div>
         <h2 class="section-title reveal">Modern culture celebrates the <span class="red">big win.</span></h2>
-
-        <div class="prose reveal">
-          <p>But most people are just trying to get through the day.</p>
-        </div>
-
-        <div class="highlight-text reveal-scale">
-          McDonald's doesn't need to own the finish line. It owns the pause.
-        </div>
+        <div class="prose reveal"><p>But most people are just trying to get through the day.</p></div>
+        <div class="prose-poetic reveal" style="margin-top: 20px;"><p>McDonald's doesn't need to own the finish line. It owns the pause.</p></div>
       </div>
     </div>
   </section>
@@ -1495,51 +641,49 @@
   <!-- THE IDEA -->
   <section class="section-dark">
     <div class="container" style="text-align: center;">
-      <div class="section-kicker reveal-left" style="text-align: center;">The Idea</div>
-
+      <div class="section-kicker reveal-left" style="text-align: center; justify-content: center;">The Idea</div>
       <div class="reveal-scale" style="padding: 32px 0;">
-        <p style="font-family: 'Playfair Display', serif; font-size: clamp(36px, 7vw, 72px); font-weight: 400; line-height: 1.1; color: var(--ink-light); margin-bottom: 24px;">
+        <p style="font-size: clamp(36px, 7vw, 72px); font-weight: 700; line-height: 1.05; color: var(--cream); margin-bottom: 24px;">
           The Reward That's<br>Always There.
         </p>
       </div>
-
       <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 0 auto;">
         <p>Not for your biggest achievement, but for the day you just made it through.</p>
       </div>
     </div>
   </section>
 
-  <!-- CREATIVE DIRECTION — condensed + link to full campaign -->
+  <!-- CREATIVE DIRECTION -->
   <section class="section-dark">
     <div class="container" style="text-align: center;">
-      <div class="section-kicker reveal-left" style="text-align: center;">Creative Direction</div>
+      <div class="section-kicker reveal-left" style="text-align: center; justify-content: center;">Creative Direction</div>
       <h2 class="section-title reveal" style="max-width: 700px; margin: 0 auto;">Restrained. Observational. <em>Underplayed.</em></h2>
 
       <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 24px auto 0;">
         <p>No sentimental music swells. No heroic arcs. No generational clich&eacute;s. Just real moments, observed without commentary.</p>
       </div>
-
       <div class="prose reveal" style="text-align: center; max-width: 600px; margin: 16px auto 0;">
         <p>The product shows up casually, the copy stays quiet, and people feel seen rather than sold to. Whether it's film, a billboard, or a social post, the rule is the same: say less.</p>
       </div>
 
-      <!-- OOH EXECUTION — inline example -->
-      <div class="reveal-scale" style="margin: 56px auto; max-width: 540px; background: #0d0d0d; border: 1px solid rgba(212, 160, 23, 0.15); border-radius: 4px; padding: 64px 48px; position: relative;">
-        <div style="position: absolute; top: 16px; left: 20px; font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(212, 160, 23, 0.4);">OOH · Example execution</div>
-        <p style="font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 30px); font-style: italic; color: var(--ink-light); line-height: 1.5; margin: 0;">Fries on passenger seat.<br>Made it through today.</p>
+      <!-- OOH billboard — vintage menu board aesthetic -->
+      <div class="reveal-scale" style="margin: 56px auto; max-width: 540px; background: var(--mahogany); border: 2px solid rgba(201,160,32,0.35); padding: 64px 48px; position: relative;">
+        <div style="position: absolute; inset: 6px; border: 1px solid rgba(201,160,32,0.12); pointer-events: none;"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--red);"></div>
+        <div style="position: absolute; top: 16px; left: 20px; font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(201,160,32,0.45);">OOH · Example execution</div>
+        <p style="font-size: clamp(22px, 4vw, 30px); font-style: italic; color: var(--cream); line-height: 1.5; margin: 0;">Fries on passenger seat.<br>Made it through today.</p>
         <div style="margin-top: 32px; display: flex; align-items: center; gap: 12px;">
-          <div style="height: 1px; flex: 1; background: rgba(212, 160, 23, 0.2);"></div>
-          <img src="animemcd.jpg" alt="" style="width: 36px; height: 36px; object-fit: cover; border-radius: 50%; opacity: 0.5; filter: grayscale(1);">
+          <div style="height: 1px; flex: 1; background: rgba(201,160,32,0.2);"></div>
+          <img src="animemcd.jpg" alt="" style="width: 36px; height: 36px; object-fit: cover; border-radius: 50%; opacity: 0.4; filter: grayscale(1) sepia(0.3);">
         </div>
       </div>
 
       <div class="reveal-scale" style="margin-top: 32px;">
-        <a href="campaign.html" style="display: inline-block; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 16px 40px; border-radius: 100px; text-decoration: none; transition: all 0.3s ease;">View Full Campaign &rarr;</a>
+        <a href="campaign.html" style="display: inline-block; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 16px 40px; text-decoration: none; transition: all 0.3s ease;">View Full Campaign &rarr;</a>
       </div>
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- WHY THIS WORKS -->
@@ -1558,7 +702,6 @@
             <li>Revenue is steady year-round. This isn't seasonal. It's constant.</li>
           </ul>
         </div>
-
         <div class="detail-block reveal-right">
           <h3>Creatively</h3>
           <ul class="bullet-list">
@@ -1571,7 +714,6 @@
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- THE LOGIC CHAIN -->
@@ -1580,9 +722,7 @@
       <div class="section-kicker reveal-left">The Logic Chain</div>
       <h2 class="section-title reveal">How I got from a hunch to <em>an idea.</em></h2>
 
-      <div class="prose reveal" style="margin-bottom: 48px;">
-        <p>Everything in this pitch started with one observation. Here's the path from there:</p>
-      </div>
+      <div class="prose reveal" style="margin-bottom: 48px;"><p>Everything in this pitch started with one observation. Here's the path from there:</p></div>
 
       <div class="logic-chain">
         <div class="logic-step reveal reveal-delay-1">
@@ -1590,25 +730,21 @@
           <div class="logic-label">The Human Need</div>
           <div class="logic-text">People don't eat McDonald's because they're hungry. They eat it because the day took something out of them and they need a small act of permission.</div>
         </div>
-
         <div class="logic-step reveal reveal-delay-2">
           <div class="logic-number">02</div>
           <div class="logic-label">What People Believe</div>
           <div class="logic-text">Fast food is framed as a "treat," something indulgent, childish, and occasional that you earn through achievement or deserve as a splurge.</div>
         </div>
-
         <div class="logic-step reveal reveal-delay-3">
           <div class="logic-number">03</div>
           <div class="logic-label">The Cultural Tension</div>
           <div class="logic-text">We live in a productivity-obsessed era that celebrates milestones but ignores maintenance. Social media amplifies wins, and nobody really acknowledges the effort of just getting through an ordinary day.</div>
         </div>
-
         <div class="logic-step reveal reveal-delay-4">
           <div class="logic-number">04</div>
           <div class="logic-label">The Strategic Opportunity</div>
           <div class="logic-text">McDonald's has 87% household penetration and 54 weekly visits per year, which means this isn't occasional indulgence. It's habitual emotional behavior, and no competitor in QSR owns that kind of endurance.</div>
         </div>
-
         <div class="logic-step reveal">
           <div class="logic-number">05</div>
           <div class="logic-label">The Idea</div>
@@ -1617,22 +753,18 @@
       </div>
 
       <div class="divider" style="margin: 48px auto;">
-        <span class="divider-line"></span>
-        <span class="divider-dot"></span>
-        <span class="divider-line"></span>
+        <span class="divider-line"></span><span class="divider-dot"></span><span class="divider-line"></span>
       </div>
 
       <div class="prose reveal" style="margin-bottom: 24px;">
         <p><strong>Thesis:</strong> McDonald's shouldn't fight for the celebratory moment. It should own the recovery. Being everywhere isn't a weakness, it's the whole point. When something is that present in people's lives, it can be the thing that's always there for you.</p>
       </div>
-
       <div class="prose reveal">
         <p><strong>What I'd recommend:</strong> Build something long-term, not a campaign but a platform. Reframe "treat" from guilty pleasure to quiet reset. Show the product without glamorizing it. Keep the copy simple. Make people feel seen, not sold to.</p>
       </div>
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- WHAT THIS ISN'T -->
@@ -1653,15 +785,11 @@
         </div>
         <div class="detail-block reveal-right">
           <h3>Because</h3>
-          <div class="prose">
-            <p>McDonald's doesn't need to chase a moment. It already lives in the everyday. The whole point of this strategy is to protect that truth, not inflate it.</p>
-          </div>
+          <div class="prose"><p>McDonald's doesn't need to chase a moment. It already lives in the everyday. The whole point of this strategy is to protect that truth, not inflate it.</p></div>
         </div>
       </div>
 
-      <div class="highlight-text reveal-scale" style="margin-top: 48px;">
-        The behavior was already there, I just reframed it.
-      </div>
+      <div class="prose-poetic reveal" style="margin-top: 48px;"><p>The behavior was already there. I just reframed it.</p></div>
     </div>
   </section>
 
@@ -1671,45 +799,37 @@
       <div class="section-kicker reveal-left">The Risk</div>
       <h2 class="section-title reveal">McDonald's has always leaned into nostalgia and <em>celebration.</em></h2>
 
-      <div class="prose reveal">
-        <p>This pitch goes somewhere quieter, and that takes nerve.</p>
-      </div>
+      <div class="prose reveal"><p>This pitch goes somewhere quieter, and that takes nerve.</p></div>
 
       <div class="two-col" style="margin-top: 40px;">
         <div class="detail-block reveal-left">
           <h3>The Hard Part</h3>
-          <div class="prose">
-            <p>Restraint. The instinct will always be to add warmth, sentimentality, a swelling soundtrack. Every stakeholder will want to make it bigger. The discipline is in keeping it small.</p>
-          </div>
+          <div class="prose"><p>Restraint. The instinct will always be to add warmth, sentimentality, a swelling soundtrack. Every stakeholder will want to make it bigger. The discipline is in keeping it small.</p></div>
         </div>
         <div class="detail-block reveal-right">
           <h3>Why It's Worth It</h3>
-          <div class="prose">
-            <p>In a category where everyone shouts, the brand that speaks quietly earns trust. Restraint isn't low energy, it's confidence.</p>
-          </div>
+          <div class="prose"><p>In a category where everyone shouts, the brand that speaks quietly earns trust. Restraint isn't low energy, it's confidence.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
   <!-- FINAL POSITIONING -->
   <section class="section-dark" style="padding-top: 40px;">
     <div class="container" style="text-align: center;">
-      <div class="section-kicker reveal-left" style="text-align: center;">Final Positioning</div>
+      <div class="section-kicker reveal-left" style="text-align: center; justify-content: center;">Final Positioning</div>
 
       <div class="prose-poetic reveal" style="margin-bottom: 32px;">
         <p>McDonald's doesn't reward greatness. It just shows up when the day is over.</p>
       </div>
-
       <div class="prose reveal" style="text-align: center; max-width: 400px; margin: 0 auto;">
         <p>Across ages, across life stages, across ordinary days.</p>
       </div>
 
       <div class="reveal-scale" style="padding: 48px 0;">
-        <p style="font-family: 'Playfair Display', serif; font-size: clamp(28px, 6vw, 56px); font-weight: 400; line-height: 1.1; color: var(--gold);">
+        <p style="font-size: clamp(28px, 6vw, 56px); font-weight: 700; line-height: 1.05; color: var(--gold);">
           The Reward That's Always There.
         </p>
       </div>
@@ -1719,7 +839,7 @@
   <!-- REFLECTION -->
   <section class="section-dark">
     <div class="container" style="text-align: center;">
-      <div class="section-kicker reveal-left" style="text-align: center;">Reflection</div>
+      <div class="section-kicker reveal-left" style="text-align: center; justify-content: center;">Reflection</div>
       <h2 class="section-title reveal" style="max-width: 700px; margin: 0 auto;">Why I made <em>this.</em></h2>
 
       <div class="prose reveal" style="text-align: center; max-width: 620px; margin: 24px auto 0;">
@@ -1727,22 +847,10 @@
       </div>
 
       <div class="overview-grid reveal" style="margin-top: 48px; text-align: left;">
-        <div class="overview-item">
-          <div class="ov-label">What I Practiced</div>
-          <div class="ov-value">Listening to how people actually talk about a brand and then finding the pattern underneath.</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">The Hard Part</div>
-          <div class="ov-value">Taking "treat," a word everyone uses, and proving it means something deeper than indulgence.</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">What Excited Me</div>
-          <div class="ov-value">Figuring out the tone. How do you make a brand this big feel quiet and personal?</div>
-        </div>
-        <div class="overview-item">
-          <div class="ov-label">What I Learned</div>
-          <div class="ov-value">One real insight can power an entire system, film, outdoor, social, all of it, if you trust it enough.</div>
-        </div>
+        <div class="overview-item"><div class="ov-label">What I Practiced</div><div class="ov-value">Listening to how people actually talk about a brand and then finding the pattern underneath.</div></div>
+        <div class="overview-item"><div class="ov-label">The Hard Part</div><div class="ov-value">Taking "treat," a word everyone uses, and proving it means something deeper than indulgence.</div></div>
+        <div class="overview-item"><div class="ov-label">What Excited Me</div><div class="ov-value">Figuring out the tone. How do you make a brand this big feel quiet and personal?</div></div>
+        <div class="overview-item"><div class="ov-label">What I Learned</div><div class="ov-value">One real insight can power an entire system, film, outdoor, social, all of it, if you trust it enough.</div></div>
       </div>
 
       <div class="prose-poetic reveal" style="margin-top: 56px;">
@@ -1751,42 +859,28 @@
     </div>
   </section>
 
-  <!-- GRADIENT BREAK -->
   <div class="gradient-break"></div>
 
-  <!-- FOOTER -->
   <footer>
     <p class="footer-title">Thank you for reading.</p>
     <a href="../index.html" class="footer-link">View Full Portfolio</a>
-    <p class="footer-credit">
-      Case study by <a href="../index.html">Aditi Venkat</a>
-    </p>
+    <p class="footer-credit">Case study by <a href="../index.html">Aditi Venkat</a></p>
   </footer>
 
   <script>
-    // Reveal on scroll
-    const revealSelectors = '.reveal, .reveal-scale, .reveal-left, .reveal-right';
-    const allReveals = document.querySelectorAll(revealSelectors);
-
+    const allReveals = document.querySelectorAll('.reveal, .reveal-scale, .reveal-left, .reveal-right');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
     allReveals.forEach(el => observer.observe(el));
 
-    // Scroll progress bar
     window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = Math.min((scrollTop / docHeight) * 100, 100);
+      const scrollTop  = window.scrollY;
+      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+      const progress   = Math.min((scrollTop / docHeight) * 100, 100);
       const bar = document.getElementById('mcdProgress');
       if (bar) bar.style.width = progress + '%';
     }, { passive: true });
   </script>
-
 </body>
 </html>

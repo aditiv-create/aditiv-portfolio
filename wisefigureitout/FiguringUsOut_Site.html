@@ -61,6 +61,17 @@
     color: var(--muted);
     transition: color 0.4s ease;
   }
+  .nav-back {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .nav-back:hover { color: var(--black); }
 
   /* SECTION BASE */
   section {
@@ -193,16 +204,6 @@
   }
 
   /* PROGRESS BAR */
-  #progress-bar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    width: 0%;
-    background: var(--wise-green);
-    z-index: 200;
-    transition: width 0.06s linear;
-    border-radius: 0 2px 2px 0;
-  }
 
   /* ENHANCED REVEALS */
   .reveal-scale {
@@ -1157,10 +1158,9 @@
 </head>
 <body>
 
-<div id="progress-bar"></div>
-
 <!-- NAV -->
 <nav>
+  <a href="../index.html" class="nav-back">← Work</a>
   <div class="nav-logo">First Card</div>
   <div class="nav-tag">Wise × D&amp;AD New Blood 2026</div>
 </nav>
@@ -1332,7 +1332,7 @@
       <em>First card.</em>
     </h2>
     <p class="idea-description reveal reveal-delay-2">
-      The first trip. The right card.
+      Make the first trip the first real financial lesson. Not the one where the card fails you.
     </p>
   </div>
 </section>
@@ -1625,28 +1625,24 @@
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
 
-  // Progress bar
-  const progressBar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 0) progressBar.style.width = (scrollTop / docHeight * 100) + '%';
-  }, { passive: true });
 
   // Nav blend on dark sections
   const darkSections = document.querySelectorAll('#insight');
   const nav = document.querySelector('nav');
   const navLogo = nav.querySelector('.nav-logo');
   const navTag = nav.querySelector('.nav-tag');
+  const navBack = nav.querySelector('.nav-back');
 
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         navLogo.style.color = '#FFFFFF';
         navTag.style.color = 'rgba(255,255,255,0.4)';
+        if (navBack) navBack.style.color = 'rgba(255,255,255,0.5)';
       } else {
         navLogo.style.color = '';
         navTag.style.color = '';
+        if (navBack) navBack.style.color = '';
       }
     });
   }, { threshold: 0.5 });

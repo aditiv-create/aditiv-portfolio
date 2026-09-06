@@ -52,12 +52,7 @@
     .container       { max-width: 900px;  margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
     .container-wide  { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
-    /* ── PROGRESS ── */
-    .mcd-progress {
-      position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-      background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
-      z-index: 200; transition: width 0.1s linear;
-    }
+
 
     /* ── BACK LINK ── */
     .back-link {
@@ -459,14 +454,13 @@
     @media print {
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       body { background: #fff !important; color: #000 !important; }
-      .back-link, .scroll-indicator, .mcd-progress, .gradient-break { display: none !important; }
+      .back-link, .scroll-indicator, .gradient-break { display: none !important; }
       .reveal, .reveal-scale, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 <body>
 
-  <div class="mcd-progress" id="mcdProgress"></div>
   <a href="../index.html" class="back-link">Back to Portfolio</a>
 
   <!-- HERO -->
@@ -498,9 +492,9 @@
     </div>
 
     <div class="tags" style="margin-top: 32px; justify-content: center;">
-      <span class="tag">Cross-Generational Strategy</span>
-      <span class="tag">Emotional Positioning</span>
-      <span class="tag">Integrated Campaign</span>
+      <span class="tag">Every age, same feeling</span>
+      <span class="tag">The pause, not the prize</span>
+      <span class="tag">Film · OOH · Social · Tone</span>
     </div>
 
     <div class="scroll-indicator">Scroll</div>
@@ -871,13 +865,6 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     allReveals.forEach(el => observer.observe(el));
 
-    window.addEventListener('scroll', () => {
-      const scrollTop  = window.scrollY;
-      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
-      const progress   = Math.min((scrollTop / docHeight) * 100, 100);
-      const bar = document.getElementById('mcdProgress');
-      if (bar) bar.style.width = progress + '%';
-    }, { passive: true });
   </script>
 </body>
 </html>
